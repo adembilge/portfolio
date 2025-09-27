@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Firat Adem Bilge Portfolio</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cinzel', serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        #intro, #about, #education {
+            background: linear-gradient(to bottom right, #0b0f30, #1a1a1a);
+            color: white;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0.1rem 5%;
+            background: #000000;
+            z-index: 100;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: navSlide 1s forwards 0.5s;
+        }
+
+        @keyframes navSlide {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        nav h1 {
+            font-size: 2rem;
+            position: relative;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+        }
+
+        nav h1::after {
+            content: '';
+            display: block;
+            height: 5px;
+            background: #a0522d;
+            width: 100%;
+            margin-top: 4px;
+            border-radius: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            list-style: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            color: white;
+        }
+
+        nav ul li:hover {
+            color: #4fc3f7;
+        }
+
+        .buttons {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .buttons button {
+            padding: .7rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: .3s;
+            background: #4fc3f7;
+            color: #0b0f30;
+        }
+
+        .buttons button:hover {
+            background: #a0522d;
+            color: white;
+        }
+
+        section {
+            min-height: fit-content;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 5%;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+            background: inherit;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #intro {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100vw;
+            padding: 6rem 2rem;
+            gap: 2rem;
+            overflow: hidden;
+        }
+
+        #intro .intro-left {
+            flex: 1;
+            transform: translateX(-100%);
+            animation: slideIn 1s forwards;
+            white-space: nowrap;
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        #intro h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            font-weight: normal;
+        }
+
+        #intro h1 span {
+            font-weight: bold;
+            color: #4fc3f7;
+        }
+
+        #intro .role-text {
+            font-size: 1.7rem;
+            margin-top: 1rem;
+            color: #4fc3f7;
+            text-decoration: underline;
+            min-height: 2rem;
+        }
+
+        #intro .intro-right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            transform: translateX(100px);
+            animation: imgFadeIn 1s forwards 0.5s;
+        }
+
+        #intro .intro-right img {
+            width: 450px;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+            margin-left: 170px;
+        }
+
+        @keyframes imgFadeIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        #about {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100vw;
+            padding-top: 4rem;
+        }
+
+        #about .text {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: justify;
+        }
+
+        #about .text h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        #about .text h2 span {
+            color: #4fc3f7;
+        }
+
+        #about .text p {
+            line-height: 1.6;
+            font-size: 1.05rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .fade-in-up {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            transition: all 0.8s ease;
+        }
+
+        #about .gallery {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            position: relative;
+            height: 450px;
+            margin-top: 40px;
+            padding-left: 20px;
+        }
+
+        #about .gallery img {
+            width: 420px;
+            height: 420px;
+            object-fit: cover;
+            border-radius: 16px;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease, transform 1s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        #about .gallery img.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 2;
+        }
+
+        #education {
+            padding: 4rem 5%;
+        }
+
+        #education h2 {
+            text-align: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .highlight {
+            color: #4fc3f7;
+        }
+
+        .edu-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .edu-card {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .edu-card img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .edu-card:nth-child(3)::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url(h1.jpg) center/cover no-repeat;
+            opacity: 0.15;
+            border-radius: 16px;
+            z-index: 0;
+        }
+
+        .edu-card:nth-child(2)::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('polimibackground.png') center/cover no-repeat;
+            opacity: 0.15;
+            border-radius: 16px;
+            z-index: 0;
+        }
+
+        .edu-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .edu-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #4fc3f7;
+        }
+
+        .edu-info .degree {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-info .dates {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .edu-info .desc {
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .edu-info .coursework {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .edu-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 1024px) {
+            #intro, #about {
+                flex-direction: column;
+                align-items: center;
+            }
+
+
+            #intro h1 {
+                font-size: 2.2rem;
+            }
+
+            #intro .role-text {
+                font-size: 1.2rem;
+            }
+
+            #about .text h2 {
+                font-size: 2rem;
+            }
+
+            #about .text p {
+                font-size: 0.95rem;
+            }
+
+            #intro .intro-right img, #about .gallery img {
+                width: 250px;
+                height: 250px;
+            }
+
+            .buttons {
+                justify-content: center;
+            }
+        }
+
+        #experience {
+            padding: 4rem 5%;
+            background: linear-gradient(to bottom right, #0b0f30, #1a1a1a);
+            color: white;
+        }
+
+        #experience h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #4fc3f7;
+        }
+
+        .exp-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .exp-card {
+            position: relative;
+            display: flex;
+            gap: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            transform: translateX(-100px);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            overflow: hidden;
+        }
+
+        .exp-card img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .exp-card.bigdata::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('e1.jpg') center/cover no-repeat;
+            opacity: 0.75;
+            border-radius: 16px;
+            z-index: 0;
+        }
+
+        .exp-card.ml::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('a1.jpg') center/cover no-repeat;
+            opacity: 0.75;
+            border-radius: 16px;
+            z-index: 0;
+        }
+
+        .exp-card.software::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('ulak.jpg') center/cover no-repeat;
+            opacity: 0.75;
+            border-radius: 16px;
+            z-index: 0;
+        }
+
+        .exp-card .exp-info {
+            position: relative;
+            z-index: 1;
+        }
+
+        .exp-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.7rem;
+            color: #4fc3f7;
+        }
+
+        .exp-info p, .exp-info ul {
+            margin-bottom: 0.5rem;
+        }
+
+        .exp-info ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+        }
+
+        .exp-info li {
+            margin-bottom: 0.4rem;
+        }
+
+        .exp-card.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .role-color {
+            color: #1E90FF;
+        }
+
+        .engineer-color {
+            color: white;
+        }
+
+        .company-color a {
+            display: block;
+            margin-bottom: 6px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .bullet-color li::marker {
+            color: #8B4513;
+        }
+
+        .building-color {
+            color: white;
+        }
+
+        .future-color {
+            color: #4fc3f7;
+        }
+
+        #publications {
+            padding: 4rem 5%;
+            background: linear-gradient(to bottom right, #0b0f30, #1a1a1a);
+            color: white;
+        }
+
+        #publications h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #4fc3f7;
+        }
+
+        .pub-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pub-card {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 5px solid #4fc3f7;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s ease, background 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pub-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('paper.png') center/cover no-repeat;
+            opacity: 0.2;
+            border-radius: 12px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .pub-card:hover {
+            transform: translateY(-5px);
+            background: rgba(79, 195, 247, 0.08);
+        }
+
+        .pub-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+            color: #4fc3f7;
+            transition: color 0.3s ease;
+        }
+
+        .pub-card h3 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .pub-meta {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .pub-desc {
+            line-height: 1.6;
+            font-size: 1.05rem;
+            color: #ddd;
+            transition: color 0.3s ease;
+        }
+
+        .pub-card:hover .pub-desc {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .pub-card {
+                padding: 1.5rem;
+            }
+
+            .pub-card {
+                opacity: 0;
+                transform: translateY(50px);
+                transition: all 0.8s ease-out;
+            }
+
+            .pub-card.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        #skills {
+            padding: 4rem 5%;
+            background: linear-gradient(to bottom right, #0b0f30, #1a1a1a);
+            color: white;
+            font-family: 'Cinzel', serif;
+        }
+
+        .skills-top {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .skill-box {
+            flex: 1 1 300px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-box h3 {
+            margin-bottom: 1rem;
+            color: #4fc3f7;
+            font-size: 1.5rem;
+        }
+
+        .skill-box .icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .skill-box .icons img {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
+            cursor: default;
+        }
+
+        .skill-box .icons img:hover {
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .skills-bottom {
+                flex-direction: column;
+            }
+
+            .skill-box {
+                flex: 1 1 100%;
+            }
+        }
+
+        .skills-bottom {
+            display: flex;
+            gap: 2rem;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .skills-bottom h3 {
+            color: #4fc3f7;
+            margin-bottom: 0.5rem;
+        }
+
+        .skills-bottom p {
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .skills-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .skills-title .white {
+            color: white;
+        }
+
+        .skills-bottom {
+            display: flex;
+            gap: 2rem;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .skill-box {
+            flex: 1 1 45%;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .skill-bar {
+            margin-bottom: 1rem;
+        }
+
+        .skill-bar span {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .fill {
+            height: 100%;
+            width: 0;
+            background: #4fc3f7;
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #0b0f30;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        #contact {
+            padding: 4rem 5%;
+            background: linear-gradient(to bottom right, #0b0f30, #1a1a1a);
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .info-section h2 {
+            font-size: 28px;
+            margin-bottom: 18px;
+            margin-top: 28px;
+            color: #4fc3f7;
+        }
+
+        .social-links a {
+            font-size: 28px;
+            margin-right: 25px;
+            color: #333;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1100px;
+            margin: auto;
+            gap: 50px;
+        }
+
+        .intro {
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .info-section {
+            margin-bottom: 25px;
+        }
+
+        .emails a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            margin-bottom: 10px
+        }
+
+        .emails h2 {
+            font-size: 28px;
+            color: #4fc3f7;
+            margin-bottom: 10px;
+        }
+
+        .contact-form {
+            flex: 1;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 10px;
+            border: 1px lightgray;
+            border-radius: 6px;
+            font-size: 15px;
+            background: lightgray;
+        }
+
+        .contact-form button {
+            margin-top: 20px;
+            padding: 12px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+
+        footer {
+            background: #0b0f30;
+            color: #aaa;
+            text-align: center;
+            padding: 1rem 0;
+            font-size: 0.9rem;
+            border-top: 1px solid #333;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav>
+    <h1 onclick="window.scrollTo({top:0,behavior:'smooth'})">Adem.</h1>
+    <ul>
+        <li onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</li>
+        <li onclick="document.getElementById('education').scrollIntoView({behavior:'smooth'})">Education</li>
+        <li onclick="document.getElementById('experience').scrollIntoView({behavior:'smooth'})">Career</li>
+        <li onclick="document.getElementById('skills').scrollIntoView({behavior:'smooth'})">Skills</li>
+        <li onclick="document.getElementById('publications').scrollIntoView({behavior:'smooth'})">Publications</li>
+        <li onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</li>
+    </ul>
+</nav>
+
+<section id="intro">
+    <div class="intro-left">
+        <h1>Hello, I am <span>Firat Adem Bilge</span>.</h1>
+        <div class="role-text" id="roleText"></div>
+        <div class="buttons">
+            <button onclick="window.open('https://drive.google.com/file/d/1g7Ja56GwMRF2sWN-QF9tu0CC6iZDcW2u/view?usp=sharing','_blank')">
+                Download CV
+            </button>
+            <button onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About Me</button>
+        </div>
+    </div>
+    <div class="intro-right"><img src="intro_photo.JPG" alt="Intro Photo"></div>
+</section>
+
+<section id="about">
+    <div class="text">
+        <h2>A Bit About <span>Me</span></h2>
+        <p>I'm a Master's student in Computer Science and Engineering at Politecnico di Milano, passionate about
+            scalable cloud systems, big data analytics, and machine learning. I enjoy exploring these areas and building
+            software that actually solves real-world problems efficiently.</p>
+        <p>I've worked with large-scale cloud and big data systems, managed containerized microservices with Docker and
+            Kubernetes, processed huge datasets with Dask, and created deep learning projects like fingerprint
+            segmentation in PyTorch. I also published 'Tinysign: Sign Language Recognition in Low-Resolution Settings'
+            (SIViP, 2024), where I introduced pose-conditioned super-resolution and a low-res benchmark dataset for
+            recognition successfully.</p>
+        <p>When I'm not coding, I enjoy exploring tech trends, testing new tools, and collaborating with people who are
+            as curious about technology as I am personally.</p>
+        <p>Looking ahead, I want to focus on scalable cloud architectures, big data analytics, and machine learning
+            solutions that have a real impact in the tech world globally.</p>
+    </div>
+    <div class="gallery">
+        <img src="gallery_photo_1.jpg" alt="Gallery Photo 1" class="active">
+        <img src="gallery_photo_2.jpg" alt="Gallery Photo 2">
+        <img src="gallery_photo_3.jpg" alt="Gallery Photo 3">
+        <img src="gallery_photo_4.jpg" alt="Gallery Photo 4">
+        <img src="gallery_photo_5.jpg" alt="Gallery Photo 5">
+    </div>
+</section>
+
+<section id="education">
+    <div class="edu-container">
+        <h2>Scholarly <span class="highlight">Journey</span></h2>
+        <div class="edu-card">
+            <img src="polimi_new.jpg" alt="Politecnico di Milano Logo">
+            <div class="edu-info">
+                <h3><a href="https://www.polimi.it/en/" target="_blank" style="color: inherit; text-decoration: none;">Politecnico
+                    di Milano</a></h3>
+                <p class="degree">Master of Science - Computer Science and Engineering</p>
+                <p class="dates">Sep 2024 - Present</p>
+                <p class="desc">Currently enrolled in a multidisciplinary Master's program focusing on Cloud Computing
+                    and Big Data. Actively engaged in self-initiated projects, distributed systems research, and
+                    scalable infrastructure design. Participated in cloud computing workshops and hands-on projects to
+                    apply theoretical knowledge to real-world problems.</p>
+                <p class="coursework"><strong>Relevant Coursework:</strong> Software Engineering, Advanced Databases,
+                    Mobile Applications, Big Data Solutions, Computer Infrastructures, Streaming Data Analysis</p>
+            </div>
+        </div>
+        <div class="edu-card">
+            <img src="HU.png" alt="Hacettepe University Logo">
+            <div class="edu-info">
+                <h3><a href="https://www.hacettepe.edu.tr/english" target="_blank"
+                       style="color: inherit; text-decoration: none;">Hacettepe University</a></h3>
+                <p class="degree">Bachelor of Science - Computer Science</p>
+                <p class="dates">Oct 2017 - May 2022</p>
+                <p class="dates">Grade: 3.33/4 (Honor Student) </p>
+                <p class="desc">Studied Computer Science with a focus on Machine Learning, Computer Vision, and Software
+                    Engineering. Completed a Bachelor thesis on Computer Vision, which led to the publication Tinysign:
+                    Sign Language Recognition in Low-Resolution Settings (SIViP, 2024). Participated in academic and
+                    technical projects that strengthened programming, algorithms, and problem-solving skills.</p>
+                <p class="coursework"><strong>Relevant Coursework:</strong> Algorithms and Data Structures, Software
+                    Engineering, Databases, Database Management Systems, Machine Learning, Computer Vision</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="experience">
+    <h2>
+        <span class="building-color">Building the</span> <span class="future-color">Future</span>
+    </h2>
+    <div class="exp-container">
+
+        <div class="exp-card bigdata">
+            <div class="exp-info">
+                <h3>
+                    <span class="role-color">Big Data</span> <span class="engineer-color">Engineer</span>
+                </h3>
+                <h4 class="company-color"><a
+                        href="https://www.havelsan.com/en/products/eyeminer-video-analytic-system-iot"
+                        target="_blank"><strong>HAVELSAN</strong></a></h4>
+                <p>Ankara, Turkey · Hybrid</p>
+                <p>Sep 2022 - Sep 2024 · Full-time</p>
+                <ul class="bullet-color">
+                    <li>Built <strong>scalable cloud big data infrastructure</strong>, processing datasets exceeding
+                        600TB using <strong>Dask</strong>.
+                    </li>
+                    <li>Managed containerized microservices with <strong>Docker</strong> on a
+                        <strong>Kubernetes</strong> cluster of 300+ nodes.
+                    </li>
+                    <li>Implemented <strong>gRPC</strong> for seamless microservice communication and
+                        <strong>Kafka</strong> for real-time data
+                        streaming.
+                    </li>
+                    <li>Designed and optimized distributed computing architectures to improve system efficiency and
+                        reliability.
+                    </li>
+                    <li>Collaborated on cross-functional teams to deliver robust, production-ready big data solutions.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="exp-card ml">
+            <div class="exp-info">
+                <h3>
+                    <span class="role-color">Machine Learning</span> <span class="engineer-color">Engineer</span>
+                </h3>
+                <h4 class="company-color"><a
+                        href="https://www.havelsan.com/en/solutions/security-systems/ministry-interior-fingerprint-recognition-system-afis"
+                        target="_blank"><strong>HAVELSAN</strong></a></h4>
+                <p>Ankara, Turkey · Hybrid</p>
+                <p>Aug 2021 - Aug 2022 · Part-time</p>
+                <ul class="bullet-color">
+                    <li>Developed and trained a <strong>deep learning-based fingerprint segmentation system</strong>
+                        using <strong>PyTorch</strong>, achieving 92% accuracy across varied data conditions.
+                    </li>
+                    <li>Conducted extensive research and experimentation on segmentation models, implementing and
+                        testing algorithms from raw datasets.
+                    </li>
+                    <li>Optimized algorithm performance through data analysis, preprocessing, and model fine-tuning.
+                    </li>
+                    <li>Collaborated with cross-functional teams to integrate machine learning solutions into production
+                        workflows.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="exp-card software">
+            <div class="exp-info">
+                <h3>
+                    <span class="role-color">Software</span> <span class="engineer-color">Engineer</span>
+                </h3>
+                <h4 class="company-color"><a href="https://www.ulakhaberlesme.com.tr/en/cozumler/5g-private-network-en/"
+                                             target="_blank"><strong>ULAK
+                    HABERLEŞME</strong></a></h4>
+                <p>Ankara, Turkey · Hybrid</p>
+                <p>Jul 2020 - Oct 2020 · Part-time</p>
+                <ul class="bullet-color">
+                    <li>Developed a <strong>real-time messaging application</strong> using <strong>Python</strong> ,
+                        ensuring reliable
+                        server-client communication.
+                    </li>
+                    <li>Implemented backend functionality with <strong>Django</strong> and socket programming for
+                        optimized message
+                        delivery.
+                    </li>
+                    <li>Conducted bandwidth and performance testing to ensure efficient data transfer and system
+                        reliability.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="skills">
+    <h2 class="skills-title">
+        <span class="white">My</span> <span class="future-color">Toolbox</span>
+    </h2>
+
+    <div class="skills-top">
+        <div class="skill-box">
+            <h3>Programming Languages</h3>
+            <div class="icons">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python"
+                     title="Python">
+                <img src="https://www.vectorlogo.zone/logos/java/java-icon.svg" alt="Java" title="Java">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png" alt="SQL"
+                     title="SQL">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg" alt="C++"
+                     title="C++" style="width:50px;">
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <h3>Databases</h3>
+            <div class="icons">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg" alt="PostgreSQL"
+                     title="PostgreSQL">
+                <img src="https://www.vectorlogo.zone/logos/mysql/mysql-icon.svg" alt="MySQL" title="MySQL">
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <h3>Frameworks / Libraries</h3>
+            <div class="icons">
+                <img src="https://www.vectorlogo.zone/logos/djangoproject/djangoproject-icon.svg" alt="Django"
+                     title="Django">
+                <img src="https://raw.githubusercontent.com/gilbarbara/logos/de2c1f96ff6e74ea7ea979b43202e8d4b863c655/logos/fastapi-icon.svg"
+                     alt="FastAPI" title="FastAPI">
+                <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="Spring" title="Spring">
+                <img src="https://pytorch.org/assets/images/pytorch-logo.png" alt="PyTorch" title="PyTorch">
+                <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/56108f31efd8c722fb77f310869a7042f751eb94/icons/pandas.svg"
+                     alt="Pandas" title="Pandas">
+                <img src="https://www.vectorlogo.zone/logos/dask/dask-icon.svg" alt="Dask" title="Dask">
+                <img src="https://numpy.org/images/logo.svg" alt="NumPy" title="NumPy">
+                <img src="https://www.vectorlogo.zone/logos/opencv/opencv-icon.svg" alt="OpenCV" title="OpenCV">
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <h3>Cloud & DevOps</h3>
+            <div class="icons">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Kubernetes_logo_without_workmark.svg"
+                     alt="Kubernetes" title="Kubernetes" style="width:50px;">
+                <img src="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png" alt="Docker" title="Docker">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS"
+                     title="AWS" style="width:50px;">
+                <img src="https://www.vectorlogo.zone/logos/apache_kafka/apache_kafka-icon.svg" alt="Kafka"
+                     title="Kafka">
+                <img src="https://www.vectorlogo.zone/logos/grpcio/grpcio-icon.svg" alt="gRPC" title="gRPC">
+                <img src="https://www.jenkins.io/images/logos/jenkins/jenkins.svg" alt="Jenkins" title="Jenkins">
+                <img src="https://www.vectorlogo.zone/logos/prometheusio/prometheusio-icon.svg" alt="Prometheus"
+                     title="Prometheus">
+                <img src="https://www.vectorlogo.zone/logos/grafana/grafana-icon.svg" alt="Grafana" title="Grafana">
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <h3>Tools & Methodologies</h3>
+            <div class="icons">
+                <img src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" alt="Git" title="Git">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png" alt="Linux" title="Linux"
+                     style="width:50px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Bash_Logo_Colored.svg" alt="Bash"
+                     title="Bash" style="width:50px;">
+                <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="Postman"
+                     title="Postman">
+                <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/65dea6c4eaca7da319e552c09f4cf5a9a8dab2c8/icons/Anaconda-Light.svg"
+                     alt="Anaconda" title="Anaconda">
+                <img src="https://www.vectorlogo.zone/logos/atlassian_jira/atlassian_jira-icon.svg" alt="JIRA"
+                     title="JIRA">
+            </div>
+        </div>
+    </div>
+
+    <div class="skills-bottom">
+        <div class="skill-box">
+            <h3>Expertise Areas</h3>
+            <div class="skill-bar">
+                <span>Machine Learning</span>
+                <div class="bar">
+                    <div class="fill" data-width="70%"></div>
+                </div>
+            </div>
+            <div class="skill-bar">
+                <span>Computer Vision</span>
+                <div class="bar">
+                    <div class="fill" data-width="60%"></div>
+                </div>
+            </div>
+            <div class="skill-bar">
+                <span>Backend Development</span>
+                <div class="bar">
+                    <div class="fill" data-width="55%"></div>
+                </div>
+            </div>
+            <div class="skill-bar">
+                <span>Cloud Computing</span>
+                <div class="bar">
+                    <div class="fill" data-width="45%"></div>
+                </div>
+            </div>
+            <div class="skill-bar">
+                <span>Big Data</span>
+                <div class="bar">
+                    <div class="fill" data-width="35%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <h3>Spoken Languages</h3>
+            <div class="skill-bar">
+                <span>Turkish</span>
+                <div class="bar">
+                    <div class="fill" data-width="100%"></div>
+                </div>
+            </div>
+            <div class="skill-bar">
+                <span>English</span>
+                <div class="bar">
+                    <div class="fill" data-width="90%"></div>
+                </div>
+            </div>
+            <div class="skill-bar">
+                <span>Italian</span>
+                <div class="bar">
+                    <div class="fill" data-width="60%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section id="publications">
+    <h2>
+        <span class="building-color">Papers I’m</span> <span class="future-color">Proud Of</span>
+    </h2>
+    <div class="pub-container">
+        <div class="pub-card">
+            <h3>
+                <a href="https://link.springer.com/article/10.1007/s11760-024-03358-z" target="_blank">
+                    Tinysign: Sign Language Recognition in Low-Resolution Settings
+                </a>
+            </h3>
+            <p class="pub-authors">
+                <strong>F.A. Bilge</strong>, Hüseyinoǧlu, A., Bilge, Y.C. et al
+            </p>
+            <p class="pub-meta">SIViP · Sep 9, 2024</p>
+            <p class="pub-desc">We explored a novel approach to improve sign language recognition in low-resolution
+                videos. We introduced a pose-conditioned super-resolution method along with a low-resolution benchmark
+                dataset, enhancing recognition accuracy even in privacy-sensitive or bandwidth limited scenarios.
+                Essentially, we made AI understand sign language more reliably under challenging conditions.</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2 class="page-title">Get in <span class="future-color">Touch</span></h2>
+    <div class="container">
+        <div class="contact-info">
+            <p class="intro" style="color: white;">
+                I’d love to hear from you! Whether you want to ask a question, share feedback, discuss opportunities, or
+                just connect, feel free to reach out.
+            </p>
+
+            <div class="emails">
+                <h2>E Mails</h2>
+                <p><a href="mailto:firatadem.bilge@gmail.com">firatadem.bilge@gmail.com</a></p>
+                <p><a href="mailto:firatadem.bilge@mail.polimi.it">firatadem.bilge@mail.polimi.it</a></p>
+            </div>
+
+
+            <div class="info-section">
+                <h2>Platforms</h2>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/adembilge/" target="_blank" title="LinkedIn">
+                        <img src="https://www.vectorlogo.zone/logos/linkedin/linkedin-icon.svg" alt="LinkedIn"
+                             style="width:40px;">
+                    </a>
+                    <a href="https://github.com/adembilge" target="_blank" title="GitHub">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+                             alt="GitHub" style="width:40px;">
+                    </a>
+                    <a href="https://scholar.google.com/citations?user=qxDWiIQAAAAJ&hl=en" target="_blank"
+                       title="Google Scholar">
+                        <img src="https://cdn.worldvectorlogo.com/logos/google-scholar.svg" alt="Google Scholar"
+                             style="width:40px;">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form" style="background-color: #0b0f30; padding: 20px; border-radius: 10px;">
+            <form action="mailto:firatadem.bilge@gmail.com" method="post" enctype="text/plain">
+                <label for="name" style="color: white;"></label>
+                <input type="text" id="name" name="name" placeholder="Full Name">
+
+                <label for="email" style="color: white;"></label>
+                <input type="email" id="email" name="email" placeholder="Email">
+
+                <label for="message" style="color: white;"></label>
+                <textarea id="message" name="message" rows="12" placeholder="Message"></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© Copyright 2025. Made by Firat Adem Bilge</p>
+</footer>
+
+<script>
+    const galleryImgs = document.querySelectorAll('#about .gallery img');
+    let currentImg = 0;
+    setInterval(() => {
+        galleryImgs.forEach((img) => img.classList.remove('active'));
+        galleryImgs[currentImg].classList.add('active');
+        currentImg = (currentImg + 1) % galleryImgs.length;
+    }, 4000);
+
+    const roles = ['Software Engineer', 'Master Of Science Candidate', 'Researcher'];
+    const roleText = document.getElementById('roleText');
+    let roleIndex = 0, charIndex = 0, deleting = false;
+
+    function typeRole() {
+        const currentRole = roles[roleIndex];
+        if (!deleting) {
+            roleText.textContent = currentRole.slice(0, charIndex + 1);
+            charIndex++;
+            if (charIndex === currentRole.length) {
+                deleting = true;
+                setTimeout(typeRole, 1000);
+                return;
+            }
+            setTimeout(typeRole, 80);
+        } else {
+            roleText.textContent = currentRole.slice(0, charIndex - 1);
+            charIndex--;
+            if (charIndex === 0) {
+                deleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+            }
+            setTimeout(typeRole, 30);
+        }
+    }
+
+    typeRole();
+
+    const sections = document.querySelectorAll('section');
+
+    function revealSections() {
+        sections.forEach(sec => {
+            const top = sec.getBoundingClientRect().top;
+            const windowH = window.innerHeight;
+            if (top < windowH - 100) {
+                sec.classList.add('visible');
+            }
+        });
+        const aboutParagraphs = document.querySelectorAll('#about .text p');
+        let delay = 0;
+        aboutParagraphs.forEach(p => {
+            const top = p.getBoundingClientRect().top;
+            if (top < window.innerHeight - 80 && !p.classList.contains('fade-in-up')) {
+                setTimeout(() => {
+                    p.classList.add('fade-in-up');
+                }, delay);
+                delay += 300;
+            }
+        });
+
+        const eduCards = document.querySelectorAll('.edu-card');
+        eduCards.forEach(card => {
+            const top = card.getBoundingClientRect().top;
+            if (top < window.innerHeight - 100) {
+                card.classList.add('visible');
+            }
+        });
+
+        const expCards = document.querySelectorAll('.exp-card');
+
+        function revealExp() {
+            expCards.forEach((card, index) => {
+                const top = card.getBoundingClientRect().top;
+                if (top < window.innerHeight - 100) {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 200);
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealExp);
+        window.addEventListener('load', revealExp);
+
+        const originalTitle = document.title;
+        let blinkInterval;
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                let toggle = false;
+                blinkInterval = setInterval(() => {
+                    document.title = toggle ? " 👋🏼 I am here !" : "👋🏼 I am here !";
+                    toggle = !toggle;
+                }, 1000);
+            } else {
+                clearInterval(blinkInterval);
+                document.title = originalTitle;
+            }
+        });
+
+    }
+
+    window.addEventListener('scroll', revealSections);
+    window.addEventListener('load', revealSections);
+
+    const pubCards = document.querySelectorAll('.pub-card');
+
+    function revealPublications() {
+        pubCards.forEach((card, index) => {
+            const top = card.getBoundingClientRect().top;
+            if (top < window.innerHeight - 100) {
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, index * 150);
+            }
+        });
+    }
+
+    window.addEventListener('scroll', revealPublications);
+    window.addEventListener('load', revealPublications);
+    const fills = document.querySelectorAll('.fill');
+
+    function animateBars() {
+        fills.forEach(fill => {
+            const rect = fill.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                fill.style.width = fill.getAttribute('data-width');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', animateBars);
+    window.addEventListener('load', animateBars);
+
+
+</script>
+
+</body>
+
+</html>
