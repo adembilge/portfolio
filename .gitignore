@@ -2,6 +2,7 @@
 .idea/
 *.iml
 .vscode/
+.github/
 
 # OS
 .DS_Store

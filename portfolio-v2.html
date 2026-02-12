@@ -64,7 +64,7 @@
         .nav-logo {
             font-weight: 700;
             font-size: 1.5rem;
-            color: var(--primary);
+            color: white;
             text-decoration: none;
             position: relative;
         }
@@ -122,6 +122,36 @@
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            flex: 1;
+            transform: translateX(-100%);
+            animation: slideInFromLeft 1s forwards;
+        }
+
+        .hero-image {
+            position: relative;
+            max-width: 400px;
+            justify-self: center;
+            opacity: 0;
+            transform: translateX(100px);
+            animation: slideInFromRight 1s forwards 0.5s;
+        }
+
+        @keyframes slideInFromLeft {
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInFromRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .hero-content h1 {
@@ -321,6 +351,8 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .card {
@@ -354,6 +386,18 @@
             height: 100%;
             background: url('images/h1.jpg') center/cover no-repeat;
             opacity: 0.2;
+            z-index: 0;
+        }
+
+        .card.czestochowa::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(79, 195, 247, 0.1) 0%, rgba(100, 181, 246, 0.1) 100%);
+            opacity: 0.3;
             z-index: 0;
         }
 
@@ -427,9 +471,19 @@
         .card-meta {
             margin-top: 1rem;
             padding-top: 1rem;
-            border-top: 1px solid var(--border);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.9rem;
             color: var(--text-secondary);
+        }
+
+        .card-meta ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .card-meta li {
+            margin-bottom: 0.3rem;
+            line-height: 1.4;
         }
 
         /* Timeline */
@@ -457,6 +511,54 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             overflow: hidden;
+        }
+
+        .timeline-item.freelance::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/Freelance Background.jpg') center/cover no-repeat;
+            opacity: 0.18;
+            z-index: 0;
+        }
+
+        .timeline-item.polimi::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/polimibackground.png') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .timeline-item.hacettepe::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/h1.jpg') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .timeline-item.czestochowa::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/Czestochowa Campus.jpg') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: 0;
         }
 
         .timeline-item.havelsan-big::after {
@@ -557,6 +659,9 @@
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
             margin-bottom: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .skill-category {
@@ -585,8 +690,8 @@
         }
 
         .skill-icon {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             transition: transform 0.3s ease;
         }
 
@@ -800,11 +905,11 @@
 
         /* Footer */
         .footer {
-            background: var(--bg-light);
+            background: rgba(0, 0, 0, 0.95);
             padding: 2rem;
             text-align: center;
-            color: var(--text-light);
-            border-top: 1px solid var(--border);
+            color: #ffffff;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         /* Responsive */
@@ -887,7 +992,7 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content fade-in">
+        <div class="hero-content">
             <h1>Hello, I am <span class="highlight">Firat Adem Bilge</span></h1>
             <div class="hero-subtitle typing" id="typing-text" style="color: var(--primary); text-decoration: underline;">Software Engineer</div>
             <div class="hero-buttons">
@@ -900,7 +1005,7 @@
                 </a>
             </div>
         </div>
-        <div class="hero-image fade-in">
+        <div class="hero-image">
             <img src="images/intro_photo.JPG" alt="Firat Adem Bilge">
         </div>
     </section>
@@ -918,7 +1023,7 @@
 
                 <p>I've worked with large-scale cloud and big data systems, managed containerized microservices with Docker and
                 Kubernetes, processed huge datasets with Dask, and created deep learning projects like fingerprint
-                segmentation in PyTorch. I also published 'Tinysign: Sign Language Recognition in Low-Resolution Settings'
+                segmentation in PyTorch. I also published '<span style="color: var(--primary);">Tinysign: Sign Language Recognition in Low-Resolution Settings</span>'
                 (SIViP, 2024), where I introduced pose-conditioned super-resolution and a low-res benchmark dataset for
                 recognition successfully.</p>
 
@@ -943,58 +1048,131 @@
         <div class="section-header fade-in">
             <h2 class="section-title">Scholarly <span style="color: var(--primary);">Journey</span></h2>
         </div>
-        <div class="cards-grid">
-            <div class="card fade-in polimi">
-                <div class="card-header">
-                    <div class="card-icon">
-                        <img src="images/polimi_new.jpg" alt="Politecnico di Milano">
-                    </div>
-                    <div>
-                        <h3 class="card-title">
-                            <a href="https://www.polimi.it/en/" target="_blank" style="color: var(--primary); text-decoration: none;">
-                                Politecnico di Milano
+        <div class="timeline">
+            <div class="timeline-item fade-in polimi">
+                <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem;">
+                    <img src="images/Polimi Logo.png" alt="Politecnico di Milano Logo" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px; background: rgba(255,255,255,0.1); padding: 5px;">
+                    <div style="flex: 1;">
+                        <h3 class="timeline-title" style="margin: 0;"><span style="color: var(--primary);">Master of Science</span> - Computer Science and Engineering</h3>
+                        <div class="timeline-company">
+                            <a href="https://www.polimi.it/en/" target="_blank" style="color: white; text-decoration: none;">
+                                <strong>Politecnico di Milano</strong>
                             </a>
-                        </h3>
-                        <p class="card-subtitle">Sep 2024 - Present</p>
+                        </div>
+                        <div class="timeline-date">Sep 2024 - Present</div>
                     </div>
                 </div>
-                <div class="card-content">
-                    <h4 style="margin-bottom: 1rem; color: var(--text-primary);">Master of Science - Computer Science and Engineering</h4>
+                <div class="timeline-description">
                     <p>Currently enrolled in a multidisciplinary Master's program focusing on Cloud Computing
                     and Big Data. Actively engaged in self-initiated projects, distributed systems research, and
                     scalable infrastructure design. Participated in cloud computing workshops and hands-on projects to
                     apply theoretical knowledge to real-world problems.</p>
-                    <div class="card-meta">
-                        <strong>Relevant Coursework:</strong> Software Engineering, Advanced Databases,
-                        Mobile Applications, Big Data Solutions, Computer Infrastructures, Streaming Data Analysis
+                    <div style="margin-top: 1rem;">
+                        <strong>Relevant Coursework:</strong>
+                        <div style="margin-top: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                                <span style="position: relative; padding-left: 1rem; flex: 1;">
+                                    <span style="position: absolute; left: 0;">•</span> Software Engineering
+                                </span>
+                                <span style="position: relative; padding-left: 1rem; flex: 1;">
+                                    <span style="position: absolute; left: 0;">•</span> Advanced Databases
+                                </span>
+                                <span style="position: relative; padding-left: 1rem; flex: 1;">
+                                    <span style="position: absolute; left: 0;">•</span> Mobile Applications
+                                </span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="position: relative; padding-left: 1rem; flex: 1;">
+                                    <span style="position: absolute; left: 0;">•</span> Big Data Solutions
+                                </span>
+                                <span style="position: relative; padding-left: 1rem; flex: 1;">
+                                    <span style="position: absolute; left: 0;">•</span> Computer Infrastructures
+                                </span>
+                                <span style="position: relative; padding-left: 1rem; flex: 1;">
+                                    <span style="position: absolute; left: 0;">•</span> Streaming Data Analysis
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card fade-in hacettepe">
-                <div class="card-header">
-                    <div class="card-icon">
-                        <img src="images/HU.png" alt="Hacettepe University">
-                    </div>
-                    <div>
-                        <h3 class="card-title">
-                            <a href="https://www.hacettepe.edu.tr/english" target="_blank" style="color: var(--primary); text-decoration: none;">
-                                Hacettepe University
+            <div class="timeline-item fade-in hacettepe">
+                <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem;">
+                    <img src="images/Hacettepe%20Logo.jpg" alt="Hacettepe University Logo" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px; background: rgba(255,255,255,0.1); padding: 5px;">
+                    <div style="flex: 1;">
+                        <h3 class="timeline-title" style="margin: 0;"><span style="color: var(--primary);">Bachelor of Science</span> - Computer Science</h3>
+                        <div class="timeline-company">
+                            <a href="https://www.hacettepe.edu.tr/english" target="_blank" style="color: white; text-decoration: none;">
+                                <strong>Hacettepe University</strong>
                             </a>
-                        </h3>
-                        <p class="card-subtitle">Oct 2017 - May 2022</p>
+                        </div>
+                        <div class="timeline-date">Oct 2017 - May 2022 · Grade: 3.33/4 (Honor Student)</div>
                     </div>
                 </div>
-                <div class="card-content">
-                    <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">Bachelor of Science - Computer Science</h4>
-                    <p style="margin-bottom: 1rem; color: var(--text-secondary); font-weight: 500;">Grade: 3.33/4 (Honor Student)</p>
+                <div class="timeline-description">
                     <p>Studied Computer Science with a focus on Machine Learning, Computer Vision, and Software
                     Engineering. Completed a Bachelor thesis on Computer Vision, which led to the publication Tinysign:
                     Sign Language Recognition in Low-Resolution Settings (SIViP, 2024). Participated in academic and
                     technical projects that strengthened programming, algorithms, and problem-solving skills.</p>
-                    <div class="card-meta">
-                        <strong>Relevant Coursework:</strong> Algorithms and Data Structures, Software
-                        Engineering, Databases, Database Management Systems, Machine Learning, Computer Vision
+                    <div style="margin-top: 1rem;">
+                        <strong>Relevant Coursework:</strong>
+                        <div style="margin-top: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                                <span style="position: relative; padding-left: 1rem; flex: 1;">
+                                    <span style="position: absolute; left: 0;">•</span> Algorithms and Data Structures
+                                </span>
+                                <span style="position: relative; padding-left: 1rem; flex: 1;">
+                                    <span style="position: absolute; left: 0;">•</span> Software Engineering
+                                </span>
+                                <span style="position: relative; padding-left: 1rem; flex: 1;">
+                                    <span style="position: absolute; left: 0;">•</span> Databases
+                                </span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="position: relative; padding-left: 1rem; flex: 1;">
+                                    <span style="position: absolute; left: 0;">•</span> Database Management Systems
+                                </span>
+                                <span style="position: relative; padding-left: 1rem; flex: 1;">
+                                    <span style="position: absolute; left: 0;">•</span> Machine Learning
+                                </span>
+                                <span style="position: relative; padding-left: 1rem; flex: 1;">
+                                    <span style="position: absolute; left: 0;">•</span> Computer Vision
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-in czestochowa">
+                <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem;">
+                    <img src="images/Czestochowa Logo.png" alt="Czestochowa University Logo" style="width: 70px; height: 70px; object-fit: contain; border-radius: 8px; background: rgba(255,255,255,0.1); padding: 5px;">
+                    <div style="flex: 1;">
+                        <h3 class="timeline-title" style="margin: 0;"><span style="color: var(--primary);">Erasmus+</span> Exchange Program</h3>
+                        <div class="timeline-company">
+                            <a href="https://www.pcz.pl/en/" target="_blank" style="color: white; text-decoration: none;">
+                                <strong>Czestochowa University of Technology</strong>
+                            </a>
+                        </div>
+                        <div class="timeline-date">Sep 2019 – Feb 2020</div>
+                    </div>
+                </div>
+                <div class="timeline-description">
+                    <p>Participated in an international academic exchange focused on deepening technical expertise in AI and Vision systems. Collaborated with a diverse cohort of students on project-based learning, adapting to new academic methodologies and enhancing cross-cultural communication skills within a technical environment to broaden perspectives.</p>
+                    <div style="margin-top: 1rem;">
+                        <strong>Relevant Coursework:</strong>
+                        <div style="margin-top: 0.5rem; display: flex; justify-content: space-between;">
+                            <span style="position: relative; padding-left: 1rem; flex: 1;">
+                                <span style="position: absolute; left: 0;">•</span> Applications of Artificial Intelligence
+                            </span>
+                            <span style="position: relative; padding-left: 1rem; flex: 1;">
+                                <span style="position: absolute; left: 0;">•</span> Machine Learning
+                            </span>
+                            <span style="position: relative; padding-left: 1rem; flex: 1;">
+                                <span style="position: absolute; left: 0;">•</span> Computer Vision
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1004,66 +1182,85 @@
     <!-- Experience Section -->
     <section id="experience" class="section">
         <div class="section-header fade-in">
-            <h2 class="section-title">Building the Future</h2>
+            <h2 class="section-title">Building the <span style="color: var(--primary);">Future</span></h2>
         </div>
         <div class="timeline">
-            <div class="timeline-item fade-in havelsan-big">
-                <h3 class="timeline-title">Big Data Engineer</h3>
-                <div class="timeline-company">
-                    <a href="https://www.havelsan.com/en/products/eyeminer-video-analytic-system-iot"
-                       target="_blank" style="color: inherit; text-decoration: none;">HAVELSAN</a>
+            <div class="timeline-item fade-in freelance">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+                    <h3 class="timeline-title" style="margin: 0;"><span style="color: var(--primary);">Software</span> Engineer</h3>
+                    <div class="timeline-date" style="text-align: right; font-size: 0.9rem; opacity: 0.8;">Oct 2024 - Present</div>
                 </div>
-                <div class="timeline-date">Sep 2022 - Sep 2024 · Full-time · Ankara, Turkey</div>
+                <div class="timeline-company">
+                    <strong style="color: white;">FREELANCE</strong>
+                    <br><small style="opacity: 0.7; color: white;">Part-time - Milan, Italy</small>
+                </div>
                 <div class="timeline-description">
                     <ul>
-                        <li>Built <strong>scalable cloud big data infrastructure</strong>, processing datasets exceeding
-                        600TB using <strong>Dask</strong>.</li>
-                        <li>Managed containerized microservices with <strong>Docker</strong> on a
-                        <strong>Kubernetes</strong> cluster of 300+ nodes.</li>
-                        <li>Implemented <strong>gRPC</strong> for seamless microservice communication and
-                        <strong>Kafka</strong> for real-time data streaming.</li>
-                        <li>Designed and optimized distributed computing architectures to improve system efficiency and
-                        reliability.</li>
-                        <li>Collaborated on cross-functional teams to deliver robust, production-ready big data solutions.</li>
+                        <li>Design and implement scalable backend architectures and RESTful APIs using <strong>Python</strong> and <strong>Django</strong>.</li>
+                        <li>Deployed and managed cloud-based applications on <strong>AWS</strong> with containerized <strong>Docker</strong> services.</li>
+                        <li>Optimized data storage and retrieval by designing relational schemas and managing <strong>PostgreSQL</strong> databases.</li>
+                        <li>Partnered with clients to translate business requirements into prototypes and integrating third-party APIs.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-in havelsan-big">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+                    <h3 class="timeline-title" style="margin: 0;"><span style="color: var(--primary);">Software</span> Engineer</h3>
+                    <div class="timeline-date" style="text-align: right; font-size: 0.9rem; opacity: 0.8;">Sep 2022 - Sep 2024</div>
+                </div>
+                <div class="timeline-company">
+                    <a href="https://www.havelsan.com/en/products/eyeminer-video-analytic-system-iot"
+                       target="_blank" style="color: white; text-decoration: none;">HAVELSAN</a>
+                    <br><small style="opacity: 0.7; color: white;">Full-time - Ankara, Turkey</small>
+                </div>
+                <div class="timeline-description">
+                    <ul>
+                        <li>Developed and maintained a cloud-based big data platform supporting large-scale analytical workloads.</li>
+                        <li>Designed distributed computing architecture processing datasets exceeding <strong>600 TB</strong> using <strong>Dask</strong>.</li>
+                        <li>Operated containerized services with <strong>Docker</strong> on a <strong>Kubernetes</strong> cluster over 300 nodes in production.</li>
+                        <li>Developed <strong>gRPC</strong>-based microservice architecture for low-latency service communication.</li>
+                        <li>Utilized <strong>Kafka</strong> to facilitate real-time data streaming and low-latency processing across distributed services.</li>
                     </ul>
                 </div>
             </div>
 
             <div class="timeline-item fade-in havelsan-ml">
-                <h3 class="timeline-title">Machine Learning Engineer</h3>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+                    <h3 class="timeline-title" style="margin: 0;"><span style="color: var(--primary);">Machine Learning</span> Engineer</h3>
+                    <div class="timeline-date" style="text-align: right; font-size: 0.9rem; opacity: 0.8;">Aug 2021 - Aug 2022</div>
+                </div>
                 <div class="timeline-company">
                     <a href="https://www.havelsan.com/en/solutions/security-systems/ministry-interior-fingerprint-recognition-system-afis"
-                       target="_blank" style="color: inherit; text-decoration: none;">HAVELSAN</a>
+                       target="_blank" style="color: white; text-decoration: none;">HAVELSAN</a>
+                    <br><small style="opacity: 0.7; color: white;">Part-time - Ankara, Turkey</small>
                 </div>
-                <div class="timeline-date">Aug 2021 - Aug 2022 · Part-time · Ankara, Turkey</div>
                 <div class="timeline-description">
                     <ul>
-                        <li>Developed and trained a <strong>deep learning-based fingerprint segmentation system</strong>
-                        using <strong>PyTorch</strong>, achieving 92% accuracy across varied data conditions.</li>
-                        <li>Conducted extensive research and experimentation on segmentation models, implementing and
-                        testing algorithms from raw datasets.</li>
-                        <li>Optimized algorithm performance through data analysis, preprocessing, and model fine-tuning.</li>
-                        <li>Collaborated with cross-functional teams to integrate machine learning solutions into production
-                        workflows.</li>
+                        <li>Developed a computer vision model for fingerprint segmentation to isolate biometric features using <strong>PyTorch</strong>.</li>
+                        <li>Optimized algorithm performance through data augmentation techniques and hyperparameter tuning.</li>
+                        <li>Conducted research and benchmarking across various state-of-the-art architectures for biometric data.</li>
+                        <li>Delivered a production-ready solution achieving <strong>92% accuracy</strong> with an automated identification workflow.</li>
                     </ul>
                 </div>
             </div>
 
             <div class="timeline-item fade-in ulak">
-                <h3 class="timeline-title">Software Engineer</h3>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+                    <h3 class="timeline-title" style="margin: 0;"><span style="color: var(--primary);">Software</span> Engineer</h3>
+                    <div class="timeline-date" style="text-align: right; font-size: 0.9rem; opacity: 0.8;">Jul 2020 - Oct 2020</div>
+                </div>
                 <div class="timeline-company">
                     <a href="https://www.ulakhaberlesme.com.tr/en/cozumler/5g-private-network-en/"
-                       target="_blank" style="color: inherit; text-decoration: none;">ULAK HABERLEŞME</a>
+                       target="_blank" style="color: white; text-decoration: none;">ULAK HABERLEŞME</a>
+                    <br><small style="opacity: 0.7; color: white;">Part-time - Ankara, Turkey</small>
                 </div>
-                <div class="timeline-date">Jul 2020 - Oct 2020 · Part-time · Ankara, Turkey</div>
                 <div class="timeline-description">
                     <ul>
-                        <li>Developed a <strong>real-time messaging application</strong> using <strong>Python</strong>,
-                        ensuring reliable server-client communication.</li>
-                        <li>Implemented backend functionality with <strong>Django</strong> and socket programming for
-                        optimized message delivery.</li>
-                        <li>Conducted bandwidth and performance testing to ensure efficient data transfer and system
-                        reliability.</li>
+                        <li>Developed a real-time messaging application using <strong>Python</strong>, <strong>Django</strong> and <strong>WebSockets</strong>.</li>
+                        <li>Utilized <strong>MySQL</strong> for relational data management and optimized query performance.</li>
+                        <li>Managed the application deployment on <strong>AWS</strong> and implemented automated CI/CD pipelines.</li>
+                        <li>Achieved a <strong>35% improvement</strong> in server response times during peak traffic.</li>
                     </ul>
                 </div>
             </div>
@@ -1084,86 +1281,90 @@
                          alt="Python" title="Python" class="skill-icon">
                     <img src="https://www.vectorlogo.zone/logos/java/java-icon.svg" 
                          alt="Java" title="Java" class="skill-icon">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png" 
-                         alt="SQL" title="SQL" class="skill-icon">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg" 
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg"
                          alt="C++" title="C++" class="skill-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png"
+                         alt="SQL" title="SQL" class="skill-icon">
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3 style="color: var(--primary);">Machine Learning & Data Science</h3>
+                <div class="skill-icons">
+                    <img src="https://pytorch.org/assets/images/pytorch-logo.png"
+                         alt="PyTorch" title="PyTorch" class="skill-icon">
+                    <img src="https://pandas.pydata.org/static/img/pandas_mark.svg"
+                         alt="Pandas" title="Pandas" class="skill-icon">
+                    <img src="https://numpy.org/images/logo.svg"
+                         alt="NumPy" title="NumPy" class="skill-icon">
+                    <img src="https://www.vectorlogo.zone/logos/dask/dask-icon.svg"
+                         alt="Dask" title="Dask" class="skill-icon">
+                    <img src="https://www.vectorlogo.zone/logos/opencv/opencv-icon.svg"
+                         alt="OpenCV" title="OpenCV" class="skill-icon">
+                    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/65dea6c4eaca7da319e552c09f4cf5a9a8dab2c8/icons/Anaconda-Light.svg"
+                         alt="Anaconda" title="Anaconda" class="skill-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg"
+                         alt="Jupyter Notebook" title="Jupyter Notebook" class="skill-icon">
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3 style="color: var(--primary);">Backend & APIs</h3>
+                <div class="skill-icons">
+                    <img src="https://www.vectorlogo.zone/logos/djangoproject/djangoproject-icon.svg" 
+                         alt="Django" title="Django" class="skill-icon">
+                    <img src="https://raw.githubusercontent.com/gilbarbara/logos/de2c1f96ff6e74ea7ea979b43202e8d4b863c655/logos/fastapi-icon.svg" 
+                         alt="FastAPI" title="FastAPI" class="skill-icon">
+                    <img src="https://www.vectorlogo.zone/logos/grpcio/grpcio-icon.svg"
+                         alt="gRPC" title="gRPC" class="skill-icon">
                 </div>
             </div>
 
             <div class="skill-category fade-in">
                 <h3 style="color: var(--primary);">Databases</h3>
                 <div class="skill-icons">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg" 
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg"
                          alt="PostgreSQL" title="PostgreSQL" class="skill-icon">
-                    <img src="https://www.vectorlogo.zone/logos/mysql/mysql-icon.svg" 
+                    <img src="https://www.vectorlogo.zone/logos/mysql/mysql-icon.svg"
                          alt="MySQL" title="MySQL" class="skill-icon">
-                </div>
-            </div>
-
-            <div class="skill-category fade-in">
-                <h3 style="color: var(--primary);">Frameworks & Libraries</h3>
-                <div class="skill-icons">
-                    <img src="https://www.vectorlogo.zone/logos/djangoproject/djangoproject-icon.svg" 
-                         alt="Django" title="Django" class="skill-icon">
-                    <img src="https://raw.githubusercontent.com/gilbarbara/logos/de2c1f96ff6e74ea7ea979b43202e8d4b863c655/logos/fastapi-icon.svg" 
-                         alt="FastAPI" title="FastAPI" class="skill-icon">
-                    <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" 
-                         alt="Spring" title="Spring" class="skill-icon">
-                    <img src="https://pytorch.org/assets/images/pytorch-logo.png" 
-                         alt="PyTorch" title="PyTorch" class="skill-icon">
-                    <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/56108f31efd8c722fb77f310869a7042f751eb94/icons/pandas.svg" 
-                         alt="Pandas" title="Pandas" class="skill-icon">
-                    <img src="https://www.vectorlogo.zone/logos/dask/dask-icon.svg" 
-                         alt="Dask" title="Dask" class="skill-icon">
-                    <img src="https://numpy.org/images/logo.svg" 
-                         alt="NumPy" title="NumPy" class="skill-icon">
-                    <img src="https://www.vectorlogo.zone/logos/opencv/opencv-icon.svg" 
-                         alt="OpenCV" title="OpenCV" class="skill-icon">
+                    <img src="https://www.vectorlogo.zone/logos/redis/redis-icon.svg"
+                         alt="Redis" title="Redis" class="skill-icon">
+                    <img src="https://www.vectorlogo.zone/logos/elastic/elastic-icon.svg"
+                         alt="Elasticsearch" title="Elasticsearch" class="skill-icon">
                 </div>
             </div>
 
             <div class="skill-category fade-in">
                 <h3 style="color: var(--primary);">Cloud & DevOps</h3>
                 <div class="skill-icons">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Kubernetes_logo_without_workmark.svg" 
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg"
+                         alt="AWS" title="AWS" class="skill-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Kubernetes_logo_without_workmark.svg"
                          alt="Kubernetes" title="Kubernetes" class="skill-icon">
                     <img src="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png" 
                          alt="Docker" title="Docker" class="skill-icon">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" 
-                         alt="AWS" title="AWS" class="skill-icon">
-                    <img src="https://www.vectorlogo.zone/logos/apache_kafka/apache_kafka-icon.svg" 
-                         alt="Kafka" title="Kafka" class="skill-icon">
-                    <img src="https://www.vectorlogo.zone/logos/grpcio/grpcio-icon.svg" 
-                         alt="gRPC" title="gRPC" class="skill-icon">
-                    <img src="https://www.jenkins.io/images/logos/jenkins/jenkins.svg" 
+                    <img src="https://www.jenkins.io/images/logos/jenkins/jenkins.svg"
                          alt="Jenkins" title="Jenkins" class="skill-icon">
-                    <img src="https://www.vectorlogo.zone/logos/prometheusio/prometheusio-icon.svg" 
-                         alt="Prometheus" title="Prometheus" class="skill-icon">
-                    <img src="https://www.vectorlogo.zone/logos/grafana/grafana-icon.svg" 
-                         alt="Grafana" title="Grafana" class="skill-icon">
+                    <img src="https://www.vectorlogo.zone/logos/apache_kafka/apache_kafka-icon.svg"
+                         alt="Apache Kafka" title="Apache Kafka" class="skill-icon">
                     <img src="https://www.vectorlogo.zone/logos/helmsh/helmsh-icon.svg"
                          alt="Helm" title="Helm" class="skill-icon">
+                    <img src="https://www.vectorlogo.zone/logos/prometheusio/prometheusio-icon.svg"
+                         alt="Prometheus" title="Prometheus" class="skill-icon">
+                    <img src="https://www.vectorlogo.zone/logos/grafana/grafana-icon.svg"
+                         alt="Grafana" title="Grafana" class="skill-icon">
                 </div>
             </div>
-        </div>
 
-        <div style="display: flex; justify-content: center; margin-top: 1rem; margin-bottom: 3rem;">
-            <div class="skill-category fade-in" style="max-width: 600px;">
-                <h3 style="color: var(--primary);">Tools & Methodologies</h3>
+            <div class="skill-category fade-in">
+                <h3 style="color: var(--primary);">Tools & Technologies</h3>
                 <div class="skill-icons">
                     <img src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" 
                          alt="Git" title="Git" class="skill-icon">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png" 
                          alt="Linux" title="Linux" class="skill-icon">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Bash_Logo_Colored.svg" 
-                         alt="Bash" title="Bash" class="skill-icon">
-                    <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" 
-                         alt="Postman" title="Postman" class="skill-icon">
-                    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/65dea6c4eaca7da319e552c09f4cf5a9a8dab2c8/icons/Anaconda-Light.svg" 
-                         alt="Anaconda" title="Anaconda" class="skill-icon">
-                    <img src="https://www.vectorlogo.zone/logos/atlassian_jira/atlassian_jira-icon.svg" 
-                         alt="JIRA" title="JIRA" class="skill-icon">
+                    <img src="https://www.vectorlogo.zone/logos/atlassian_jira/atlassian_jira-icon.svg"
+                         alt="Jira" title="Jira" class="skill-icon">
                 </div>
             </div>
         </div>
@@ -1250,19 +1451,20 @@
         </div>
         <div class="publication-card fade-in">
             <h3 class="publication-title">
-                <a href="https://link.springer.com/article/10.1007/s11760-024-03358-z" target="_blank">
+                <a href="https://link.springer.com/article/10.1007/s11760-024-03358-z" target="_blank" style="color: var(--primary); text-decoration: none;">
                     Tinysign: Sign Language Recognition in Low-Resolution Settings
                 </a>
             </h3>
             <p class="publication-authors">
-                <strong>F.A. Bilge</strong>, Hüseyinoǧlu, A., Bilge, Y.C. et al
+                <strong>Bilge, F.A.</strong>, Hüseyinoǧlu, A., Bilge, Y.C. et al. Tinysign: sign language recognition in low resolution settings. SIViP 18, 6881–6890 (2024). https://doi.org/10.1007/s11760-024-03358-z
             </p>
-            <p class="publication-meta">SIViP · Jun 28, 2024</p>
             <p class="publication-description">
-                We explored a novel approach to improve sign language recognition in low-resolution
-                videos. We introduced a pose-conditioned super-resolution method along with a low-resolution benchmark
-                dataset, enhancing recognition accuracy even in privacy-sensitive or bandwidth limited scenarios.
-                Essentially, we made AI understand sign language more reliably under challenging conditions.
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 0.5rem;">• Introduced the first benchmark for <strong>low-resolution sign language recognition</strong>.</li>
+                    <li style="margin-bottom: 0.5rem;">• Addressed recognition challenges in <strong>privacy-sensitive</strong> and low-bandwidth video scenarios.</li>
+                    <li style="margin-bottom: 0.5rem;">• Proposed a novel AI architecture using <strong>pose-conditioned super-resolution</strong> to enhance critical visual cues.</li>
+                    <li style="margin-bottom: 0.5rem;">• Achieved <strong>58.0%</strong> accuracy, outperforming the previous state-of-the-art model (35.0%) on the same dataset.</li>
+                </ul>
             </p>
         </div>
     </section>
@@ -1329,13 +1531,13 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>© Copyright 2026. Made by Firat Adem Bilge</p>
+        <p>© Copyright 2026. Made by <strong>Firat Adem Bilge</strong></p>
     </footer>
 
     <script>
         // Typing animation
         const typingElement = document.getElementById('typing-text');
-        const roles = ['Software Engineer', 'Master Of Science Candidate', 'Researcher', 'Big Data Engineer'];
+        const roles = ['Software Engineer', 'Master Of Science Candidate', 'Researcher', 'Data Engineer'];
         let roleIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
@@ -1420,14 +1622,11 @@
                 observer.observe(el);
             });
 
-            // Add scroll effect to navigation
+            // Add scroll effect to navigation - keep it black always
             window.addEventListener('scroll', () => {
                 const nav = document.querySelector('.nav');
-                if (window.scrollY > 100) {
-                    nav.style.background = 'rgba(255, 255, 255, 0.98)';
-                } else {
-                    nav.style.background = 'rgba(255, 255, 255, 0.95)';
-                }
+                // Keep navigation black always - no color change
+                nav.style.background = 'rgba(0, 0, 0, 0.95)';
             });
         });
     </script>
