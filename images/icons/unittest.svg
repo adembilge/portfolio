@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Unit test icon">
+  <rect width="24" height="24" rx="5" fill="#4f8cff"/>
+  <path d="M7 12.5l2.2 2.2L17 7" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="12" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="5" font-weight="700" fill="#fff">UNIT</text>
+</svg>

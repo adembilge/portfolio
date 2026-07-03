@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2. Operating Kubernetes Workloads Across 300+ Production Nodes: What Nobody Tells You | Firat Adem Bilge</title>
+    <meta name="description" content="Personal lessons from operating Kubernetes workloads across 300+ production nodes, including scheduling, rollouts, observability, and failure handling." />
+    <style>
+        :root {
+            --bg: #0a0f24;
+            --bg-soft: #101731;
+            --card: rgba(255,255,255,0.05);
+            --line: rgba(255,255,255,0.12);
+            --text: #f2f5ff;
+            --muted: #c9d3ee;
+            --faint: #aab8d8;
+            --accent: #4fc3f7;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.78;
+            background-image: radial-gradient(ellipse 78% 52% at 12% -10%, rgba(59,130,246,0.17), transparent), radial-gradient(ellipse 60% 40% at 90% 8%, rgba(79,195,247,0.1), transparent);
+            background-repeat: no-repeat;
+        }
+        .container { max-width: 1020px; margin: 0 auto; padding: 2rem 1.35rem 4rem; }
+        .back-link { color: var(--accent); text-decoration: none; font-weight: 600; }
+        .back-link:hover { text-decoration: underline; }
+        .hero { margin-top: 1rem; padding: 1.35rem; border: 1px solid var(--line); border-radius: 16px; background: var(--card); }
+        .eyebrow { font-family: "JetBrains Mono", Consolas, Monaco, monospace; font-size: 0.78rem; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.45rem; }
+        h1 { margin: 0; font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.14; letter-spacing: -0.02em; }
+        .meta { margin-top: 0.65rem; color: var(--faint); font-size: 0.82rem; font-family: "JetBrains Mono", Consolas, Monaco, monospace; }
+        .lead { margin: 0.9rem 0 0; border-left: 3px solid var(--accent); padding-left: 0.9rem; color: var(--muted); }
+        article { margin-top: 1.5rem; }
+        h2 { margin: 1.8rem 0 0.6rem; font-size: 1.4rem; line-height: 1.3; }
+        h3 { margin: 1.2rem 0 0.45rem; font-size: 1.08rem; }
+        p { margin: 0.52rem 0; color: var(--muted); }
+        strong { color: var(--text); }
+        ul { margin: 0.5rem 0 0.8rem 1.25rem; color: var(--muted); }
+        li { margin: 0.28rem 0; }
+        .callout { margin: 0.9rem 0; padding: 0.85rem 0.95rem; border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 12px; background: var(--bg-soft); color: var(--muted); }
+        .figure { margin: 1rem 0 1.15rem; border: 1px solid var(--line); background: rgba(255,255,255,0.03); border-radius: 12px; padding: 0.9rem; overflow: auto; }
+        .figure-title { margin: 0 0 0.5rem; color: var(--text); font-size: 0.95rem; font-weight: 700; }
+        .caption { margin: 0.55rem 0 0; color: var(--faint); font-size: 0.85rem; }
+        .divider { margin-top: 2rem; border-top: 1px solid var(--line); padding-top: 1.2rem; }
+    </style>
+</head>
+<body>
+<main class="container">
+    <a class="back-link" href="./index.html">← Back to articles</a>
+
+    <section class="hero">
+        <div class="eyebrow">Kubernetes · Platform Operations</div>
+        <h1>2. Operating Kubernetes Workloads Across 300+ Production Nodes: What Nobody Tells You</h1>
+        <div class="meta">Jul 2026 · 22 min read · kubernetes, platform-engineering, reliability</div>
+        <p class="lead">
+            I learned this the hard way: Kubernetes problems at 300+ nodes are rarely about "how to deploy." They are about how the platform behaves
+            when multiple workload classes compete under real production pressure. If your model of the cluster is static, your incidents will be dynamic.
+        </p>
+    </section>
+
+    <article>
+        <h2>1) Opening hook</h2>
+        <p>
+            One rollout looked perfect on paper. Pods were healthy, readiness passed, no crash loops. Then queue lag started climbing,
+            p95 latency drifted, and by the time we realized what was happening, a downstream analytics window was already missed.
+        </p>
+        <p>
+            That’s when I stopped trusting binary deployment status and started treating <strong>runtime behavior as the real definition of success</strong>.
+        </p>
+
+        <h2>2) The problem we were actually solving</h2>
+        <p>
+            We were running backend services, distributed analytics workers, and data pipelines on shared infrastructure.
+            The cluster needed to support throughput-heavy jobs and latency-sensitive services at the same time.
+        </p>
+        <ul>
+            <li>Target: predictable freshness windows for analytical outputs.</li>
+            <li>Constraint: mixed workload interference across namespaces and nodes.</li>
+            <li>Requirement: recover quickly without cascading side effects.</li>
+        </ul>
+
+        <h2>3) Initial architecture</h2>
+        <p>
+            We had a solid base: Kubernetes orchestration, containerized services, CI/CD pipelines, and monitoring stack in place.
+            But the scheduling policy was too generic for our workload diversity.
+        </p>
+
+        <div class="figure">
+            <p class="figure-title">Figure 1 — Cluster workload model (initial)</p>
+            <div class="mermaid">
+                flowchart LR
+                api[LatencySensitiveAPIs] --> poolA[GeneralNodePool]
+                batch[BatchAnalytics] --> poolA
+                ml[MLPipelines] --> poolA
+                queue[KafkaConsumers] --> poolA
+                poolA --> metrics[PrometheusGrafana]
+            </div>
+            <p class="caption">Everything on shared pools looked efficient until peak windows exposed noisy-neighbor effects.</p>
+        </div>
+
+        <h2>4) Why traditional fixes failed</h2>
+        <p>
+            We first tried obvious fixes: more nodes, bigger nodes, and aggressive autoscaling. Those helped temporarily,
+            then introduced new instability patterns like scheduling churn and resource overcorrection.
+        </p>
+        <ul>
+            <li>More nodes did not fix policy-level collisions.</li>
+            <li>Overprovisioning reduced alerts but increased cost and masked root cause.</li>
+            <li>CPU-only scaling ignored queue and latency behavior.</li>
+        </ul>
+
+        <h2>5) Distributed execution and platform alignment</h2>
+        <p>
+            Our distributed execution layer (Dask-driven analytical paths) needed explicit platform alignment.
+            If orchestration policy and execution policy disagree, the system looks busy but delivers weak outcomes.
+        </p>
+        <p>
+            We moved to workload-aware placement and resource profiling, and this reduced cross-class interference significantly.
+        </p>
+
+        <h2>6) Kubernetes lessons that mattered most</h2>
+        <ul>
+            <li><strong>Requests and limits are architecture decisions</strong>. Guessing values caused expensive scheduling artifacts.</li>
+            <li><strong>Workload isolation is non-negotiable</strong>. Node pools, taints, and tolerations were operational safety features.</li>
+            <li><strong>Rollout quality gates must include performance metrics</strong>, not only deployment health.</li>
+            <li><strong>Pod churn is a risk indicator</strong> when correlated with queue lag and latency drift.</li>
+        </ul>
+
+        <div class="figure">
+            <p class="figure-title">Figure 2 — Workload isolation strategy</p>
+            <div class="mermaid">
+                flowchart TD
+                subgraph realtimePool [RealtimePool]
+                apiSvc[APIService]
+                grpcSvc[GRPCService]
+                end
+
+                subgraph analyticsPool [AnalyticsPool]
+                daskWorkers[DaskWorkers]
+                batchJobs[BatchJobs]
+                end
+
+                subgraph mlPool [MLPool]
+                training[TrainingJobs]
+                inference[OfflineInference]
+                end
+
+                queue[KafkaQueues] --> daskWorkers
+                queue --> apiSvc
+                apiSvc --> postgres[PostgreSQL]
+                daskWorkers --> elastic[Elasticsearch]
+            </div>
+            <p class="caption">Separating workload classes reduced noisy-neighbor effects and made incidents easier to localize.</p>
+        </div>
+
+        <h2>7) Data challenges inside Kubernetes operations</h2>
+        <p>
+            Data movement costs were tightly coupled with scheduling behavior. Rescheduling heavy jobs across nodes without locality awareness
+            increased transfer overhead and degraded completion times.
+        </p>
+        <p>
+            We started tracking transfer-heavy stages explicitly and used those signals for capacity planning and placement policy.
+        </p>
+
+        <div class="figure">
+            <p class="figure-title">Figure 3 — Example operational trend snapshot</p>
+            <svg width="100%" height="230" viewBox="0 0 760 230" role="img" aria-label="Operational trend chart">
+                <line x1="70" y1="185" x2="720" y2="185" stroke="#6b7ca6" />
+                <line x1="70" y1="35" x2="70" y2="185" stroke="#6b7ca6" />
+                <polyline fill="none" stroke="#4fc3f7" stroke-width="3" points="90,155 160,145 230,130 300,120 370,98 440,88 510,72 580,65 650,58" />
+                <polyline fill="none" stroke="#f59e0b" stroke-width="3" points="90,170 160,168 230,166 300,158 370,145 440,132 510,116 580,108 650,95" />
+                <text x="88" y="205" fill="#aab8d8" font-size="12">T1</text>
+                <text x="288" y="205" fill="#aab8d8" font-size="12">T2</text>
+                <text x="488" y="205" fill="#aab8d8" font-size="12">T3</text>
+                <text x="640" y="205" fill="#aab8d8" font-size="12">T4</text>
+                <text x="90" y="24" fill="#4fc3f7" font-size="12">Queue lag index</text>
+                <text x="250" y="24" fill="#f59e0b" font-size="12">Pod churn index</text>
+            </svg>
+            <p class="caption">In our incidents, queue lag and pod churn moved together before freshness misses became visible.</p>
+        </div>
+
+        <h2>8) Observability lessons in platform operations</h2>
+        <p>
+            We changed dashboard strategy from "infra-first" to "outcome-first". That means cluster metrics were always interpreted through output quality and freshness.
+        </p>
+        <ul>
+            <li>pending pod age tied to service risk,</li>
+            <li>evictions tied to delivery confidence,</li>
+            <li>rollout events tied to latency and queue behavior.</li>
+        </ul>
+
+        <h2>9) Reliability lessons</h2>
+        <p>
+            Reliability improved when we made rollback and failure containment explicit. We introduced bounded retries,
+            class-specific failover behavior, and clearer ownership paths for cross-team incidents.
+        </p>
+
+        <div class="figure">
+            <p class="figure-title">Figure 4 — Reliability and rollback loop</p>
+            <div class="mermaid">
+                flowchart LR
+                deploy[Deploy] --> monitor[MonitorOutcomeSignals]
+                monitor --> healthy{Healthy}
+                healthy -->|Yes| continue[ContinueRollout]
+                healthy -->|No| rollback[Rollback]
+                rollback --> isolate[IsolateFaultDomain]
+                isolate --> verify[VerifyFreshnessAndCorrectness]
+                verify --> deploy
+            </div>
+            <p class="caption">Rollout success criteria shifted from pod readiness to service outcome stability.</p>
+        </div>
+
+        <h2>10) Mistakes I would avoid now</h2>
+        <ul>
+            <li>Assuming default scheduling behavior will be stable for mixed workload classes.</li>
+            <li>Treating cluster upgrades as purely infrastructure events instead of data-risk events.</li>
+            <li>Delaying performance-aware rollout gates until after painful incidents.</li>
+        </ul>
+
+        <h2>11) Advice for engineers</h2>
+        <p>
+            If your platform is growing fast, define workload classes and policy boundaries early.
+            You can recover from many code issues quickly; policy ambiguity in large clusters is much harder to untangle under pressure.
+        </p>
+        <ul>
+            <li>Profile workload behavior before setting requests/limits.</li>
+            <li>Separate critical paths from heavy batch workloads.</li>
+            <li>Use queue and latency signals for autoscaling decisions.</li>
+            <li>Build release gates around service outcomes, not infra vanity metrics.</li>
+        </ul>
+
+        <h2>12) Final conclusion</h2>
+        <p>
+            Operating Kubernetes at 300+ nodes taught me that platform stability is mostly about deliberate policy design.
+            Good tooling helps, but predictable outcomes come from clear workload intent, measurable signals, and disciplined operational loops.
+        </p>
+        <p>
+            If your cluster doubled tomorrow, would your current scheduling and rollout policies still hold under mixed workload pressure?
+        </p>
+    </article>
+</main>
+
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+</script>
+</body>
+</html>

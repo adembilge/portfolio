@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1.Lessons Learned Building Distributed Systems for 600TB+ Analytical Workloads | Firat Adem Bilge</title>
+    <meta name="description" content="What I learned building and operating distributed analytics systems beyond 600TB, including architecture, failures, trade-offs, and reliability decisions." />
+    <style>
+        :root {
+            --bg: #0a0f24;
+            --bg-soft: #101731;
+            --card: rgba(255,255,255,0.05);
+            --line: rgba(255,255,255,0.12);
+            --text: #f2f5ff;
+            --muted: #c9d3ee;
+            --faint: #aab8d8;
+            --accent: #4fc3f7;
+            --accent-2: #3b82f6;
+            --gradient: linear-gradient(135deg, #4fc3f7 0%, #3b82f6 100%);
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.78;
+            background-image:
+                    radial-gradient(ellipse 78% 52% at 15% -10%, rgba(59,130,246,0.18), transparent),
+                    radial-gradient(ellipse 60% 40% at 88% 8%, rgba(79,195,247,0.1), transparent);
+            background-repeat: no-repeat;
+        }
+        .container { max-width: 1020px; margin: 0 auto; padding: 2rem 1.35rem 4rem; }
+        .back-link { color: var(--accent); text-decoration: none; font-weight: 600; }
+        .back-link:hover { text-decoration: underline; }
+
+        .hero {
+            margin-top: 1rem;
+            padding: 1.35rem;
+            border-radius: 16px;
+            border: 1px solid var(--line);
+            background: var(--card);
+        }
+        .eyebrow {
+            font-family: "JetBrains Mono", Consolas, Monaco, monospace;
+            font-size: 0.78rem;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.45rem;
+        }
+        h1 {
+            margin: 0;
+            font-size: clamp(2rem, 4vw, 2.85rem);
+            line-height: 1.14;
+            letter-spacing: -0.02em;
+        }
+        .meta {
+            margin-top: 0.65rem;
+            color: var(--faint);
+            font-size: 0.82rem;
+            font-family: "JetBrains Mono", Consolas, Monaco, monospace;
+        }
+        .lead {
+            margin: 0.9rem 0 0;
+            border-left: 3px solid var(--accent);
+            padding-left: 0.9rem;
+            color: var(--muted);
+        }
+
+        article { margin-top: 1.5rem; }
+        h2 { margin: 1.8rem 0 0.6rem; font-size: 1.4rem; line-height: 1.3; }
+        h3 { margin: 1.2rem 0 0.45rem; font-size: 1.08rem; }
+        p { margin: 0.52rem 0; color: var(--muted); }
+        strong { color: var(--text); }
+        ul { margin: 0.5rem 0 0.8rem 1.25rem; color: var(--muted); }
+        li { margin: 0.28rem 0; }
+
+        .callout {
+            margin: 0.9rem 0;
+            padding: 0.85rem 0.95rem;
+            border-left: 3px solid var(--accent);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--bg-soft);
+            color: var(--muted);
+        }
+
+        .figure {
+            margin: 1rem 0 1.15rem;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 0.9rem;
+            overflow: auto;
+        }
+        .figure-title {
+            margin: 0 0 0.5rem;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+        .caption {
+            margin: 0.55rem 0 0;
+            color: var(--faint);
+            font-size: 0.85rem;
+        }
+
+        .mini-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        .metric {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: rgba(0,0,0,0.2);
+            padding: 0.65rem 0.72rem;
+        }
+        .metric .k { color: var(--faint); font-size: 0.8rem; }
+        .metric .v { color: var(--text); font-weight: 700; margin-top: 0.2rem; }
+
+        .divider { margin-top: 2rem; border-top: 1px solid var(--line); padding-top: 1.2rem; }
+    </style>
+</head>
+<body>
+<main class="container">
+    <a class="back-link" href="./index.html">← Back to articles</a>
+
+    <section class="hero">
+        <div class="eyebrow">Distributed Systems · Data Infrastructure</div>
+        <h1>1.Lessons Learned Building Distributed Systems for 600TB+ Analytical Workloads</h1>
+        <div class="meta">Jul 2026 · 24 min read · distributed-systems, dask, kubernetes, analytics</div>
+        <p class="lead">
+            I still remember the week when one report pipeline crossed from "slow" to "unusable". We didn’t have a dramatic outage.
+            We had something worse: outputs arriving too late to trust. That week was when we stopped thinking in terms of single-job optimization
+            and started treating the entire analytics platform as a distributed systems problem with real operational stakes.
+        </p>
+    </section>
+
+    <article>
+        <h2>1) The moment scale stopped being theoretical</h2>
+        <p>
+            On paper, the architecture looked fine: Python services, distributed compute, Kubernetes orchestration, Kafka communication, and a mature storage mix.
+            In practice, once workloads moved deep into the <strong>600TB+ analytical range</strong>, all the hidden coupling started showing up.
+        </p>
+        <p>
+            We hit a pattern over and over: jobs technically completed, but business users still couldn’t act because freshness windows were missed.
+            That mismatch changed how I evaluate system health. If data arrives late, "success" is meaningless.
+        </p>
+
+        <div class="figure">
+            <p class="figure-title">Figure 1 — Runtime growth looked linear until it didn’t</p>
+            <svg width="100%" height="220" viewBox="0 0 760 220" role="img" aria-label="Runtime growth chart">
+                <rect x="0" y="0" width="760" height="220" fill="transparent" />
+                <line x1="70" y1="180" x2="720" y2="180" stroke="#6b7ca6" />
+                <line x1="70" y1="30" x2="70" y2="180" stroke="#6b7ca6" />
+                <polyline fill="none" stroke="#4fc3f7" stroke-width="3" points="90,165 170,155 250,142 330,125 410,100 490,72 570,45 650,36" />
+                <text x="75" y="198" fill="#aab8d8" font-size="12">100TB</text>
+                <text x="240" y="198" fill="#aab8d8" font-size="12">300TB</text>
+                <text x="410" y="198" fill="#aab8d8" font-size="12">500TB</text>
+                <text x="580" y="198" fill="#aab8d8" font-size="12">700TB</text>
+                <text x="12" y="34" fill="#aab8d8" font-size="12">Runtime</text>
+                <text x="312" y="212" fill="#aab8d8" font-size="12">Dataset Size</text>
+            </svg>
+            <p class="caption">After ~450TB, completion time climbed faster than expected because coordination overhead and skew amplified together.</p>
+        </div>
+
+        <h2>2) The real problem we had to solve</h2>
+        <p>
+            The hard part wasn’t only compute. It was balancing three constraints at the same time:
+        </p>
+        <ul>
+            <li><strong>Freshness:</strong> outputs needed to arrive within strict windows.</li>
+            <li><strong>Correctness:</strong> no partial or stale results in high-visibility reports.</li>
+            <li><strong>Recoverability:</strong> failures had to be diagnosable and recoverable without multi-hour guesswork.</li>
+        </ul>
+        <p>
+            We had both heavy scheduled workloads and unpredictable ad-hoc analytical runs. That meant we could not optimize for one static load shape.
+        </p>
+
+        <h2>3) Initial architecture (what was good, what was missing)</h2>
+        <p>
+            We already had strong building blocks: <strong>Dask for distributed compute</strong>, <strong>Kubernetes for orchestration</strong>,
+            <strong>Kafka for asynchronous communication</strong>, and a practical persistence mix (PostgreSQL, Redis, Elasticsearch).
+        </p>
+        <p>
+            What was missing was not another technology. It was discipline around execution contracts: partitioning strategy, memory boundaries,
+            and explicit retry/failure semantics per stage.
+        </p>
+
+        <div class="figure">
+            <p class="figure-title">Figure 2 — Baseline platform architecture</p>
+            <div class="mermaid">
+                flowchart LR
+                sources[DataSources] --> kafka[KafkaTopics]
+                kafka --> ingest[PythonIngestionServices]
+                ingest --> daskScheduler[DaskScheduler]
+                daskScheduler --> daskWorkers[DaskWorkers]
+                daskWorkers --> grpc[GRPCMicroservices]
+                grpc --> postgres[PostgreSQL]
+                grpc --> redis[Redis]
+                grpc --> elastic[Elasticsearch]
+                daskWorkers --> dashboards[AnalyticsDashboards]
+            </div>
+            <p class="caption">The components were modern, but execution behavior and operational contracts were under-specified for this scale.</p>
+        </div>
+
+        <h2>4) Why our "normal" scaling approaches failed</h2>
+        <p>
+            We tried the usual moves first: larger nodes, more replicas, and aggressive parallelism. They helped briefly, then created second-order problems.
+        </p>
+        <ul>
+            <li>Bigger nodes increased blast radius when memory pressure hit.</li>
+            <li>More replicas without workload-aware placement increased cross-node data movement.</li>
+            <li>More parallel tasks overloaded scheduling and serialization paths.</li>
+        </ul>
+        <div class="callout">
+            The surprise for me: at this scale, <strong>coordination overhead</strong> can hurt as much as raw compute limits.
+        </div>
+
+        <h2>5) Distributed computing approach that worked better</h2>
+        <p>
+            The biggest change we made was treating Dask task graph design as architecture, not implementation detail.
+            We moved from "submit giant jobs" to "define stage contracts" with clear boundaries:
+        </p>
+        <ul>
+            <li>input size expectations,</li>
+            <li>partition cardinality targets,</li>
+            <li>memory budget per stage,</li>
+            <li>retry behavior per failure class.</li>
+        </ul>
+        <p>
+            Once we did that, job behavior became much more predictable. We didn’t eliminate failures, but we made them easier to contain and reason about.
+        </p>
+
+        <div class="figure">
+            <p class="figure-title">Figure 3 — Distributed processing workflow</p>
+            <div class="mermaid">
+                flowchart TD
+                ingest[IngestPartitions] --> mapStage[MapTransform]
+                mapStage --> shuffleStage[ShuffleAndRepartition]
+                shuffleStage --> reduceStage[ReduceAggregate]
+                reduceStage --> validate[ValidateFreshnessAndQuality]
+                validate --> publish[PublishResults]
+                validate --> retryPath[RetryByFailureClass]
+                retryPath --> mapStage
+            </div>
+            <p class="caption">Defining stage contracts and retry paths reduced unpredictable runtime behavior.</p>
+        </div>
+
+        <h2>6) Kubernetes lessons I learned the hard way</h2>
+        <p>
+            At <strong>300+ nodes</strong>, Kubernetes policy quality becomes a core system feature. Three practical lessons:
+        </p>
+        <ul>
+            <li><strong>Requests and limits are architecture decisions</strong>, not minor config details.</li>
+            <li><strong>Workload isolation matters</strong> (node pools, taints, tolerations) or latency-sensitive and heavy jobs hurt each other.</li>
+            <li><strong>Rollouts must be performance-aware</strong>; green deployment status alone is not enough.</li>
+        </ul>
+        <p>
+            We started gating rollouts on service behavior and queue health, not only pod readiness.
+        </p>
+
+        <h2>7) Data challenges that dominated real runtime</h2>
+        <p>
+            Data movement was often the hidden tax. We saw real gains when we reduced unnecessary transfer and made storage/partition choices more intentional.
+        </p>
+        <ul>
+            <li>Co-locating compute and frequently accessed partitions reduced network overhead.</li>
+            <li>Monitoring spill ratio exposed memory stress earlier than CPU metrics.</li>
+            <li>Serialization format choices had measurable end-to-end impact.</li>
+        </ul>
+
+        <div class="figure">
+            <p class="figure-title">Figure 4 — Data movement and spill pressure snapshot</p>
+            <div class="mini-grid">
+                <div class="metric"><div class="k">Cross-node transfer (peak)</div><div class="v">+42% before tuning</div></div>
+                <div class="metric"><div class="k">Spill ratio (critical jobs)</div><div class="v">0.33 → 0.14</div></div>
+                <div class="metric"><div class="k">p95 completion time</div><div class="v">3h 40m → 2h 05m</div></div>
+                <div class="metric"><div class="k">Freshness breaches</div><div class="v">down by ~38%</div></div>
+            </div>
+            <p class="caption">These were operationally meaningful improvements for us after partition and execution tuning.</p>
+        </div>
+
+        <h2>8) Observability lessons: what changed how we operate</h2>
+        <p>
+            Observability became more valuable than any single code optimization because it improved decision speed.
+            We moved from dashboard noise to decision-oriented telemetry:
+        </p>
+        <ul>
+            <li>queue lag tied to freshness SLAs,</li>
+            <li>scheduler latency tied to execution slowdowns,</li>
+            <li>spill and retry rates tied to reliability risk.</li>
+        </ul>
+        <p>
+            The dashboard that helped most was the one that answered: <strong>Can we trust this output right now?</strong>
+        </p>
+
+        <h2>9) Reliability lessons</h2>
+        <p>
+            Reliability at this scale meant controlling blast radius, not pretending failure would disappear.
+            We tightened idempotency, retry classification, and rollback criteria.
+        </p>
+
+        <div class="figure">
+            <p class="figure-title">Figure 5 — Reliability control loop</p>
+            <div class="mermaid">
+                flowchart LR
+                detect[DetectIssue] --> classify[ClassifyFailure]
+                classify --> retry[BoundedRetry]
+                classify --> isolate[IsolateFailureDomain]
+                retry --> verify[VerifyCorrectnessAndFreshness]
+                isolate --> verify
+                verify --> restore[RestoreServiceConfidence]
+                restore --> improve[FeedBackIntoRunbooks]
+            </div>
+            <p class="caption">We reduced painful incidents by making failure handling explicit and repeatable.</p>
+        </div>
+
+        <h2>10) Mistakes I would avoid today</h2>
+        <ul>
+            <li>Waiting too long to define workload contracts.</li>
+            <li>Treating observability as an afterthought instead of architecture input.</li>
+            <li>Using global retry defaults without failure-class awareness.</li>
+            <li>Assuming completed jobs automatically mean trustworthy outputs.</li>
+        </ul>
+
+        <h2>11) Advice I’d give engineers building similar systems</h2>
+        <p>
+            If you’re entering this scale zone, invest early in these fundamentals:
+        </p>
+        <ul>
+            <li>Design around <strong>predictable operations</strong>, not only raw throughput.</li>
+            <li>Measure freshness and confidence as first-class system outcomes.</li>
+            <li>Align platform policy and distributed execution policy intentionally.</li>
+            <li>Keep runbooks and ownership boundaries as real engineering artifacts.</li>
+        </ul>
+
+        <h2>12) Final conclusion</h2>
+        <p>
+            Building distributed analytics for 600TB+ workloads taught me that scale is mostly an operations and architecture discipline.
+            Tools matter, but disciplined contracts, visibility, and failure handling matter more.
+        </p>
+        <p>
+            If I had to reduce the whole journey to one line: <strong>the system you can observe and recover is the system you can scale.</strong>
+        </p>
+        <p>
+            If your workload doubles next quarter, which assumption in your current execution model will break first?
+        </p>
+    </article>
+</main>
+
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+</script>
+</body>
+</html>

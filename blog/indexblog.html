@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Articles | Firat Adem Bilge</title>
+    <meta name="description" content="Engineering articles by Firat Adem Bilge on distributed systems, Kubernetes, observability, and large-scale data infrastructure." />
+    <style>
+        :root {
+            --bg: #0a0f24;
+            --bg-soft: #101731;
+            --card: rgba(255, 255, 255, 0.05);
+            --card-hover: rgba(255, 255, 255, 0.09);
+            --line: rgba(255, 255, 255, 0.12);
+            --text: #f2f5ff;
+            --muted: #c9d3ee;
+            --faint: #aab8d8;
+            --accent: #4fc3f7;
+            --accent-2: #3b82f6;
+            --gradient: linear-gradient(135deg, #4fc3f7 0%, #3b82f6 100%);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            background-image:
+                    radial-gradient(ellipse 80% 50% at 15% -10%, rgba(59, 130, 246, 0.2), transparent),
+                    radial-gradient(ellipse 60% 40% at 90% 8%, rgba(79, 195, 247, 0.12), transparent);
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 2rem 1.3rem 4rem;
+        }
+
+        .top-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .top-link:hover { text-decoration: underline; }
+
+        .hero {
+            margin-top: 1rem;
+            margin-bottom: 1.8rem;
+            padding: 1.6rem;
+            border-radius: 16px;
+            border: 1px solid var(--line);
+            background: var(--card);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-family: "JetBrains Mono", Consolas, Monaco, monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.6rem;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(2rem, 4vw, 2.9rem);
+            line-height: 1.18;
+            letter-spacing: -0.02em;
+        }
+
+        .accent {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .sub {
+            margin: 0.8rem 0 0;
+            color: var(--muted);
+            max-width: 78ch;
+        }
+
+        .articles-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .article-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            text-decoration: none;
+            color: inherit;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 1.8rem 1.7rem;
+            position: relative;
+            overflow: hidden;
+            min-height: 290px;
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .article-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.38;
+            transition: opacity 0.25s ease;
+        }
+
+        .article-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(170deg, rgba(6, 9, 18, 0.66), rgba(6, 9, 18, 0.9));
+        }
+
+        .article-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .article-card.article-600tb::before {
+            background-image: url("../images/articles/distributed-systems.jpg");
+        }
+
+        .article-card.article-k8s::before {
+            background-image: url("../images/articles/kubernetes-platform.jpg");
+        }
+
+        .article-card.article-observability::before {
+            background-image: url("../images/articles/observability.jpg");
+        }
+
+        .article-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+        }
+
+        .article-card:hover::before {
+            opacity: 0.5;
+        }
+
+        .article-title {
+            margin: 0 0 0.65rem;
+            font-size: 1.28rem;
+            line-height: 1.4;
+            color: var(--text);
+        }
+
+        .article-meta {
+            margin: 0 0 0.85rem;
+            font-family: "JetBrains Mono", Consolas, Monaco, monospace;
+            font-size: 0.84rem;
+            color: var(--faint);
+        }
+
+        .article-summary {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.99rem;
+            line-height: 1.62;
+        }
+
+        .tag-row {
+            margin-top: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+
+        .tag {
+            border: 1px solid rgba(79, 195, 247, 0.35);
+            background: rgba(79, 195, 247, 0.1);
+            color: var(--accent);
+            border-radius: 999px;
+            padding: 0.18rem 0.62rem;
+            font-size: 0.76rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+<main class="container">
+    <a class="top-link" href="../index.html">← Back to portfolio</a>
+
+    <section class="hero">
+        <div class="eyebrow">Engineering Writing</div>
+        <h1>Engineering <span class="accent">Insights</span></h1>
+        <p class="sub">
+            Sharing insights, lessons, and experiences from software engineering, distributed systems, and AI. These articles are shaped by the systems I've built, the challenges I've faced, and the research I've conducted.
+        </p>
+    </section>
+
+    <section class="articles-grid">
+        <a class="article-card article-600tb" href="./lessons-learned-building-distributed-systems-600tb.html">
+            <h2 class="article-title">Lessons Learned Building Distributed Systems for 600TB+ Analytical Workloads</h2>
+            <p class="article-meta">Jul 2026 · 9 min read</p>
+            <p class="article-summary">My practical lessons from building and operating 600TB+ analytics pipelines, including failures, trade-offs, and what I would design differently now.</p>
+            <div class="tag-row">
+                <span class="tag">distributed-systems</span>
+                <span class="tag">data-infrastructure</span>
+                <span class="tag">dask</span>
+            </div>
+        </a>
+
+        <a class="article-card article-k8s" href="./operating-kubernetes-workloads-300-nodes.html">
+            <h2 class="article-title">Operating Kubernetes Workloads Across 300+ Production Nodes: What Nobody Tells You</h2>
+            <p class="article-meta">Jul 2026 · 8 min read</p>
+            <p class="article-summary">The operational realities I faced running Kubernetes across 300+ nodes: rollout risk, scheduling pressure, workload isolation, and recovery discipline.</p>
+            <div class="tag-row">
+                <span class="tag">kubernetes</span>
+                <span class="tag">platform-engineering</span>
+                <span class="tag">sre</span>
+            </div>
+        </a>
+
+        <a class="article-card article-observability" href="./why-observability-becomes-more-important-than-code.html">
+            <h2 class="article-title">Why Observability Becomes More Important Than Code at Scale</h2>
+            <p class="article-meta">Jul 2026 · 7 min read</p>
+            <p class="article-summary">Why I now treat observability as a core engineering capability: faster diagnosis, better reliability, and much higher confidence during incidents.</p>
+            <div class="tag-row">
+                <span class="tag">observability</span>
+                <span class="tag">prometheus</span>
+                <span class="tag">grafana</span>
+            </div>
+        </a>
+    </section>
+</main>
+</body>
+</html>

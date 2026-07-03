@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Linux icon">
+  <rect width="24" height="24" rx="5" fill="#111827"/>
+  <ellipse cx="12" cy="11" rx="4" ry="5" fill="#fff"/>
+  <circle cx="10.6" cy="10" r="0.6" fill="#111827"/>
+  <circle cx="13.4" cy="10" r="0.6" fill="#111827"/>
+  <path d="M10.2 12.8h3.6" stroke="#f59e0b" stroke-width="1.2" stroke-linecap="round"/>
+  <ellipse cx="12" cy="17.3" rx="3.3" ry="1.8" fill="#f59e0b"/>
+</svg>
