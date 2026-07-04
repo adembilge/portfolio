@@ -438,7 +438,7 @@
         .hero-grid > div,
         .about-text,
         .titem,
-        .project,
+        .portfolio-project,
         .skill-cat,
         .expertise-card,
         .pub-card,
@@ -737,154 +737,324 @@
             white-space: nowrap;
         }
 
-        /* ---------- Projects ---------- */
-        .project {
+        /* ---------- Portfolio Projects ---------- */
+        .portfolio-list {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .portfolio-project {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
             background: var(--card);
             border: 1px solid var(--line);
-            border-radius: var(--radius);
-            padding: 2rem;
-            margin-bottom: 1.6rem;
-            transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+            border-radius: calc(var(--radius) + 4px);
+            padding: 1.6rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
         }
 
-        .project:hover {
-            background: var(--card-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+        .portfolio-project::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 70% 60% at 10% 0%, rgba(79, 195, 247, 0.08), transparent 60%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.35s ease;
         }
 
-        .project-head {
+        .portfolio-project:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 22px 48px rgba(0, 0, 0, 0.42);
+            border-color: rgba(79, 195, 247, 0.28);
+        }
+
+        .portfolio-project:hover::before { opacity: 1; }
+
+        .portfolio-body {
+            position: relative;
+            z-index: 1;
+        }
+
+        .portfolio-topbar {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
             gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 0.4rem;
+            position: relative;
+            z-index: 2;
         }
 
-        .project-title {
-            font-size: 1.25rem;
-            font-weight: 700;
+        .portfolio-topbar .portfolio-title {
+            flex: 1;
+            min-width: 0;
+            margin: 0;
         }
 
-        .project-tag {
+        .portfolio-head {
+            margin-bottom: 0.85rem;
+        }
+
+        .portfolio-title {
+            font-size: clamp(1.25rem, 2.4vw, 1.55rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.25;
+        }
+
+        .portfolio-desc {
+            color: var(--muted);
+            font-size: 0.96rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.75;
+        }
+
+        .portfolio-desc strong { color: var(--text); }
+
+        .portfolio-detail {
+            color: var(--faint);
+            font-size: 0.92rem;
+            margin-bottom: 0.85rem;
+            line-height: 1.75;
+            padding-left: 0.85rem;
+            border-left: 2px solid rgba(79, 195, 247, 0.35);
+        }
+
+        .portfolio-highlights-title {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.75rem;
             font-weight: 600;
-            color: #34d399;
-            background: rgba(52, 211, 153, 0.1);
-            border: 1px solid rgba(52, 211, 153, 0.3);
-            border-radius: 999px;
-            padding: 0.25rem 0.8rem;
-            white-space: nowrap;
-        }
-
-        .project-tag.research {
-            color: #c084fc;
-            background: rgba(192, 132, 252, 0.1);
-            border-color: rgba(192, 132, 252, 0.3);
-        }
-
-        .project-context {
-            font-size: 0.9rem;
-            color: var(--faint);
-            margin-bottom: 1rem;
-        }
-
-        .project-cols {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 1.8rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .project-block h4 {
-            font-size: 0.8rem;
-            font-family: 'JetBrains Mono', monospace;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: var(--accent);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.55rem;
+            margin-top: 0.15rem;
         }
 
-        .project-block p, .project-block li {
-            color: var(--muted);
-            font-size: 0.95rem;
+        .portfolio-highlights {
+            list-style: none;
+            display: grid;
+            gap: 0.45rem;
+            margin-bottom: 1rem;
         }
 
-        .project-block ul { list-style: none; }
-
-        .project-block ul li {
+        .portfolio-highlights li {
             position: relative;
-            padding-left: 1.1rem;
-            margin-bottom: 0.4rem;
+            padding-left: 1.15rem;
+            color: var(--muted);
+            font-size: 0.9rem;
         }
 
-        .project-block ul li::before {
-            content: '▹';
+        .portfolio-highlights li::before {
+            content: '•';
             position: absolute;
             left: 0;
-            color: var(--accent);
-        }
-
-        .project-block strong { color: var(--text); }
-
-        .pipeline {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(0, 0, 0, 0.25);
-            border: 1px solid var(--line);
-            border-radius: 10px;
-            padding: 0.9rem 1rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .pipeline-node {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--text);
-            background: rgba(79, 195, 247, 0.12);
-            border: 1px solid rgba(79, 195, 247, 0.3);
-            border-radius: 8px;
-            padding: 0.35rem 0.7rem;
-            white-space: nowrap;
-        }
-
-        .pipeline-arrow {
-            color: var(--accent);
+            color: var(--brown);
             font-weight: 700;
         }
 
-        .project-foot {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+        .portfolio-highlights strong { color: var(--text); }
+
+        .portfolio-stack-box {
+            background: rgba(0, 0, 0, 0.22);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 1rem 1.15rem;
+            margin-top: 0.5rem;
         }
 
-        .project-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .project-links a {
-            font-size: 0.9rem;
+        .portfolio-stack-box h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             color: var(--accent);
-            text-decoration: none;
+            margin-bottom: 0.7rem;
         }
 
-        .project-links a:hover { text-decoration: underline; }
+        .portfolio-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+
+        .portfolio-stack .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .portfolio-stack .chip img {
+            width: 14px;
+            height: 14px;
+            object-fit: contain;
+        }
+
+        /* Cognify — main preview + thumbnail strip */
+        .portfolio-showcase-wrap {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            margin-top: 0.75rem;
+        }
+
+        .portfolio-showcase {
+            border: 1px solid rgba(79, 195, 247, 0.22);
+            border-radius: 14px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.35);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.65rem;
+        }
+
+        .portfolio-main {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            transition: opacity 0.25s ease;
+        }
+
+        .portfolio-thumbs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.6rem;
+            margin-top: 0.75rem;
+        }
+
+        .portfolio-thumb {
+            border: 2px solid transparent;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 0;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.35);
+            opacity: 0.7;
+            transition: opacity 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .portfolio-thumb:hover,
+        .portfolio-thumb.active {
+            opacity: 1;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .portfolio-thumb img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: contain;
+            object-position: center;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 0.25rem;
+        }
+
+        .portfolio-thumb-label {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: var(--faint);
+            text-align: center;
+            padding: 0.35rem 0.25rem;
+            border-top: 1px solid var(--line);
+        }
+
+        /* CryptMe — text left, demo right */
+        .portfolio-split {
+            display: grid;
+            grid-template-columns: 1.05fr 0.85fr;
+            gap: 2rem;
+            align-items: start;
+            position: relative;
+            z-index: 1;
+        }
+
+        .portfolio-demo {
+            border: 1px solid rgba(79, 195, 247, 0.22);
+            border-radius: 14px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.35);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+            aspect-ratio: 3 / 4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem;
+            position: sticky;
+            top: 6rem;
+        }
+
+        .portfolio-demo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 8px;
+        }
+
+        .portfolio-gh {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--line);
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .portfolio-gh img {
+            width: 18px;
+            height: 18px;
+            filter: invert(1);
+        }
+
+        .portfolio-gh span {
+            color: var(--accent);
+        }
+
+        .portfolio-gh:hover {
+            transform: translateY(-3px);
+            background: rgba(79, 195, 247, 0.15);
+            border-color: rgba(79, 195, 247, 0.45);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .portfolio-gh:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .portfolio-project:hover { transform: none; }
+            .portfolio-thumb:hover { transform: none; }
+            .portfolio-main { transition: none; }
+        }
+
+        @media (max-width: 900px) {
+            .portfolio-split { grid-template-columns: 1fr; }
+            .portfolio-demo { position: static; max-width: 360px; margin: 0 auto; width: 100%; }
+        }
+
+        @media (max-width: 600px) {
+            .portfolio-thumbs { grid-template-columns: repeat(2, 1fr); }
+        }
 
         .gh-strip {
             margin-top: 2rem;
@@ -1402,7 +1572,6 @@
             .stats { grid-template-columns: repeat(2, 1fr); }
             .about-grid { grid-template-columns: 1fr; }
             .about-gallery { max-height: 420px; }
-            .project-cols { grid-template-columns: 1fr; gap: 1.2rem; }
         }
 
         @media (max-width: 768px) {
@@ -1438,7 +1607,7 @@
 
             .hero { padding-top: 7rem; }
             .titem { padding: 1.4rem; }
-            .project { padding: 1.5rem; }
+            .portfolio-project { padding: 1.2rem; }
             .contact-grid { grid-template-columns: 1fr; }
             .contact-info, .contact-form { padding: 1.6rem; }
             .expertise-grid { grid-template-columns: 1fr; }
@@ -1486,7 +1655,7 @@
                         computer vision paper (SIViP, 2024).
                     </p>
                     <div class="hero-actions">
-                        <a href="https://drive.google.com/file/d/1RYLMP1J6_giVBoBEf_bumNQZOlH9Dbq9/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary">Download CV</a>
+                        <a href="https://drive.google.com/file/d/17yYPxSV58UIZCfxWqXALI1KmeyKyaIkr/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary">Download CV</a>
                         <a href="#projects" class="btn btn-ghost">View Projects</a>
                     </div>
                     <div class="hero-socials">
@@ -1659,143 +1828,139 @@
             <div class="section-header fade-in">
                 <div class="section-eyebrow">03 — Projects</div>
                 <h2 class="section-title">Featured <span style="color: var(--accent);">Work</span></h2>
-                <p class="section-sub">Selected projects with clear problems, approach, and measurable outcomes.</p>
+                <p class="section-sub">Portfolio projects showcasing my work across backend, cloud and AI engineering.</p>
             </div>
 
-            <article class="project fade-in">
-                <div class="project-head">
-                    <h3 class="project-title">Distributed Big Data Analytics Platform</h3>
-                    <span class="project-tag">Production · HAVELSAN</span>
-                </div>
-                <p class="project-context">Core data platform behind a large-scale video analytics product, serving analytical workloads over continuously growing datasets.</p>
-                <div class="project-cols">
-                    <div class="project-block">
-                        <h4>Problem &amp; Approach</h4>
-                        <p>
-                            Analytical queries over hundreds of terabytes were too slow and expensive to run on traditional
-                            single-node tooling. I worked on a distributed architecture that parallelizes computation with
-                            <strong>Dask</strong> across a <strong>300+ node Kubernetes cluster</strong>, ingests events in real time
-                            through <strong>Kafka</strong>, and exposes results via low-latency <strong>gRPC</strong> microservices.
+            <div class="portfolio-list">
+                <article class="portfolio-project fade-in">
+                    <div class="portfolio-topbar">
+                        <h3 class="portfolio-title">Cognify — AI-powered Personal Knowledge Management System</h3>
+                        <a class="portfolio-gh" href="https://github.com/adembilge/Cognify" target="_blank" rel="noopener">
+                            <img src="images/icons/github.svg" alt="">
+                            <span>GitHub ↗</span>
+                        </a>
+                    </div>
+                    <div class="portfolio-body">
+                        <p class="portfolio-desc">
+                            Cognify is a full-stack personal knowledge management system — a second brain that actually reads
+                            your documents. Instead of manually tagging and filing notes, you drop in scanned PDFs, images,
+                            or plain-text files and an asynchronous <strong>Celery</strong> worker pipeline handles the rest:
+                            OpenCV preprocessing and Tesseract OCR extract text, DistilBART generates concise summaries,
+                            a zero-shot MNLI classifier auto-tags topics, and Sentence-BERT stores semantic embeddings —
+                            making every document instantly searchable and analyzable.
                         </p>
-                    </div>
-                    <div class="project-block">
-                        <h4>Results</h4>
-                        <ul>
-                            <li><strong>600+ TB</strong> processed in production</li>
-                            <li>Real-time streaming ingestion at scale</li>
-                            <li>Low-latency service-to-service communication</li>
-                            <li>Fully containerized, cluster managed deployment</li>
+                        <p class="portfolio-detail">
+                            On the frontend, a <strong>Next.js 16</strong> dashboard provides a knowledge vault overview,
+                            Recharts-powered analytics, browser-native PDF tools (split, merge, reorder), document versioning
+                            with parent-child lineage, per-document sensitive mode, soft-delete recovery, and a global
+                            <strong>RAG chat</strong> where RoBERTa generates cited answers from the most relevant chunks in
+                            your vault. The <strong>Django REST</strong> backend enforces JWT authentication, user-scoped data
+                            isolation on every query, audit logging for all actions, and Prometheus metrics for worker latency.
+                        </p>
+                        <h4 class="portfolio-highlights-title">Key Capabilities</h4>
+                        <ul class="portfolio-highlights">
+                            <li>Full ingestion pipeline: upload → OCR → summarize → classify → embed → COMPLETED</li>
+                            <li>Cosine similarity search finds meaning across documents, not just keyword matches</li>
+                            <li>Collections, annotations, bookmarks, and notes attached to any document or quote</li>
+                            <li><strong>35 automated tests</strong>, Docker Compose orchestration, MIT licensed</li>
                         </ul>
+                        <div class="portfolio-stack-box">
+                            <h4>Tech Stack</h4>
+                            <div class="portfolio-stack">
+                                <span class="chip"><img src="images/icons/python.svg" alt=""> Python</span>
+                                <span class="chip"><img src="images/icons/django.svg" alt=""> Django</span>
+                                <span class="chip">Next.js</span>
+                                <span class="chip"><img src="images/icons/redis.svg" alt=""> Celery</span>
+                                <span class="chip">Transformers</span>
+                                <span class="chip">Sentence-BERT</span>
+                                <span class="chip"><img src="images/icons/docker.svg" alt=""> Docker</span>
+                                <span class="chip"><img src="images/icons/prometheus.svg" alt=""> Prometheus</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="pipeline" role="img" aria-label="Architecture: Kafka ingestion feeds a Dask cluster on Kubernetes, exposed by gRPC microservices to analytics consumers">
-                    <span class="pipeline-node">Kafka ingestion</span>
-                    <span class="pipeline-arrow" aria-hidden="true">→</span>
-                    <span class="pipeline-node">Dask on Kubernetes (300+ nodes)</span>
-                    <span class="pipeline-arrow" aria-hidden="true">→</span>
-                    <span class="pipeline-node">gRPC microservices</span>
-                    <span class="pipeline-arrow" aria-hidden="true">→</span>
-                    <span class="pipeline-node">Analytics &amp; dashboards</span>
-                </div>
-                <div class="project-foot">
-                    <div class="project-stack">
-                        <span class="chip">Dask</span>
-                        <span class="chip">Kubernetes</span>
-                        <span class="chip">Kafka</span>
-                        <span class="chip">gRPC</span>
-                        <span class="chip">Docker</span>
-                        <span class="chip">Python</span>
+                    <div class="portfolio-showcase-wrap" id="cognify-showcase">
+                        <div class="portfolio-showcase">
+                            <img class="portfolio-main" id="cognify-main" src="images/projects/cognify/dashboard.png" alt="Cognify knowledge vault dashboard" width="1908" height="908" loading="lazy">
+                        </div>
+                        <div class="portfolio-thumbs" aria-label="Cognify screenshots">
+                            <button type="button" class="portfolio-thumb active" aria-label="Dashboard" data-src="images/projects/cognify/dashboard.png" data-alt="Cognify knowledge vault dashboard">
+                                <img src="images/projects/cognify/dashboard.png" alt="" width="200" height="112" loading="lazy">
+                                <span class="portfolio-thumb-label">Dashboard</span>
+                            </button>
+                            <button type="button" class="portfolio-thumb" aria-label="Analytics" data-src="images/projects/cognify/analytics.png" data-alt="Cognify analytics view">
+                                <img src="images/projects/cognify/analytics.png" alt="" width="200" height="112" loading="lazy">
+                                <span class="portfolio-thumb-label">Analytics</span>
+                            </button>
+                            <button type="button" class="portfolio-thumb" aria-label="Neural Chat" data-src="images/projects/cognify/ai-chat.png" data-alt="Cognify neural chat interface">
+                                <img src="images/projects/cognify/ai-chat.png" alt="" width="200" height="112" loading="lazy">
+                                <span class="portfolio-thumb-label">Neural Chat</span>
+                            </button>
+                            <button type="button" class="portfolio-thumb" aria-label="PDF Tools" data-src="images/projects/cognify/pdf-tools.png" data-alt="Cognify PDF tools">
+                                <img src="images/projects/cognify/pdf-tools.png" alt="" width="200" height="112" loading="lazy">
+                                <span class="portfolio-thumb-label">PDF Tools</span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="project-links">
-                        <a href="https://www.havelsan.com/en/products/eyeminer-video-analytic-system-iot" target="_blank" rel="noopener">Product page ↗</a>
-                    </div>
-                </div>
-            </article>
+                </article>
 
-            <article class="project fade-in">
-                <div class="project-head">
-                    <h3 class="project-title">Tinysign — Sign Language Recognition in Low-Resolution Settings</h3>
-                    <span class="project-tag research">Published Research · SIViP 2024</span>
-                </div>
-                <p class="project-context">First-author peer-reviewed research: making sign language recognition work when video resolution is too low for existing models.</p>
-                <div class="project-cols">
-                    <div class="project-block">
-                        <h4>Problem &amp; Approach</h4>
-                        <p>
-                            Existing sign language recognition models fail on low-resolution video — exactly the conditions of
-                            privacy-sensitive and low-bandwidth scenarios. I introduced the <strong>first low-resolution benchmark</strong>
-                            for the task and proposed a novel <strong>pose-conditioned super-resolution</strong> architecture that
-                            reconstructs the visual cues recognition depends on.
-                        </p>
+                <article class="portfolio-project fade-in">
+                    <div class="portfolio-topbar">
+                        <h3 class="portfolio-title">CryptMe — Secure Encrypted Messaging</h3>
+                        <a class="portfolio-gh" href="https://github.com/adembilge/CryptMe" target="_blank" rel="noopener">
+                            <img src="images/icons/github.svg" alt="">
+                            <span>GitHub ↗</span>
+                        </a>
                     </div>
-                    <div class="project-block">
-                        <h4>Results</h4>
-                        <ul>
-                            <li><strong>58.0% accuracy</strong> vs. 35.0% prior state of the art</li>
-                            <li>New public benchmark for low-resolution recognition</li>
-                            <li>Published in <strong>Signal, Image and Video Processing</strong> (Springer)</li>
-                        </ul>
+                    <div class="portfolio-split">
+                        <div class="portfolio-body">
+                            <p class="portfolio-desc">
+                                CryptMe is a secure client-server messaging application built entirely in
+                                <strong>Java</strong>. It demonstrates practical cryptography in a real-time chat setting:
+                                users connect to a central server with unique usernames, join a shared chat room, and
+                                exchange messages encrypted with their choice of symmetric algorithm —
+                                <strong>AES (128-bit)</strong> with a 16-byte initialization vector, or
+                                <strong>DES (56-bit)</strong> with an 8-byte IV.
+                            </p>
+                            <p class="portfolio-detail">
+                                When a user selects an encryption method, the application generates a fresh secret key and
+                                IV for that session and distributes them to participants. The server handles connection
+                                management and message routing over TCP sockets without reading plaintext, while the
+                                <strong>Swing GUI</strong> client performs all encryption and decryption locally. A persistent
+                                log file records every generated key and IV for auditability.
+                            </p>
+                            <h4 class="portfolio-highlights-title">Core Features</h4>
+                            <ul class="portfolio-highlights">
+                                <li>Dual encryption modes selectable at runtime — AES or DES</li>
+                                <li>Multi-user chat with unique username registration and disconnect handling</li>
+                                <li>Socket-based server routing encrypted payloads between connected clients</li>
+                                <li>MIT licensed, compiles with standard javac, no external dependencies</li>
+                            </ul>
+                            <div class="portfolio-stack-box">
+                                <h4>Tech Stack</h4>
+                                <div class="portfolio-stack">
+                                    <span class="chip"><img src="images/icons/java.svg" alt=""> Java</span>
+                                    <span class="chip">AES</span>
+                                    <span class="chip">DES</span>
+                                    <span class="chip">Socket Programming</span>
+                                    <span class="chip">Swing GUI</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-demo">
+                            <img src="images/projects/cryptme/demo.gif" alt="CryptMe live demo — encrypted messaging between two users" width="600" height="800" loading="lazy">
+                        </div>
                     </div>
-                </div>
-                <div class="project-foot">
-                    <div class="project-stack">
-                        <span class="chip">PyTorch</span>
-                        <span class="chip">Computer Vision</span>
-                        <span class="chip">Super-Resolution</span>
-                        <span class="chip">Pose Estimation</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://link.springer.com/article/10.1007/s11760-024-03358-z" target="_blank" rel="noopener">Paper ↗</a>
-                        <a href="https://scholar.google.com/citations?user=qxDWiIQAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar ↗</a>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project fade-in">
-                <div class="project-head">
-                    <h3 class="project-title">Fingerprint Segmentation for Biometric Identification</h3>
-                    <span class="project-tag">Production · HAVELSAN AFIS</span>
-                </div>
-                <p class="project-context">Computer vision model deployed inside a national-scale automated fingerprint identification system.</p>
-                <div class="project-cols">
-                    <div class="project-block">
-                        <h4>Problem &amp; Approach</h4>
-                        <p>
-                            Reliable identification requires cleanly isolating fingerprint regions from noisy scans before matching.
-                            I built a <strong>PyTorch</strong> segmentation model, benchmarked state-of-the-art architectures, and
-                            improved robustness with data augmentation and systematic hyperparameter tuning.
-                        </p>
-                    </div>
-                    <div class="project-block">
-                        <h4>Results</h4>
-                        <ul>
-                            <li><strong>92% segmentation accuracy</strong> in production</li>
-                            <li>Integrated into an automated identification workflow</li>
-                            <li>Benchmarked against multiple SOTA architectures</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="project-foot">
-                    <div class="project-stack">
-                        <span class="chip">PyTorch</span>
-                        <span class="chip">OpenCV</span>
-                        <span class="chip">Data Augmentation</span>
-                        <span class="chip">Python</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://www.havelsan.com/en/solutions/security-systems/ministry-interior-fingerprint-recognition-system-afis" target="_blank" rel="noopener">System page ↗</a>
-                    </div>
-                </div>
-            </article>
+                </article>
+            </div>
 
             <div class="gh-strip fade-in">
                 <a class="gh-card" href="https://github.com/adembilge/Cognify" target="_blank" rel="noopener">
                     <h4><img src="images/icons/github.svg" alt="" width="16" height="16"> Cognify</h4>
                     <p>Personal project — explore the code on GitHub</p>
                 </a>
-                <a class="gh-card" href="https://github.com/adembilge/CryptMe" target="_blank" rel="noopener">
-                    <h4><img src="images/icons/github.svg" alt="" width="16" height="16"> CryptMe</h4>
-                    <p>Java encryption application (MIT licensed)</p>
+                <a class="gh-card" href="https://github.com/adembilge/TidyEdit" target="_blank" rel="noopener">
+                    <h4><img src="images/icons/github.svg" alt="" width="16" height="16"> TidyEdit</h4>
+                    <p>PyQt5 desktop image editor with filters &amp; adjustments</p>
                 </a>
                 <a class="gh-card" href="https://github.com/adembilge/Quantization-Dithering-and-Color-Transforming" target="_blank" rel="noopener">
                     <h4><img src="images/icons/github.svg" alt="" width="16" height="16"> Image Processing Algorithms</h4>
@@ -2311,6 +2476,30 @@
     }
 
     setInterval(rotateGallery, 4000);
+
+    // Cognify: swap main preview on thumbnail hover
+    (function () {
+        const main = document.getElementById('cognify-main');
+        const thumbs = document.querySelectorAll('#cognify-showcase .portfolio-thumb');
+        if (!main || !thumbs.length) return;
+
+        function showThumb(thumb) {
+            thumbs.forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+            main.style.opacity = '0';
+            requestAnimationFrame(() => {
+                main.src = thumb.dataset.src;
+                main.alt = thumb.dataset.alt;
+                main.style.opacity = '1';
+            });
+        }
+
+        thumbs.forEach(thumb => {
+            thumb.addEventListener('mouseenter', () => showThumb(thumb));
+            thumb.addEventListener('focus', () => showThumb(thumb));
+            thumb.addEventListener('click', () => showThumb(thumb));
+        });
+    })();
 </script>
 </body>
 </html>
