@@ -629,6 +629,10 @@
 
         .titem ul li strong { color: var(--text); }
 
+        .titem .portfolio-stack-box {
+            margin-top: 1rem;
+        }
+
         .titem.has-bg {
             overflow: hidden;
         }
@@ -887,6 +891,9 @@
             display: inline-flex;
             align-items: center;
             gap: 0.35rem;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.15);
         }
 
         .portfolio-stack .chip img {
@@ -1757,11 +1764,29 @@
                     </div>
                     <div class="titem-meta">Part-time · Early-stage startup</div>
                     <ul>
-                        <li>Developed scalable backend architecture and RESTful APIs using <strong>Django</strong> to optimize high-traffic systems.</li>
-                        <li>Deployed and managed a cloud-based application on <strong>AWS</strong> using <strong>Docker</strong> for containerized services.</li>
-                        <li>Designed relational schemas and managed the <strong>PostgreSQL</strong> database to optimize data storage and retrieval.</li>
-                        <li>Implemented real-time system monitoring and health dashboards using <strong>Prometheus</strong> and <strong>Grafana</strong>.</li>
+                        <li>Developed scalable backend architecture and RESTful APIs using <strong>Django</strong> and <strong>gRPC</strong> to optimize high-traffic systems.</li>
+                        <li>Managed cloud-based application on <strong>AWS</strong> using <strong>Docker</strong> containers, achieving 99.9% uptime and streamlined scaling.</li>
+                        <li>Administered <strong>PostgreSQL</strong> databases and designed relational schemas, improving query performance and data storage.</li>
+                        <li>Implemented CI/CD pipelines with <strong>Jenkins</strong> to automate deployment workflows and accelerate software releases.</li>
                     </ul>
+                    <div class="portfolio-stack-box">
+                        <h4>Tech Stack</h4>
+                        <div class="portfolio-stack">
+                            <span class="chip"><img src="images/icons/python.svg" alt=""> Python</span>
+                            <span class="chip"><img src="images/icons/django.svg" alt=""> Django</span>
+                            <span class="chip"><img src="images/icons/grpc.svg" alt=""> gRPC</span>
+                            <span class="chip"><img src="images/icons/postman.svg" alt=""> Postman</span>
+                            <span class="chip"><img src="images/icons/swagger.svg" alt=""> Swagger</span>
+                            <span class="chip"><img src="images/icons/pytest.svg" alt=""> Pytest</span>
+                            <span class="chip"><img src="images/icons/postgresql.svg" alt=""> PostgreSQL</span>
+                            <span class="chip"><img src="images/icons/redis.svg" alt=""> Redis</span>
+                            <span class="chip"><img src="images/icons/aws.svg" alt=""> AWS</span>
+                            <span class="chip"><img src="images/icons/docker.svg" alt=""> Docker</span>
+                            <span class="chip"><img src="images/icons/jenkins.svg" alt=""> Jenkins</span>
+                            <span class="chip"><img src="images/icons/git.svg" alt=""> Git</span>
+                            <span class="chip"><img src="images/icons/cicd.svg" alt=""> CI/CD</span>
+                        </div>
+                    </div>
                 </article>
 
                 <article class="titem fade-in has-bg havelsan-big">
@@ -1775,12 +1800,32 @@
                     </div>
                     <div class="titem-meta">Full-time · Defense &amp; IT — EyeMiner video analytics platform</div>
                     <ul>
-                        <li>Developed and maintained a cloud-based big data platform supporting large-scale analytical workloads.</li>
-                        <li>Designed distributed computing architecture processing datasets exceeding <strong>600 TB</strong> using <strong>Dask</strong>.</li>
-                        <li>Operated containerized services with <strong>Docker</strong> on a <strong>Kubernetes</strong> cluster of over <strong>300 nodes</strong> in production.</li>
-                        <li>Developed a <strong>gRPC</strong>-based microservice architecture for low-latency service communication.</li>
-                        <li>Used <strong>Kafka</strong> for real-time data streaming and low-latency processing across distributed services.</li>
+                        <li>Developed a distributed computing platform on <strong>Linux</strong> using <strong>Dask</strong> to process analytical workloads on <strong>600 TB+</strong> data.</li>
+                        <li>Operated <strong>Docker</strong> services on a <strong>Kubernetes</strong> cluster across <strong>300+</strong> production nodes for maintaining high availability.</li>
+                        <li>Developed <strong>gRPC</strong> microservices and <strong>Kafka</strong> pipelines to enable low-latency and fault-tolerant service communication.</li>
+                        <li>Built observability solutions using <strong>Prometheus</strong>, <strong>Grafana</strong>, and <strong>Elasticsearch</strong> to improve monitoring and diagnostics.</li>
                     </ul>
+                    <div class="portfolio-stack-box">
+                        <h4>Tech Stack</h4>
+                        <div class="portfolio-stack">
+                            <span class="chip"><img src="images/icons/python.svg" alt=""> Python</span>
+                            <span class="chip"><img src="images/icons/dask.svg" alt=""> Dask</span>
+                            <span class="chip"><img src="images/icons/pandas.svg" alt=""> Pandas</span>
+                            <span class="chip"><img src="images/icons/grpc.svg" alt=""> gRPC</span>
+                            <span class="chip"><img src="images/icons/unittest.svg" alt=""> Unittest</span>
+                            <span class="chip"><img src="images/icons/postgresql.svg" alt=""> PostgreSQL</span>
+                            <span class="chip"><img src="images/icons/elasticsearch.svg" alt=""> Elasticsearch</span>
+                            <span class="chip"><img src="images/icons/kubernetes.svg" alt=""> Kubernetes</span>
+                            <span class="chip"><img src="images/icons/docker.svg" alt=""> Docker</span>
+                            <span class="chip"><img src="images/icons/kafka.svg" alt=""> Kafka</span>
+                            <span class="chip"><img src="images/icons/helm.svg" alt=""> Helm</span>
+                            <span class="chip"><img src="images/icons/prometheus.svg" alt=""> Prometheus</span>
+                            <span class="chip"><img src="images/icons/grafana.svg" alt=""> Grafana</span>
+                            <span class="chip"><img src="images/icons/linux.svg" alt=""> Linux</span>
+                            <span class="chip"><img src="images/icons/jira.svg" alt=""> Jira</span>
+                            <span class="chip"><img src="images/icons/agile.svg" alt=""> Agile/Scrum</span>
+                        </div>
+                    </div>
                 </article>
 
                 <article class="titem fade-in has-bg havelsan-ml">
@@ -1792,13 +1837,25 @@
                         </div>
                         <span class="titem-location">Ankara, Turkey</span>
                     </div>
-                    <div class="titem-meta">Part-time · AFIS fingerprint recognition system</div>
+                    <div class="titem-meta">Full-time · AFIS fingerprint recognition system</div>
                     <ul>
-                        <li>Developed a computer vision model for fingerprint segmentation to isolate biometric features using <strong>PyTorch</strong>.</li>
-                        <li>Optimized model performance through data augmentation techniques and hyperparameter tuning.</li>
-                        <li>Researched and benchmarked state-of-the-art architectures for biometric data.</li>
-                        <li>Delivered a production-ready solution achieving <strong>92% accuracy</strong> within an automated identification workflow.</li>
+                        <li>Architected a computer vision model for fingerprint segmentation using <strong>PyTorch</strong> to support biometric identification.</li>
+                        <li>Optimized model performance through data augmentation techniques and systematic hyperparameter tuning.</li>
+                        <li>Built image preprocessing pipelines using <strong>OpenCV</strong> to enhance data quality for model training and evaluation.</li>
+                        <li>Delivered a production-ready fingerprint identification solution achieving <strong>92% accuracy</strong> with an automated workflow.</li>
                     </ul>
+                    <div class="portfolio-stack-box">
+                        <h4>Tech Stack</h4>
+                        <div class="portfolio-stack">
+                            <span class="chip"><img src="images/icons/python.svg" alt=""> Python</span>
+                            <span class="chip"><img src="images/icons/pytorch.svg" alt=""> PyTorch</span>
+                            <span class="chip"><img src="images/icons/opencv.svg" alt=""> OpenCV</span>
+                            <span class="chip"><img src="images/icons/anaconda.svg" alt=""> Anaconda</span>
+                            <span class="chip"><img src="images/icons/jupyter.svg" alt=""> Jupyter Notebook</span>
+                            <span class="chip"><img src="images/icons/jira.svg" alt=""> Jira</span>
+                            <span class="chip"><img src="images/icons/agile.svg" alt=""> Agile/Scrum</span>
+                        </div>
+                    </div>
                 </article>
 
                 <article class="titem fade-in has-bg ulak">
@@ -1808,15 +1865,29 @@
                         <div class="titem-org">
                             <a href="https://www.ulakhaberlesme.com.tr/en/cozumler/5g-private-network-en/" target="_blank" rel="noopener">ULAK HABERLEŞME</a>
                         </div>
-                        <span class="titem-location">Ankara, Turkey</span>
+                        <span class="titem-location">Istanbul, Turkey</span>
                     </div>
-                    <div class="titem-meta">Part-time · National telecom infrastructure company</div>
+                    <div class="titem-meta">Internship · National telecom infrastructure company</div>
                     <ul>
-                        <li>Developed a real-time messaging application using <strong>Python</strong>, <strong>Django</strong> and <strong>WebSockets</strong>.</li>
-                        <li>Used <strong>MySQL</strong> for relational data management and optimized query performance.</li>
-                        <li>Managed deployment on <strong>AWS</strong> and implemented automated CI/CD pipelines.</li>
-                        <li>Achieved a <strong>35% improvement</strong> in server response times during peak traffic.</li>
+                        <li>Developed backend services for a messaging platform using <strong>FastAPI</strong> and <strong>WebSockets</strong>, enabling low-latency messaging.</li>
+                        <li>Optimized <strong>MySQL</strong> database performance through indexing and schema design to improve application responsiveness.</li>
+                        <li>Managed <strong>AWS</strong> deployments and implemented CI/CD pipelines to streamline software delivery and release processes.</li>
                     </ul>
+                    <div class="portfolio-stack-box">
+                        <h4>Tech Stack</h4>
+                        <div class="portfolio-stack">
+                            <span class="chip"><img src="images/icons/java.svg" alt=""> Java</span>
+                            <span class="chip"><img src="images/icons/mysql.svg" alt=""> MySQL</span>
+                            <span class="chip"><img src="images/icons/aws.svg" alt=""> AWS</span>
+                            <span class="chip"><img src="images/icons/docker.svg" alt=""> Docker</span>
+                            <span class="chip"><img src="images/icons/jenkins.svg" alt=""> Jenkins</span>
+                            <span class="chip"><img src="images/icons/git.svg" alt=""> Git</span>
+                            <span class="chip"><img src="images/icons/linux.svg" alt=""> Linux</span>
+                            <span class="chip"><img src="images/icons/jira.svg" alt=""> Jira</span>
+                            <span class="chip"><img src="images/icons/agile.svg" alt=""> Agile/Scrum</span>
+                            <span class="chip"><img src="images/icons/cicd.svg" alt=""> CI/CD</span>
+                        </div>
+                    </div>
                 </article>
             </div>
         </div>
@@ -2147,6 +2218,7 @@
                         <span class="skill-item"><img src="images/icons/pandas.svg" alt="" loading="lazy">Pandas</span>
                         <span class="skill-item"><img src="images/icons/numpy.svg" alt="" loading="lazy">NumPy</span>
                         <span class="skill-item"><img src="images/icons/jupyter.svg" alt="" loading="lazy">Jupyter</span>
+                        <span class="skill-item"><img src="images/icons/anaconda.svg" alt="" loading="lazy">Anaconda</span>
                     </div>
                 </div>
 
