@@ -1,16 +1,13 @@
-import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
+import { readFileSync, existsSync, statSync } from "node:fs";
 import { resolve, dirname, join } from "node:path";
 import { Script } from "node:vm";
 import { execFileSync } from "node:child_process";
-import { collectSite } from "./site-files.mjs";
+import { collectSite, pages } from "./site-files.mjs";
+import { generate } from "./localize.mjs";
 
 const root = resolve(import.meta.dirname, "..");
-const files = [
-  "index.html",
-  ...readdirSync(join(root, "blog"))
-    .filter((x) => x.endsWith(".html"))
-    .map((x) => "blog/" + x),
-];
+generate(true);
+const files = pages;
 const errors = [];
 const site = collectSite();
 errors.push(...site.errors);
@@ -64,6 +61,7 @@ for (const file of [
   "js/portfolio.js",
   "js/motion.js",
   "js/articles.js",
+  "js/preferences.js",
 ]) {
   try {
     new Script(readFileSync(join(root, file), "utf8"), { filename: file });
@@ -117,9 +115,11 @@ try {
 }
 const size = (name) => statSync(join(root, name)).size;
 try {
-  execFileSync(process.execPath, [join(root, "scripts/test-motion.mjs")], { stdio: "inherit" });
+  execFileSync(process.execPath, ["--check", join(root, "js/diagrams.js")], { stdio: "inherit" });
+  for (const test of ["test-motion.mjs", "test-preferences.mjs"])
+    execFileSync(process.execPath, [join(root, "scripts", test)], { stdio: "inherit" });
 } catch {
-  errors.push("Motion preference regression checks failed.");
+  errors.push("JavaScript or preference regression checks failed.");
 }
 console.log(
   `Checked ${files.length} pages, ${references} local references, JavaScript syntax, headings, metadata, and image alternatives.`,

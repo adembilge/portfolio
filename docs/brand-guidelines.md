@@ -10,7 +10,7 @@ The profession line rotates through Software Engineer, Data Scientist, AI Engine
 
 ## Voice
 
-Use first-person, plain English. Prefer specific systems, problems, and outcomes to superlatives. Summaries should help a reader understand a project in one paragraph; technical disclosures carry the original implementation detail. Preserve dates, institutions, role titles, citations, and professional links.
+Use first-person, plain English or natural Italian. Prefer specific systems, problems, and outcomes to superlatives. Summaries should help a reader understand a project in one paragraph; technical disclosures carry the original implementation detail. Preserve dates, institutions, role meanings, citations, and professional links. The Italian version includes all articles and interactive messages; brand names, technical identifiers, and the formal publication citation retain their original spelling.
 
 ## Visual system
 
@@ -26,6 +26,8 @@ Use first-person, plain English. Prefer specific systems, problems, and outcomes
 | Typeface | Schibsted Grotesk, self-hosted variable WOFF2 |
 
 The CSS is the implementation source of truth. Primitive colors map to semantic page roles and component roles. Display, heading, lead, body, and small-text tokens establish the primary hierarchy; mobile control sizes and proof figures have explicit adaptations.
+
+`css/preferences.css` extends this palette into two complete modes. Dark uses charcoal grounds, ivory text, and pale sage actions. Light uses ivory grounds, charcoal text, and deep green (`#375526`) actions with ivory text. Chapter surfaces keep subtle tonal differences in both modes. The shared header exposes the EN/IT link. A sun/moon icon button switches the theme inside the menu only. Article pages have a compact sticky toolbar with a language link and a menu containing the same icon toggle. Theme choice is local to the browser, and the language URL remains explicit. Static Italian pages work without scripting.
 
 Use square media and button corners, flat fields of color, generous section spacing, and equal outer gutters. The name is large, while body copy retains a comfortable measure. Put the source image first when it helps explain the work. Never fabricate an application screenshot.
 

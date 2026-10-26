@@ -1,6 +1,8 @@
 /* Progressive enhancements. Native HTML keeps the page readable without JS. */
 (() => {
   "use strict";
+  const italian = document.documentElement.lang === "it";
+  const t = (en, it) => italian ? it : en;
   const motion =
     window.portfolioMotion || matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -240,7 +242,7 @@
       } catch {
         if (current === request)
           status.textContent =
-            "This preview could not load. Please try another view.";
+            t("This preview could not load. Please try another view.", "Impossibile caricare l’anteprima. Prova un’altra vista.");
         return;
       }
       if (current !== request) return;
@@ -249,7 +251,9 @@
       buttons.forEach((item) =>
         item.setAttribute("aria-pressed", String(item === button)),
       );
-      status.textContent = `Showing ${button.textContent.trim()} screenshot.`;
+      status.textContent = italian
+        ? `Schermata visualizzata: ${button.textContent.trim()}.`
+        : `Showing ${button.textContent.trim()} screenshot.`;
       if (!motion.matches)
         image.animate(
           [
@@ -292,12 +296,13 @@
       image.hidden = !playing;
       if (playing) image.src = image.dataset.demo;
       else image.removeAttribute("src");
-      button.textContent = playing ? "Stop demo" : "Play original demo";
+      button.textContent = playing
+        ? t("Stop demo", "Ferma la demo") : t("Play original demo", "Riproduci la demo originale");
       button.setAttribute("aria-pressed", String(playing));
     });
     image.addEventListener("error", () => {
       image.hidden = true;
-      button.textContent = "Demo could not load. Try again";
+      button.textContent = t("Demo could not load. Try again", "Impossibile caricare la demo. Riprova");
       button.setAttribute("aria-pressed", "false");
     });
     motion.addEventListener("change", (event) => {
@@ -314,16 +319,16 @@
         const status = document.querySelector(".copy-status");
         try {
           await navigator.clipboard.writeText("firatadem.bilge@gmail.com");
-          copy.textContent = "Email address copied";
-          status.textContent = "Email address copied to clipboard.";
+          copy.textContent = t("Email address copied", "Indirizzo email copiato");
+          status.textContent = t("Email address copied to clipboard.", "Indirizzo email copiato negli appunti.");
         } catch {
-          copy.textContent = "Select the email address above to copy";
+          copy.textContent = t("Select the email address above to copy", "Seleziona l’indirizzo email qui sopra per copiarlo");
           status.textContent =
-            "Clipboard access is unavailable. Select and copy the email address above.";
+            t("Clipboard access is unavailable. Select and copy the email address above.", "Accesso agli appunti non disponibile. Seleziona e copia l’indirizzo email qui sopra.");
         }
         clearTimeout(timer);
         timer = setTimeout(() => {
-          copy.textContent = "Copy email address";
+          copy.textContent = t("Copy email address", "Copia indirizzo email");
         }, 4000);
       });
     }
@@ -333,10 +338,10 @@
       event.preventDefault();
       if (!form.reportValidity()) return;
       const data = new FormData(form);
-      const subject = `Portfolio enquiry from ${String(data.get("name")).trim()}`;
-      const body = `Name: ${data.get("name")}\nEmail: ${data.get("email")}\n\n${data.get("message")}`;
+      const subject = `${t("Portfolio enquiry from", "Richiesta dal portfolio di")} ${String(data.get("name")).trim()}`;
+      const body = `${t("Name", "Nome")}: ${data.get("name")}\nEmail: ${data.get("email")}\n\n${data.get("message")}`;
       document.querySelector("#form-status").textContent =
-        "Your email app will open with this message. Review it there and send when ready. If it does not open, use the email address alongside.";
+        t("Your email app will open with this message. Review it there and send when ready. If it does not open, use the email address alongside.", "L’app di posta si aprirà con questo messaggio. Controllalo e invialo quando vuoi. Se non si apre, usa l’indirizzo email indicato accanto.");
       location.href = `mailto:firatadem.bilge@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
   }

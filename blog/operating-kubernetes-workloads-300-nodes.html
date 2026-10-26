@@ -23,12 +23,32 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="../css/portfolio.css?v=motion-7" />
-    <link rel="stylesheet" href="../css/articles.css?v=motion-7" />
-    <script src="../js/motion-preference.js?v=motion-7" defer></script>
-    <script src="../js/articles.js?v=motion-7" defer></script>
+    <script src="../js/preferences.js?v=theme-9"></script>
+    <link rel="stylesheet" href="../css/portfolio.css?v=theme-9" />
+    <link rel="stylesheet" href="../css/articles.css?v=theme-9" />
+    <link rel="stylesheet" href="../css/preferences.css?v=theme-9" />
+    <script src="../js/motion-preference.js?v=theme-9" defer></script>
+    <script src="../js/articles.js?v=theme-9" defer></script>
+    <link rel="alternate" hreflang="en" href="https://adembilge.dev/blog/operating-kubernetes-workloads-300-nodes.html" />
+    <link rel="alternate" hreflang="it" href="https://adembilge.dev/it/blog/operating-kubernetes-workloads-300-nodes.html" />
+    <link rel="alternate" hreflang="x-default" href="https://adembilge.dev/blog/operating-kubernetes-workloads-300-nodes.html" />
   </head>
   <body class="article-page">
+    <header class="article-toolbar"><a class="brand" href="../index.html" aria-label="Adem, home">Adem</a><div class="site-preferences" role="group" aria-label="Language">
+  <a class="language-switch" href="../it/blog/operating-kubernetes-workloads-300-nodes.html" lang="it" hreflang="it" aria-label="Leggi in italiano" title="Italiano">IT</a>
+
+</div>
+  <details class="reading-menu">
+    <summary>Menu</summary>
+    <div class="reading-menu-panel">
+      <nav aria-label="Article navigation"><a href="../index.html">Portfolio</a><a href="articles.html">All articles</a></nav>
+      <div class="site-preferences" role="group" aria-label="Language and appearance"><button class="theme-toggle" type="button" aria-label="Dark theme" aria-pressed="true" hidden>
+  <svg class="theme-to-light" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+  <svg class="theme-to-dark" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.9 13.3A9 9 0 0 1 10.7 3.1 9 9 0 1 0 20.9 13.3Z"/></svg>
+</button></div>
+    </div>
+  </details>
+</header>
     <a class="skip-link" href="#article">Skip to article</a>
     <main class="container">
       <a class="back-link" href="./articles.html">← Back to articles</a>
@@ -298,9 +318,6 @@
       </article>
     </main>
 
-    <script type="module">
-      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
-      mermaid.initialize({ startOnLoad: true, theme: "dark" });
-    </script>
+    <script type="module" src="../js/diagrams.js?v=theme-9"></script>
   </body>
 </html>

@@ -31,11 +31,13 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="css/portfolio.css?v=motion-7" />
-    <link rel="stylesheet" href="css/motion.css?v=motion-7" />
-    <script src="js/motion-preference.js?v=motion-7" defer></script>
-    <script src="js/portfolio.js?v=motion-7" defer></script>
-    <script src="js/motion.js?v=motion-7" defer></script>
+    <script src="js/preferences.js?v=theme-9"></script>
+    <link rel="stylesheet" href="css/portfolio.css?v=theme-9" />
+    <link rel="stylesheet" href="css/motion.css?v=theme-9" />
+    <link rel="stylesheet" href="css/preferences.css?v=theme-9" />
+    <script src="js/motion-preference.js?v=theme-9" defer></script>
+    <script src="js/portfolio.js?v=theme-9" defer></script>
+    <script src="js/motion.js?v=theme-9" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -57,6 +59,9 @@
         ]
       }
     </script>
+    <link rel="alternate" hreflang="en" href="https://adembilge.dev/" />
+    <link rel="alternate" hreflang="it" href="https://adembilge.dev/it/index.html" />
+    <link rel="alternate" hreflang="x-default" href="https://adembilge.dev/" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -69,6 +74,10 @@
         ><a href="#experience">Experience</a><a href="#blog">Writing</a>
       </nav>
       <div class="header-actions">
+        <div class="site-preferences" role="group" aria-label="Language">
+  <a class="language-switch" href="it/index.html" lang="it" hreflang="it" aria-label="Leggi in italiano" title="Italiano">IT</a>
+
+</div>
         <a href="#contact" class="contact-link"
           >Let’s talk <span aria-hidden="true">↗</span></a
         ><button
@@ -105,6 +114,13 @@
         ><a href="#education">Education</a><a href="#publications">Research</a
         ><a href="#blog">Writing</a><a href="#contact">Contact</a>
       </nav>
+      <div class="site-preferences dialog-preferences" role="group" aria-label="Language and appearance">
+  <a class="language-switch" href="it/index.html" lang="it" hreflang="it" aria-label="Leggi in italiano" title="Italiano">IT</a>
+  <button class="theme-toggle" type="button" aria-label="Dark theme" aria-pressed="true" hidden>
+  <svg class="theme-to-light" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+  <svg class="theme-to-dark" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.9 13.3A9 9 0 0 1 10.7 3.1 9 9 0 1 0 20.9 13.3Z"/></svg>
+</button>
+</div>
       <div class="dialog-links">
         <a
           class="text-link"

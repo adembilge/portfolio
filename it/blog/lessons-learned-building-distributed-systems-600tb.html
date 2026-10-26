@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Lezioni apprese sviluppando sistemi distribuiti per carichi analitici di oltre 600 TB | Firat Adem Bilge
+    </title>
+    <link
+      rel="canonical"
+      href="https://adembilge.dev/it/blog/lessons-learned-building-distributed-systems-600tb.html"
+    />
+    <link rel="icon" href="../../images/favicon.png" type="image/png" />
+    <meta
+      name="description"
+      content="Lezioni dallo sviluppo e dalla gestione di sistemi di analisi distribuita su oltre 600 TB: architettura, guasti, compromessi e scelte di affidabilità."
+    />
+    <link
+      rel="preload"
+      href="../../fonts/schibsted-grotesk-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <script src="../../js/preferences.js?v=theme-9"></script>
+    <link rel="stylesheet" href="../../css/portfolio.css?v=theme-9" />
+    <link rel="stylesheet" href="../../css/articles.css?v=theme-9" />
+    <link rel="stylesheet" href="../../css/preferences.css?v=theme-9" />
+    <script src="../../js/motion-preference.js?v=theme-9" defer></script>
+    <script src="../../js/articles.js?v=theme-9" defer></script>
+    <link rel="alternate" hreflang="en" href="https://adembilge.dev/blog/lessons-learned-building-distributed-systems-600tb.html" />
+    <link rel="alternate" hreflang="it" href="https://adembilge.dev/it/blog/lessons-learned-building-distributed-systems-600tb.html" />
+    <link rel="alternate" hreflang="x-default" href="https://adembilge.dev/blog/lessons-learned-building-distributed-systems-600tb.html" />
+  </head>
+  <body class="article-page">
+    <header class="article-toolbar"><a class="brand" href="../index.html" aria-label="Adem, pagina iniziale">Adem</a><div class="site-preferences" role="group" aria-label="Lingua">
+  <a class="language-switch" href="../../blog/lessons-learned-building-distributed-systems-600tb.html" lang="en" hreflang="en" aria-label="Read in English" title="English">EN</a>
+
+</div>
+  <details class="reading-menu">
+    <summary>Menu</summary>
+    <div class="reading-menu-panel">
+      <nav aria-label="Navigazione degli articoli"><a href="../index.html">Portfolio</a><a href="articles.html">Tutti gli articoli</a></nav>
+      <div class="site-preferences" role="group" aria-label="Lingua e aspetto"><button class="theme-toggle" type="button" aria-label="Tema scuro" aria-pressed="true" hidden>
+  <svg class="theme-to-light" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+  <svg class="theme-to-dark" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.9 13.3A9 9 0 0 1 10.7 3.1 9 9 0 1 0 20.9 13.3Z"/></svg>
+</button></div>
+    </div>
+  </details>
+</header>
+    <a class="skip-link" href="#article">Vai all’articolo</a>
+    <main class="container">
+      <a class="back-link" href="articles.html">← Torna agli articoli</a>
+
+      <section class="hero">
+        <div class="eyebrow">Sistemi distribuiti · Infrastruttura dati</div>
+        <h1>
+          Lezioni apprese sviluppando sistemi distribuiti per carichi analitici di oltre 600 TB
+        </h1>
+        <div class="meta">
+          Lug 2026 · 24 min di lettura · sistemi distribuiti, dask, kubernetes, analisi
+        </div>
+        <p class="lead">
+          Ricordo ancora la settimana in cui una pipeline di report passò da «lenta» a «inutilizzabile». Non ci fu un’interruzione clamorosa, ma qualcosa di peggio: risultati troppo tardivi per essere affidabili. Quella settimana smettemmo di ragionare sull’ottimizzazione dei singoli job e iniziammo a trattare l’intera piattaforma analitica come un problema di sistemi distribuiti, con conseguenze operative concrete.
+        </p>
+      </section>
+
+      <article id="article">
+        <h2>1) Quando la scala smise di essere teorica</h2>
+        <p>
+          Sulla carta l’architettura funzionava: servizi Python, calcolo distribuito, orchestrazione Kubernetes, comunicazione Kafka e un insieme consolidato di sistemi di archiviazione. Nella pratica, quando i carichi superarono ampiamente la soglia dei
+          <strong>600 TB di analisi</strong>, iniziarono a emergere tutte le dipendenze nascoste.
+        </p>
+        <p>
+          Lo schema si ripeteva: i job risultavano completati, ma gli utenti non potevano agire perché i dati non erano arrivati in tempo. Questa discrepanza ha cambiato il mio modo di valutare lo stato dei sistemi. Se i dati arrivano tardi, il «successo» non significa nulla.
+        </p>
+
+        <div class="figure">
+          <p class="figure-title">
+            Figura 1 — Il tempo di esecuzione sembrava crescere linearmente, poi cambiò
+          </p>
+          <svg
+            width="100%"
+            height="220"
+            viewBox="0 0 760 220"
+            role="img"
+            aria-label="Grafico della crescita dei tempi di esecuzione"
+          >
+            <rect x="0" y="0" width="760" height="220" fill="transparent" />
+            <line x1="70" y1="180" x2="720" y2="180" stroke="#6b7ca6" />
+            <line x1="70" y1="30" x2="70" y2="180" stroke="#6b7ca6" />
+            <polyline
+              fill="none"
+              stroke="#4fc3f7"
+              stroke-width="3"
+              points="90,165 170,155 250,142 330,125 410,100 490,72 570,45 650,36"
+            />
+            <text x="75" y="198" fill="#aab8d8" font-size="12">100 TB</text>
+            <text x="240" y="198" fill="#aab8d8" font-size="12">300 TB</text>
+            <text x="410" y="198" fill="#aab8d8" font-size="12">500 TB</text>
+            <text x="580" y="198" fill="#aab8d8" font-size="12">700 TB</text>
+            <text x="12" y="34" fill="#aab8d8" font-size="12">Tempo di esecuzione</text>
+            <text x="312" y="212" fill="#aab8d8" font-size="12">
+              Dimensione del dataset
+            </text>
+          </svg>
+          <p class="caption">
+            Oltre circa 450 TB, i tempi di completamento aumentarono più del previsto perché i costi di coordinamento e lo sbilanciamento dei dati si amplificavano a vicenda.
+          </p>
+        </div>
+
+        <h2>2) Il vero problema da risolvere</h2>
+        <p>
+          La difficoltà non era solo il calcolo. Dovevamo bilanciare tre vincoli contemporaneamente:
+        </p>
+        <ul>
+          <li>
+            <strong>Tempestività:</strong> i risultati dovevano arrivare entro finestre temporali rigorose.
+          </li>
+          <li>
+            <strong>Correttezza:</strong> nessun risultato parziale o obsoleto nei report più importanti.
+          </li>
+          <li>
+            <strong>Ripristinabilità:</strong> i guasti dovevano essere diagnosticabili e risolvibili senza ore di tentativi.
+          </li>
+        </ul>
+        <p>
+          Avevamo carichi pianificati pesanti e analisi ad hoc imprevedibili. Non potevamo quindi ottimizzare per un unico profilo di carico statico.
+        </p>
+
+        <h2>3) Architettura iniziale: punti di forza e lacune</h2>
+        <p>
+          Avevamo già componenti solidi:
+          <strong>Dask per il calcolo distribuito</strong>,
+          <strong>Kubernetes per l’orchestrazione</strong>,
+          <strong>Kafka per la comunicazione asincrona</strong>, e un insieme concreto di sistemi di persistenza: PostgreSQL, Redis ed Elasticsearch.
+        </p>
+        <p>
+          Non mancava un’altra tecnologia. Mancavano regole rigorose per l’esecuzione: strategia di partizionamento, limiti di memoria e semantiche esplicite di tentativo e gestione degli errori per ogni fase.
+        </p>
+
+        <div class="figure">
+          <p class="figure-title">Figura 2 — Architettura iniziale della piattaforma</p>
+          <div class="mermaid">
+            flowchart LR sources[Fonti dati] --> kafka[Topic Kafka] kafka --> ingest[Servizi di acquisizione Python] ingest --> daskScheduler[Scheduler Dask] daskScheduler --> daskWorkers[Worker Dask] daskWorkers --> grpc[Microservizi gRPC] grpc --> postgres[PostgreSQL] grpc --> redis[Redis] grpc --> elastic[Elasticsearch] daskWorkers --> dashboards[Dashboard analitiche]
+          </div>
+          <p class="caption">
+            I componenti erano moderni, ma il comportamento in esecuzione e gli accordi operativi erano definiti in modo insufficiente per questa scala.
+          </p>
+        </div>
+
+        <h2>4) Perché i normali approcci alla scalabilità fallirono</h2>
+        <p>
+          All’inizio provammo le soluzioni abituali: nodi più grandi, più repliche e parallelismo aggressivo. Aiutarono per poco, poi generarono problemi indiretti.
+        </p>
+        <ul>
+          <li>I nodi più grandi aumentavano l’impatto dei guasti sotto pressione di memoria.</li>
+          <li>
+            Più repliche senza un posizionamento adatto al carico aumentavano il trasferimento dei dati tra nodi.
+          </li>
+          <li>
+            Più task paralleli sovraccaricavano lo scheduling e la serializzazione.
+          </li>
+        </ul>
+        <div class="callout">
+          La sorpresa fu che, a questa scala,
+          <strong>il costo del coordinamento</strong> può pesare quanto i limiti della capacità di calcolo.
+        </div>
+
+        <h2>5) Un approccio al calcolo distribuito più efficace</h2>
+        <p>
+          Il cambiamento principale fu considerare la progettazione dei grafi di task Dask una scelta architetturale. Passammo dall’inviare job enormi a definire accordi per ogni fase, con confini chiari:
+        </p>
+        <ul>
+          <li>dimensione attesa degli input,</li>
+          <li>obiettivi sul numero di partizioni,</li>
+          <li>budget di memoria per fase,</li>
+          <li>politiche di nuovo tentativo per ciascuna classe di errore.</li>
+        </ul>
+        <p>
+          Da quel momento il comportamento dei job divenne molto più prevedibile. Non eliminammo i guasti, ma li rendemmo più semplici da contenere e comprendere.
+        </p>
+
+        <div class="figure">
+          <p class="figure-title">Figura 3 — Flusso di elaborazione distribuita</p>
+          <div class="mermaid">
+            flowchart TD ingest[Acquisizione partizioni] --> mapStage[Trasformazione map] mapStage --> shuffleStage[Shuffle e ripartizionamento] shuffleStage --> reduceStage[Aggregazione reduce] reduceStage --> validate[Verifica tempestività e qualità] validate --> publish[Pubblicazione risultati] validate --> retryPath[Nuovo tentativo per classe di errore] retryPath --> mapStage
+          </div>
+          <p class="caption">
+            Definire gli accordi per fase e i percorsi di nuovo tentativo ridusse l’imprevedibilità durante l’esecuzione.
+          </p>
+        </div>
+
+        <h2>6) Lezioni su Kubernetes imparate sul campo</h2>
+        <p>
+          Con <strong>oltre 300 nodi</strong>, la qualità delle politiche Kubernetes diventa una funzionalità essenziale del sistema. Tre lezioni pratiche:
+        </p>
+        <ul>
+          <li>
+            <strong>Requests e limits sono scelte architetturali</strong>, non dettagli di configurazione secondari.
+          </li>
+          <li>
+            <strong>L’isolamento dei carichi conta</strong> : pool di nodi, taint e toleration impediscono ai job pesanti e ai servizi sensibili alla latenza di danneggiarsi a vicenda.
+          </li>
+          <li>
+            <strong>I rilasci devono tenere conto delle prestazioni</strong>; il solo stato positivo del deployment non basta.
+          </li>
+        </ul>
+        <p>
+          Iniziammo a subordinare i rilasci al comportamento dei servizi e allo stato delle code, oltre che alla disponibilità dei pod.
+        </p>
+
+        <h2>7) Le sfide dei dati che dominavano i tempi di esecuzione</h2>
+        <p>
+          Il movimento dei dati era spesso un costo nascosto. Ottenemmo miglioramenti concreti riducendo i trasferimenti inutili e scegliendo con più attenzione archiviazione e partizioni.
+        </p>
+        <ul>
+          <li>
+            Avvicinare il calcolo alle partizioni usate più spesso ridusse il traffico di rete.
+          </li>
+          <li>
+            Monitorare il rapporto di spill rivelò la pressione sulla memoria prima delle metriche CPU.
+          </li>
+          <li>
+            Le scelte di serializzazione ebbero un impatto misurabile sull’intero percorso.
+          </li>
+        </ul>
+
+        <div class="figure">
+          <p class="figure-title">
+            Figura 4 — Trasferimento dei dati e pressione dello spill
+          </p>
+          <div class="mini-grid">
+            <div class="metric">
+              <div class="k">Trasferimento tra nodi al picco</div>
+              <div class="v">+42% prima dell’ottimizzazione</div>
+            </div>
+            <div class="metric">
+              <div class="k">Rapporto di spill nei job critici</div>
+              <div class="v">0.33 → 0.14</div>
+            </div>
+            <div class="metric">
+              <div class="k">Tempo di completamento p95</div>
+              <div class="v">3 h 40 min → 2 h 05 min</div>
+            </div>
+            <div class="metric">
+              <div class="k">Violazioni delle finestre di aggiornamento</div>
+              <div class="v">riduzione di circa il 38%</div>
+            </div>
+          </div>
+          <p class="caption">
+            Per noi furono miglioramenti operativamente significativi, ottenuti ottimizzando partizionamento ed esecuzione.
+          </p>
+        </div>
+
+        <h2>8) Osservabilità: ciò che ha cambiato il nostro lavoro</h2>
+        <p>
+          L’osservabilità divenne più preziosa di ogni singola ottimizzazione del codice perché migliorava la rapidità decisionale. Passammo da dashboard rumorose a una telemetria orientata alle decisioni:
+        </p>
+        <ul>
+          <li>ritardo delle code collegato agli SLA di aggiornamento,</li>
+          <li>latenza dello scheduler collegata ai rallentamenti dell’esecuzione,</li>
+          <li>tassi di spill e nuovi tentativi collegati al rischio di affidabilità.</li>
+        </ul>
+        <p>
+          La dashboard più utile rispondeva a questa domanda:
+          <strong>Possiamo fidarci di questo risultato adesso?</strong>
+        </p>
+
+        <h2>9) Lezioni sull’affidabilità</h2>
+        <p>
+          A questa scala, affidabilità significava contenere l’impatto dei guasti. Rafforzammo idempotenza, classificazione dei nuovi tentativi e criteri di rollback.
+        </p>
+
+        <div class="figure">
+          <p class="figure-title">Figura 5 — Ciclo di controllo dell’affidabilità</p>
+          <div class="mermaid">
+            flowchart LR detect[Rilevazione problema] --> classify[Classificazione errore] classify --> retry[Tentativi limitati] classify --> isolate[Isolamento del guasto] retry --> verify[Verifica correttezza e tempestività] isolate --> verify verify --> restore[Ripristino della fiducia nel servizio] restore --> improve[Aggiornamento procedure operative]
+          </div>
+          <p class="caption">
+            Rendemmo gli incidenti meno dolorosi attraverso una gestione degli errori esplicita e ripetibile.
+          </p>
+        </div>
+
+        <h2>10) Errori che oggi eviterei</h2>
+        <ul>
+          <li>Aspettare troppo prima di definire gli accordi sui carichi di lavoro.</li>
+          <li>
+            Considerare l’osservabilità un’aggiunta tardiva anziché un requisito architetturale.
+          </li>
+          <li>Usare impostazioni globali per i nuovi tentativi senza distinguere le classi di errore.</li>
+          <li>
+            Presumere che i job completati producano automaticamente risultati affidabili.
+          </li>
+        </ul>
+
+        <h2>11) Consigli per chi sviluppa sistemi simili</h2>
+        <p>
+          Se stai affrontando questa scala, investi presto in questi aspetti fondamentali:
+        </p>
+        <ul>
+          <li>
+            Progetta per <strong>operazioni prevedibili</strong>, oltre che per la sola capacità di elaborazione.
+          </li>
+          <li>
+            Misura tempestività e affidabilità dei risultati come obiettivi principali del sistema.
+          </li>
+          <li>
+            Allinea consapevolmente le politiche della piattaforma e quelle di esecuzione distribuita.
+          </li>
+          <li>
+            Mantieni procedure operative e confini di responsabilità come veri artefatti ingegneristici.
+          </li>
+        </ul>
+
+        <h2>12) Conclusioni</h2>
+        <p>
+          Sviluppare analisi distribuite per carichi di oltre 600 TB mi ha insegnato che la scala richiede soprattutto disciplina operativa e architetturale. Gli strumenti contano, ma accordi rigorosi, visibilità e gestione dei guasti contano ancora di più.
+        </p>
+        <p>
+          Se dovessi riassumere il percorso in una frase:
+          <strong
+            >il sistema che puoi osservare e ripristinare è il sistema che puoi far crescere.</strong
+          >
+        </p>
+        <p>
+          Se il tuo carico raddoppiasse nel prossimo trimestre, quale ipotesi del tuo modello di esecuzione verrebbe meno per prima?
+        </p>
+      </article>
+    </main>
+
+    <script type="module" src="../../js/diagrams.js?v=theme-9"></script>
+  </body>
+</html>

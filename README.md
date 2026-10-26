@@ -28,11 +28,19 @@ Both previews use `http://127.0.0.1:4173`; run one at a time. `dev` serves the s
 - `js/motion.js`: letter opening, scroll depth, animated figures, and accessible university slideshow.
 - `js/motion-preference.js`: device preferences, remembered motion overrides, and the full-motion local preview default.
 - `js/articles.js`: article title entrances and one-time section/figure reveals.
+- `js/preferences.js` and `css/preferences.css`: shared light/dark theme and language controls. The theme is restored before styles load, persists locally, and synchronizes across open tabs. Storage-blocked browsers can still switch for the current visit.
+- `js/diagrams.js`: article diagrams redraw to match the selected theme.
 - `blog/`: the original article routes and article bodies.
+- `it/`: complete static Italian versions of the portfolio and all articles, with relative links and language-specific metadata.
+- `locales/it.json`: Italian text, accessible image descriptions, and metadata. Brand/technology names and the formal research citation stay in their original form.
 - `images/`: only media used by the current site; `editorial/` contains optimized WebP assets.
 - `fonts/`: self-hosted Schibsted Grotesk and its OFL license.
 
 See [brand guidelines](docs/brand-guidelines.md) and [image source/license records](docs/image-sources.md). Old styles/scripts, unused images/icons, IDE files, and one-off audit reports have been removed. Source changes belong in the repository; generated `dist/` stays ignored.
+
+After editing English HTML or the Italian dictionary, run `npm run localize` to regenerate the five checked-in Italian pages, then `npm run build` and `npm run test:pages`. Checks reject missing translations and stale Italian pages. Edit shared HTML structure in the English files, rather than editing `it/` directly. Interactive status messages are localized in `js/portfolio.js` and `js/motion.js`.
+
+The header contains a language link. A sun/moon icon button switches the theme inside the menu only; article pages have their own compact menu. Switching language retains the current section and explicit motion preference; article links stay in the selected language. Each language has static content and reciprocal `hreflang` links, so reading and language navigation work without JavaScript. The light/dark button requires JavaScript and defaults to the original dark palette. Both themes cover all sections, menus, forms, articles, and diagrams. No online translation service is used.
 
 The university slideshow advances every seven seconds while visible. Hover and keyboard focus do not stop its clock. Arrow/city controls and touch swipes select photographs manually and restart the seven-second interval. All campus photographs preload; the timer does not wait for image decoding or animation completion. Reduced motion uses immediate image swaps. Without JavaScript, all three photographs appear in sequence.
 

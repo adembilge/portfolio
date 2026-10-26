@@ -408,9 +408,11 @@
         button.setAttribute("aria-pressed", String(i === current)),
       );
       gallery.querySelector(".campus-count").textContent =
-        `${current + 1} of 3`;
+          document.documentElement.lang === "it" ? `${current + 1} di 3` : `${current + 1} of 3`;
       if (manual)
-        status.textContent = `Photograph ${current + 1} of 3: ${incoming.querySelector("figcaption").textContent}.`;
+        status.textContent = document.documentElement.lang === "it"
+          ? `Fotografia ${current + 1} di 3: ${incoming.querySelector("figcaption").textContent.trim()}.`
+          : `Photograph ${current + 1} of 3: ${incoming.querySelector("figcaption").textContent.trim()}.`;
       const transition = animate(
         incoming.querySelector(".campus-image"),
         [

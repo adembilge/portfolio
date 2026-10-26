@@ -8,6 +8,7 @@
     "dev": "node scripts/serve.mjs",
     "preview": "node scripts/serve.mjs --dist",
     "check": "node scripts/check.mjs",
+    "localize": "node scripts/localize.mjs",
     "build": "node scripts/build.mjs",
     "test:pages": "node scripts/test-pages.mjs"
   }

@@ -2,8 +2,9 @@ import { existsSync, lstatSync, readFileSync, readdirSync } from "node:fs";
 import { join, posix, resolve } from "node:path";
 
 export const root = resolve(import.meta.dirname, "..");
-export const pages = ["index.html", ...readdirSync(join(root, "blog"))
+const englishPages = ["index.html", ...readdirSync(join(root, "blog"))
   .filter((name) => name.endsWith(".html")).map((name) => `blog/${name}`)];
+export const pages = [...englishPages, ...englishPages.map((file) => `it/${file}`)];
 export const canonicalBase = "https://adembilge.dev/";
 
 function references(file, source) {
