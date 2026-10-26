@@ -6,7 +6,7 @@ Software engineer working across AI engineering, applied machine learning, backe
 
 The name leads the opening screen; the profession and a concrete explanation follow immediately. Project interfaces, production experience, and published research support the identity. Avoid freelance design positioning, invented testimonials, and unverified project results.
 
-The profession line rotates through Software Engineer, Data Scientist, AI Engineer, and Applied Researcher. These describe the portfolio's areas of work; the About section clearly grounds the profile in current Master's studies and past engineering experience. The first title remains readable without JavaScript. Reduced motion keeps the selected title still, and assistive technology receives one stable description containing all four titles.
+The profession line rotates through Software Engineer, Data Scientist, AI Engineer, and Applied Researcher. These describe the portfolio's areas of work; the About section clearly grounds the profile in current Master's studies and past engineering experience. The first title remains readable without JavaScript. Reduced motion keeps the selected title still, and assistive technology receives one stable description containing all four titles. A visitor can explicitly enable full motion using `?motion=full`; this choice is remembered without changing device settings or adding the removed animation buttons.
 
 ## Voice
 

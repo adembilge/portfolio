@@ -26,7 +26,8 @@ Both previews use `http://127.0.0.1:4173`; run one at a time. `dev` serves the s
 - `css/articles.css`: shared article reading layouts.
 - `js/portfolio.js`: sticky-header reading progress, navigation, animated disclosures, project screenshot controls, optional demo playback, and contact enhancements.
 - `js/motion.js`: letter opening, scroll depth, animated figures, and accessible university slideshow.
-- `js/motion-preference.js`: device motion preferences and the full-motion local preview default.
+- `js/motion-preference.js`: device preferences, remembered motion overrides, and the full-motion local preview default.
+- `js/articles.js`: article title entrances and one-time section/figure reveals.
 - `blog/`: the original article routes and article bodies.
 - `images/`: only media used by the current site; `editorial/` contains optimized WebP assets.
 - `fonts/`: self-hosted Schibsted Grotesk and its OFL license.
@@ -35,7 +36,9 @@ See [brand guidelines](docs/brand-guidelines.md) and [image source/license recor
 
 The university slideshow advances every seven seconds while visible. Hover and keyboard focus do not stop its clock. Arrow/city controls and touch swipes select photographs manually and restart the seven-second interval. All campus photographs preload; the timer does not wait for image decoding or animation completion. Reduced motion uses immediate image swaps. Without JavaScript, all three photographs appear in sequence.
 
-The hosted homepage follows the device's reduced-motion setting. Local `file://` previews start with full motion. Old saved play/pause overrides are no longer used. Replay, animation-pause, and slideshow-play buttons have been removed.
+Hosted pages follow the device's reduced-motion setting unless the visitor explicitly chooses a mode. Open `?motion=full` once to enable and remember full motion in that browser, `?motion=reduce` for reduced motion, or `?motion=system` to follow the device again. This preference applies across the homepage and articles without changing browser/OS settings. Both `file://` and localhost previews start with full motion by default. Storage-blocked browsers still apply a URL choice for the current visit. Old play/pause preference keys remain unused; the removed Replay, Pause animations, and Play slideshow buttons remain absent.
+
+The build runs motion-preference regression checks covering hosted/local defaults, remembered choices, URL overrides, blocked storage, and device changes. Article pages load the shared preference plus their own entrance/reveal script, while keeping the text and original diagrams available without animation.
 
 The opening waits for the title to be visible and the font/render frames to be ready. It pauses if the tab becomes hidden. If the file reopens at a section anchor such as `#about`, scroll to the top to see the pending opening. Versioned motion asset URLs help refreshed previews load the current source.
 

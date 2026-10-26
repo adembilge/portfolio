@@ -63,6 +63,7 @@ for (const file of [
   "js/motion-preference.js",
   "js/portfolio.js",
   "js/motion.js",
+  "js/articles.js",
 ]) {
   try {
     new Script(readFileSync(join(root, file), "utf8"), { filename: file });
@@ -115,6 +116,11 @@ try {
   );
 }
 const size = (name) => statSync(join(root, name)).size;
+try {
+  execFileSync(process.execPath, [join(root, "scripts/test-motion.mjs")], { stdio: "inherit" });
+} catch {
+  errors.push("Motion preference regression checks failed.");
+}
 console.log(
   `Checked ${files.length} pages, ${references} local references, JavaScript syntax, headings, metadata, and image alternatives.`,
 );
