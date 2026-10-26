@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://adembilge.dev/</loc></url>
+  <url><loc>https://adembilge.dev/blog/articles.html</loc></url>
+  <url><loc>https://adembilge.dev/blog/lessons-learned-building-distributed-systems-600tb.html</loc></url>
+  <url><loc>https://adembilge.dev/blog/operating-kubernetes-workloads-300-nodes.html</loc></url>
+  <url><loc>https://adembilge.dev/blog/why-observability-becomes-more-important-than-code.html</loc></url>
+</urlset>

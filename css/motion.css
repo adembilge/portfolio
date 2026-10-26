@@ -1,0 +1,338 @@
+/* A more expressive motion layer over the established portfolio layout. */
+:root {
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-travel: cubic-bezier(0.76, 0, 0.24, 1);
+}
+.hero-name span,
+.hero-intro,
+.hero-portrait {
+  animation: none;
+}
+.hero-name .hero-word {
+  display: block;
+  overflow: clip;
+  padding-block: 0.07em;
+  margin-block: -0.07em;
+  white-space: nowrap;
+}
+.hero-name .hero-letter {
+  display: inline-block;
+  transform-origin: 0 100%;
+}
+.role-rotator {
+  display: grid;
+  overflow: clip;
+  padding: 0.14em 0.05em 0.14em 0;
+  margin-block: -0.14em;
+}
+.role-line {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  opacity: 0;
+}
+.role-line.is-current {
+  opacity: 1;
+}
+.hero-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 12px 24px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+.word-mask {
+  display: inline-block;
+  overflow: clip;
+  vertical-align: top;
+  padding-block: 0.12em;
+  margin-block: -0.12em;
+}
+.word-rise {
+  display: inline-block;
+}
+.motion-heading.is-revealing {
+  animation: none;
+}
+.depth-frame {
+  overflow: clip;
+}
+.hero-portrait picture img,
+.about-photo img,
+.cryptme-media > img {
+  transform-origin: 50% 50%;
+}
+.proof-number > .figure-value {
+  display: inline-block;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  margin: 0;
+}
+.proof-number > .sr-only {
+  margin: 0;
+}
+
+/* All photographs remain in document flow when scripting is unavailable. */
+.campus-slide + .campus-slide {
+  margin-top: 28px;
+}
+.campus-image {
+  overflow: clip;
+  background: var(--image-ground);
+  aspect-ratio: 5 / 4;
+}
+.campus-image img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  filter: none;
+}
+.campus-slide figcaption {
+  color: var(--ink);
+  font-weight: 500;
+  padding-top: 16px;
+}
+.gallery-ready .campus-stage {
+  display: grid;
+  isolation: isolate;
+}
+.gallery-ready .campus-slide {
+  grid-area: 1 / 1;
+  margin: 0;
+  min-width: 0;
+  padding-bottom: 12px;
+  /* Reserve the same caption space on every slide. */
+  min-height: calc((100cqw * 0.8) + 70px);
+  background: var(--soft);
+}
+.gallery-ready .campus-slide.is-current {
+  z-index: 2;
+}
+.gallery-ready .campus-stage {
+  container-type: inline-size;
+}
+.campus-controls {
+  margin-top: 10px;
+}
+.campus-transport {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.campus-transport button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  background: transparent;
+}
+.campus-prev,
+.campus-next {
+  font-size: 28px;
+  transition: transform 240ms var(--ease-expo);
+}
+.campus-prev:hover {
+  transform: translateX(-4px);
+}
+.campus-next:hover {
+  transform: translateX(4px);
+}
+.campus-count {
+  font-size: var(--small);
+  font-variant-numeric: tabular-nums;
+}
+.campus-picker {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.campus-picker button {
+  background: transparent;
+  min-height: 44px;
+  padding: 10px 0;
+  font-size: var(--small);
+  color: var(--muted);
+  text-underline-offset: 6px;
+}
+.campus-picker button[aria-pressed="true"] {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+@media screen {
+  :where(html:not([data-motion="reduce"]))
+    .motion-heading.is-revealing
+    .word-rise {
+    animation: word-rise 850ms var(--ease-expo) both;
+    animation-delay: calc(var(--word-index) * 80ms);
+  }
+  :where(html:not([data-motion="reduce"])) figure.reveal.is-revealing,
+  :where(html:not([data-motion="reduce"])) .project-media.reveal.is-revealing,
+  :where(html:not([data-motion="reduce"]))
+    .education-photo.reveal.is-revealing {
+    animation: photograph-open 1100ms var(--ease-expo) both;
+  }
+  :where(html:not([data-motion="reduce"])) .capability.is-revealing,
+  :where(html:not([data-motion="reduce"])) .education-row.is-revealing {
+    animation: chapter-enter 850ms var(--ease-expo) both;
+  }
+  :where(html:not([data-motion="reduce"])) .index-dialog[open] {
+    animation: panel-open 450ms var(--ease-travel) both;
+  }
+  :where(html:not([data-motion="reduce"])) .index-dialog[open]::backdrop {
+    animation: backdrop-in 350ms ease both;
+  }
+  :where(html:not([data-motion="reduce"])) .index-dialog[open] nav a {
+    animation: index-enter 550ms var(--ease-expo) backwards;
+    animation-delay: calc(90ms + var(--menu-index) * 40ms);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    :where(html:not([data-motion="reduce"])) .cognify-media img {
+      transition: transform 700ms var(--ease-expo);
+    }
+    :where(html:not([data-motion="reduce"])) .cognify-media:hover img {
+      transform: scale(1.018);
+    }
+    :where(html:not([data-motion="reduce"])) .article-row h3,
+    :where(html:not([data-motion="reduce"])) .project-row h3 {
+      transition: transform 350ms var(--ease-expo);
+    }
+    :where(html:not([data-motion="reduce"])) .article-row:hover h3,
+    :where(html:not([data-motion="reduce"])) .project-row:hover h3 {
+      transform: translateX(8px);
+    }
+  }
+  @supports (animation-timeline: view()) {
+    :where(html:not([data-motion="reduce"])) .site-footer {
+      overflow: clip;
+    }
+    :where(html:not([data-motion="reduce"])) .footer-name {
+      animation: footer-arrive linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+  }
+  @keyframes word-rise {
+    from {
+      transform: translateY(105%) rotate(2deg);
+    }
+    to {
+      transform: translateY(0) rotate(0);
+    }
+  }
+  @keyframes photograph-open {
+    from {
+      clip-path: inset(10% 4% 10% 4%);
+      transform: translateY(28px);
+    }
+    to {
+      clip-path: inset(0);
+      transform: translateY(0);
+    }
+  }
+  @keyframes chapter-enter {
+    from {
+      opacity: 0.3;
+      transform: translateY(32px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes panel-open {
+    from {
+      clip-path: inset(0 0 0 100%);
+    }
+    to {
+      clip-path: inset(0);
+    }
+  }
+  @keyframes index-enter {
+    from {
+      opacity: 0.2;
+      transform: translateX(35px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes backdrop-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes footer-arrive {
+    from {
+      transform: translateY(35%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+}
+@media (max-width: 850px) {
+  .campus-image {
+    aspect-ratio: 1;
+  }
+  .gallery-ready .campus-slide {
+    min-height: calc(100cqw + 90px);
+  }
+  .campus-transport {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .campus-picker {
+    gap: 14px;
+  }
+}
+@media (max-width: 640px) {
+  .hero-actions {
+    margin-top: 24px;
+  }
+  .hero-actions > .button {
+    padding: 14px 18px;
+    min-height: 54px;
+    gap: 20px;
+  }
+  .campus-image {
+    aspect-ratio: 4 / 3;
+  }
+  .gallery-ready .campus-slide {
+    min-height: calc((100cqw * 0.75) + 80px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) .depth-frame img {
+    transform: none !important;
+  }
+}
+html[data-motion="reduce"] {
+  scroll-behavior: auto;
+}
+html[data-motion="reduce"] *,
+html[data-motion="reduce"] *::before,
+html[data-motion="reduce"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+@media print {
+  .gallery-ready .campus-stage {
+    display: block;
+  }
+  .campus-slide[hidden] {
+    display: block !important;
+  }
+  .campus-controls {
+    display: none;
+  }
+}

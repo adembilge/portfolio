@@ -2,7 +2,6 @@
 .idea/
 *.iml
 .vscode/
-.github/
 
 # OS
 .DS_Store
@@ -17,4 +16,9 @@ Thumbs.db
 
 # Node modules
 node_modules/
+
+# Local design audit, generated build, and browser evidence
+.taste-skill/
+dist/
+artifacts/
 

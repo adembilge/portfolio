@@ -1,828 +1,1397 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adem Bilge | Software Engineer </title>
-    <meta name="description" content="Firat Adem Bilge is a software engineer specializing in backend systems, cloud infrastructure, and big data. Built production platforms processing 600+ TB with Dask on 300+ node Kubernetes clusters. First-author ML researcher (SIViP 2024).">
-    <meta property="og:title" content="Firat Adem Bilge — Software Engineer · Backend, Cloud &amp; Big Data">
-    <meta property="og:description" content="Software engineer with production-scale distributed systems experience: 600+ TB data processing, 300+ node Kubernetes clusters, Kafka, gRPC — plus a first-author ML publication.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://adembilge.github.io/portfolio/">
-    <meta property="og:image" content="https://adembilge.github.io/portfolio/images/optimized/intro_photo.jpg">
-    <link rel="icon" type="image/jpeg" href="images/optimized/intro_photo.jpg?v=4">
-    <link rel="shortcut icon" type="image/jpeg" href="images/optimized/intro_photo.jpg?v=4">
-    <link rel="apple-touch-icon" href="images/optimized/intro_photo.jpg?v=4">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-<a class="skip-link" href="#main">Skip to content</a>
-
-<!-- Navigation -->
-<header class="nav">
-    <div class="nav-inner">
-        <a href="#top" class="nav-logo">Adem<span>.</span></a>
-        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#191c19" />
+    <title>Firat Adem Bilge — Software Engineer</title>
+    <meta
+      name="description"
+      content="Software engineer working across distributed systems, cloud infrastructure, and machine learning. Production experience with 600+ TB of data and 300+ Kubernetes nodes."
+    />
+    <link rel="canonical" href="https://adembilge.dev/" />
+    <meta property="og:title" content="Firat Adem Bilge — Software Engineer" />
+    <meta
+      property="og:description"
+      content="Software for real-world scale. Backend engineering, distributed systems, cloud infrastructure, and computer vision."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://adembilge.dev/" />
+    <meta
+      property="og:image"
+      content="https://adembilge.dev/images/optimized/intro_photo.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="images/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="images/optimized/intro_photo.jpg" />
+    <link
+      rel="preload"
+      href="fonts/schibsted-grotesk-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="css/portfolio.css?v=roles-1" />
+    <link rel="stylesheet" href="css/motion.css?v=roles-1" />
+    <script src="js/motion-preference.js?v=roles-1" defer></script>
+    <script src="js/portfolio.js?v=roles-1" defer></script>
+    <script src="js/motion.js?v=roles-1" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Firat Adem Bilge",
+        "url": "https://adembilge.dev/",
+        "jobTitle": "Software Engineer",
+        "sameAs": [
+          "https://github.com/adembilge",
+          "https://www.linkedin.com/in/adembilge/",
+          "https://scholar.google.com/citations?user=qxDWiIQAAAAJ&hl=en"
+        ],
+        "knowsAbout": [
+          "Distributed Systems",
+          "Backend Engineering",
+          "Cloud Computing",
+          "Machine Learning",
+          "Computer Vision"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header" id="site-header">
+      <a class="brand" href="#top" aria-label="Adem, home"
+        >Adem</a
+      >
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#projects">Work</a><a href="#about">About</a
+        ><a href="#experience">Experience</a><a href="#blog">Writing</a>
+      </nav>
+      <div class="header-actions">
+        <a href="#contact" class="contact-link"
+          >Let’s talk <span aria-hidden="true">↗</span></a
+        ><button
+          type="button"
+          class="menu-toggle"
+          id="nav-toggle"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+          hidden
+        >
+          Menu
+          <span class="menu-symbol" aria-hidden="true"><i></i><i></i></span>
         </button>
-        <ul class="nav-menu" id="nav-menu">
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#experience" class="nav-link">Experience</a></li>
-            <li><a href="#projects" class="nav-link">Projects</a></li>
-            <li><a href="#education" class="nav-link">Education</a></li>
-            <li><a href="#publications" class="nav-link">Publication</a></li>
-            <li><a href="#skills" class="nav-link">Skills</a></li>
-            <li><a href="#blog" class="nav-link">Articles</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-    </div>
-    <span class="nav-progress" id="nav-progress" aria-hidden="true"></span>
-</header>
-
-<main id="main">
-    <!-- Hero -->
-    <section class="hero" id="top">
-        <div class="container">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <h1>Firat Adem <span class="highlight">Bilge</span></h1>
-                    <div class="hero-role mono typing" id="typing-text">Mid Level Software Engineer</div>
-                    <p class="hero-pitch">
-                        I build distributed systems that work at real scale: a production big-data platform processing
-                        <strong>600+ TB</strong> with Dask on a <strong>300+ node Kubernetes cluster</strong>, real-time
-                        streaming with Kafka, and ML models shipped to production environments at global scale across diverse industry domains. Author of a peer-reviewed
-                        computer vision paper (SIViP, 2024).
-                    </p>
-                    <div class="hero-actions">
-                        <a href="https://drive.google.com/file/d/1ys39d1oD9EsqbKiRuj7r-zCJSb8d4q0g/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary">Download CV</a>
-                        <a href="#projects" class="btn btn-ghost">View Projects</a>
-                    </div>
-                    <div class="hero-socials">
-                        <a href="https://www.linkedin.com/in/adembilge/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn profile">
-                            <img src="images/icons/linkedin.svg" alt="" width="22" height="22">
-                        </a>
-                        <a href="https://github.com/adembilge" target="_blank" rel="noopener" class="social-link" aria-label="GitHub profile">
-                            <img src="images/icons/github.svg" alt="" width="22" height="22">
-                        </a>
-                        <a href="https://scholar.google.com/citations?user=qxDWiIQAAAAJ&amp;hl=en" target="_blank" rel="noopener" class="social-link" aria-label="Google Scholar profile">
-                            <img src="images/icons/scholar.svg" alt="" width="22" height="22">
-                        </a>
-                    </div>
-                </div>
-                <div class="hero-photo hero-image">
-                    <img src="images/optimized/intro_photo.jpg" alt="Portrait of Firat Adem Bilge" width="1000" height="1000" fetchpriority="high">
-                </div>
+      </div>
+    </header>
+    <noscript
+      ><nav class="fallback-nav frame" aria-label="All sections">
+        <a href="#projects">Work</a><a href="#about">About</a
+        ><a href="#experience">Experience</a><a href="#skills">Expertise</a
+        ><a href="#education">Education</a><a href="#publications">Research</a
+        ><a href="#blog">Writing</a><a href="#contact">Contact</a>
+      </nav></noscript
+    >
+    <dialog class="index-dialog" id="nav-menu" aria-labelledby="menu-heading">
+      <div class="dialog-top">
+        <h2 id="menu-heading">Index</h2>
+        <button type="button" class="close-menu" aria-label="Close navigation">
+          Close <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <nav aria-label="All sections">
+        <a href="#projects">Selected work</a><a href="#about">About me</a
+        ><a href="#experience">Experience</a><a href="#skills">Expertise</a
+        ><a href="#education">Education</a><a href="#publications">Research</a
+        ><a href="#blog">Writing</a><a href="#contact">Contact</a>
+      </nav>
+      <div class="dialog-links">
+        <a
+          class="text-link"
+          href="https://drive.google.com/file/d/1ys39d1oD9EsqbKiRuj7r-zCJSb8d4q0g/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          >View CV</a
+        ><a
+          class="text-link"
+          href="https://github.com/adembilge"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub</a
+        ><a
+          class="text-link"
+          href="https://www.linkedin.com/in/adembilge/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >LinkedIn</a
+        >
+      </div>
+    </dialog>
+    <main id="main" tabindex="-1">
+      <section class="hero frame" id="top" aria-labelledby="hero-name">
+        <h1 id="hero-name" class="hero-name">
+          <span>Adem</span> <span>Bilge</span>
+        </h1>
+        <div class="hero-stage">
+          <div class="hero-intro">
+            <p class="hero-profession">
+              <span class="sr-only">Software Engineer, Data Scientist, AI Engineer, Applied Researcher</span>
+              <span class="role-rotator" aria-hidden="true">
+                <span class="role-line is-current">Software Engineer</span>
+                <span class="role-line">Data Scientist</span>
+                <span class="role-line">AI Engineer</span>
+                <span class="role-line">Applied Researcher</span>
+              </span>
+            </p>
+            <p class="hero-description">
+              I build intelligent applications by combining machine learning
+              and AI agents with experience in backend engineering and
+              distributed systems.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-accent" href="#projects"
+                >Explore my work <span aria-hidden="true">↘</span></a
+              >
             </div>
-
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-value" data-count="600" data-suffix=" TB+">600 TB+</div>
-                    <div class="stat-label">Data processed with Dask</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value" data-count="300" data-suffix="+">300+</div>
-                    <div class="stat-label">Kubernetes nodes in production</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value" data-count="92" data-suffix="%">92%</div>
-                    <div class="stat-label">CV model accuracy in production</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value" data-count="3" data-suffix="+ yrs">4+ yrs</div>
-                    <div class="stat-label">Engineering experience</div>
-                </div>
+            <div class="hero-socials">
+              <a
+                class="text-link"
+                href="https://drive.google.com/file/d/1ys39d1oD9EsqbKiRuj7r-zCJSb8d4q0g/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                >View CV</a
+              ><a
+                class="text-link"
+                href="https://github.com/adembilge"
+                target="_blank"
+                rel="noopener noreferrer"
+                >GitHub</a
+              ><a
+                class="text-link"
+                href="https://www.linkedin.com/in/adembilge/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >LinkedIn</a
+              >
             </div>
+            <p class="hero-location">
+              Based in Milan, Italy<br />Studying at Politecnico di Milano
+            </p>
+          </div>
+          <figure class="hero-portrait">
+            <picture
+              ><source
+                srcset="
+                  images/editorial/portrait-480.webp 480w,
+                  images/editorial/portrait-960.webp 960w
+                "
+                sizes="(max-width: 640px) 90vw, 50vw"
+                type="image/webp" />
+              <img
+                src="images/optimized/intro_photo.jpg"
+                alt="Firat Adem Bilge"
+                width="1000"
+                height="1000"
+                fetchpriority="high"
+            /></picture>
+            <figcaption>
+              Engineering with curiosity. Building with care.
+            </figcaption>
+          </figure>
         </div>
-    </section>
-
-    <!-- About -->
-    <section id="about" class="section section-alt">
-        <div class="container">
-            <div class="section-header fade-in">
-                <div class="section-eyebrow">01 — About</div>
-                <h2 class="section-title">A Bit About <span class="accent">Me</span></h2>
-            </div>
-            <div class="about-grid">
-                <div class="about-text fade-in">
-                    <p>
-                        I am a software engineer and Master's student in <strong>Computer Science and Engineering at
-                        Politecnico di Milano</strong>. I like building software that works beyond demos and handles real users, data, and scale.
-                    </p>
-                    <p>
-                        My background sits between backend engineering, cloud infrastructure, big data, and machine learning.
-                        I have worked on distributed data processing with <strong>Dask</strong>, containerized microservices on
-                        large <strong>Kubernetes</strong> clusters, real-time streaming with <strong>Kafka</strong>, and low-latency
-                        services with <strong>gRPC</strong>. I also spent time on computer vision projects, including a production
-                        fingerprint segmentation model and a publication on low-resolution sign language
-                        recognition in <strong>SIViP</strong>.
-                    </p>
-                    <p>
-                        I enjoy combining practical engineering with research-minded thinking: understanding the problem deeply,
-                        choosing simple tools when they are enough, and using advanced systems when the product truly needs them.
-                    </p>
-                    <div class="about-focus">
-                        <strong>What I'm looking for:</strong> I am looking for <strong>software development</strong>, <strong>machine learning</strong>,
-                        <strong>data</strong>, and <strong>cloud-focused</strong> roles where I can build scalable products and keep learning.
-                        I am especially motivated by teams that value <strong>clear communication</strong>, and <strong>high-quality execution</strong>.
-                    </div>
-                </div>
-                <div class="about-gallery fade-in" aria-label="Photo gallery">
-                    <img src="images/optimized/gallery_photo_1.jpg" alt="Firat Adem Bilge, photo 1 of 4" class="gallery-image active" width="794" height="1200" loading="lazy">
-                    <img src="images/optimized/gallery_photo_3.jpg" alt="Firat Adem Bilge, photo 2 of 4" class="gallery-image" width="1200" height="800" loading="lazy">
-                    <img src="images/optimized/gallery_photo_4.jpg" alt="Firat Adem Bilge, photo 3 of 4" class="gallery-image" width="900" height="1200" loading="lazy">
-                    <img src="images/optimized/gallery_photo_5.jpg" alt="Firat Adem Bilge, photo 4 of 4" class="gallery-image" width="900" height="1200" loading="lazy">
-                </div>
-            </div>
+        <div class="hero-bottom">
+          <p>AI engineering, intelligent systems & applied ML</p>
+          <a href="#about" class="down-link" aria-label="Read about Adem">↓</a>
         </div>
-    </section>
-
-    <!-- Experience -->
-    <section id="experience" class="section">
-        <div class="container">
-            <div class="section-header fade-in">
-                <div class="section-eyebrow">02 — Experience</div>
-                <h2 class="section-title">Building the <span class="accent">Future</span></h2>
-                <p class="section-sub">Professional roles focused on scalable systems and production software.</p>
-            </div>
-            <div class="timeline">
-                <article class="titem has-bg freelance fade-in">
-                    <div class="titem-head">
-                        <h3 class="titem-title"><span class="accent">Software</span> Engineer</h3>
-                        <span class="titem-date">Mar 2025 — Aug 2025</span>
-                        <div class="titem-org">
-                            <a href="https://www.entervia.com.tr/" target="_blank" rel="noopener">Entervia</a>
-                        </div>
-                        <span class="titem-location">Milan, Italy</span>
-                    </div>
-                    <div class="titem-meta">Part-time · Early-stage startup</div>
-                    <ul>
-                        <li>Developed backend services and <strong>RESTful APIs</strong> using <strong>Django</strong> to support session booking and participant management.</li>
-                        <li>Managed <strong>AWS</strong> infrastructure and <strong>PostgreSQL</strong> databases with <strong>Docker</strong> and <strong>Jenkins</strong> to implement <strong>CI/CD</strong> pipelines.</li>
-                        <li>Implemented <strong>agentic workflows</strong> with tool integration to manage session creation, scheduling, and content generation.</li>
-                        <li>Integrated autonomous <strong>AI agents</strong> into Telegram bot services to handle real-time participant onboarding and Q&A.</li>
-                    </ul>
-                    <div class="stack-box">
-                        <h4>Tech Stack</h4>
-                        <div class="stack-list">
-                            <span class="chip"><img src="images/icons/python.svg" alt=""> Python</span>
-                            <span class="chip"><img src="images/icons/django.svg" alt=""> Django</span>
-                            <span class="chip"><img src="images/icons/grpc.svg" alt=""> gRPC</span>
-                            <span class="chip"><img src="images/icons/postman.svg" alt=""> Postman</span>
-                            <span class="chip"><img src="images/icons/swagger.svg" alt=""> Swagger</span>
-                            <span class="chip"><img src="images/icons/pytest.svg" alt=""> Pytest</span>
-                            <span class="chip"><img src="images/icons/postgresql.svg" alt=""> PostgreSQL</span>
-                            <span class="chip"><img src="images/icons/redis.svg" alt=""> Redis</span>
-                            <span class="chip"><img src="images/icons/aws.svg" alt=""> AWS</span>
-                            <span class="chip"><img src="images/icons/docker.svg" alt=""> Docker</span>
-                            <span class="chip"><img src="images/icons/jenkins.svg" alt=""> Jenkins</span>
-                            <span class="chip"><img src="images/icons/git.svg" alt=""> Git</span>
-                            <span class="chip"><img src="images/icons/cicd.svg" alt=""> CI/CD</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="titem has-bg havelsan-big fade-in">
-                    <div class="titem-head">
-                        <h3 class="titem-title"><span class="accent">Software</span> Engineer</h3>
-                        <span class="titem-date">Sep 2022 — Sep 2024</span>
-                        <div class="titem-org">
-                            <a href="https://www.havelsan.com/en/products/eyeminer-video-analytic-system-iot" target="_blank" rel="noopener">HAVELSAN</a>
-                        </div>
-                        <span class="titem-location">Ankara, Turkey</span>
-                    </div>
-                    <div class="titem-meta">Full-time · Defense &amp; IT — EyeMiner video analytics platform</div>
-                    <ul>
-                        <li>Developed a distributed computing platform on <strong>Linux</strong> using <strong>Dask</strong> to process analytical workloads on <strong>600 TB+</strong> data.</li>
-                        <li>Operated <strong>Docker</strong> services on a <strong>Kubernetes</strong> cluster across <strong>300+</strong> production nodes for maintaining high availability.</li>
-                        <li>Developed <strong>gRPC</strong> microservices and <strong>Kafka</strong> pipelines to enable low-latency and fault-tolerant service communication.</li>
-                        <li>Built observability solutions using <strong>Prometheus</strong>, <strong>Grafana</strong>, and <strong>Elasticsearch</strong> to improve monitoring and diagnostics.</li>
-                    </ul>
-                    <div class="stack-box">
-                        <h4>Tech Stack</h4>
-                        <div class="stack-list">
-                            <span class="chip"><img src="images/icons/python.svg" alt=""> Python</span>
-                            <span class="chip"><img src="images/icons/dask.svg" alt=""> Dask</span>
-                            <span class="chip"><img src="images/icons/pandas.svg" alt=""> Pandas</span>
-                            <span class="chip"><img src="images/icons/grpc.svg" alt=""> gRPC</span>
-                            <span class="chip"><img src="images/icons/unittest.svg" alt=""> Unittest</span>
-                            <span class="chip"><img src="images/icons/postgresql.svg" alt=""> PostgreSQL</span>
-                            <span class="chip"><img src="images/icons/elasticsearch.svg" alt=""> Elasticsearch</span>
-                            <span class="chip"><img src="images/icons/kubernetes.svg" alt=""> Kubernetes</span>
-                            <span class="chip"><img src="images/icons/docker.svg" alt=""> Docker</span>
-                            <span class="chip"><img src="images/icons/kafka.svg" alt=""> Kafka</span>
-                            <span class="chip"><img src="images/icons/helm.svg" alt=""> Helm</span>
-                            <span class="chip"><img src="images/icons/prometheus.svg" alt=""> Prometheus</span>
-                            <span class="chip"><img src="images/icons/grafana.svg" alt=""> Grafana</span>
-                            <span class="chip"><img src="images/icons/linux.svg" alt=""> Linux</span>
-                            <span class="chip"><img src="images/icons/jira.svg" alt=""> Jira</span>
-                            <span class="chip"><img src="images/icons/agile.svg" alt=""> Agile/Scrum</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="titem has-bg havelsan-ml fade-in">
-                    <div class="titem-head">
-                        <h3 class="titem-title"><span class="accent">Machine Learning</span> Engineer</h3>
-                        <span class="titem-date">Jun 2021 — Aug 2022</span>
-                        <div class="titem-org">
-                            <a href="https://www.havelsan.com/en/solutions/security-systems/ministry-interior-fingerprint-recognition-system-afis" target="_blank" rel="noopener">HAVELSAN</a>
-                        </div>
-                        <span class="titem-location">Ankara, Turkey</span>
-                    </div>
-                    <div class="titem-meta">Full-time · AFIS fingerprint recognition system</div>
-                    <ul>
-                        <li>Architected a computer vision model for fingerprint segmentation using <strong>PyTorch</strong> to support biometric identification.</li>
-                        <li>Optimized model performance through data augmentation techniques and systematic hyperparameter tuning.</li>
-                        <li>Built image preprocessing pipelines using <strong>OpenCV</strong> to enhance data quality for model training and evaluation.</li>
-                        <li>Delivered a production-ready fingerprint identification solution achieving <strong>92% accuracy</strong> with an automated workflow.</li>
-                    </ul>
-                    <div class="stack-box">
-                        <h4>Tech Stack</h4>
-                        <div class="stack-list">
-                            <span class="chip"><img src="images/icons/python.svg" alt=""> Python</span>
-                            <span class="chip"><img src="images/icons/pytorch.svg" alt=""> PyTorch</span>
-                            <span class="chip"><img src="images/icons/opencv.svg" alt=""> OpenCV</span>
-                            <span class="chip"><img src="images/icons/anaconda.svg" alt=""> Anaconda</span>
-                            <span class="chip"><img src="images/icons/jupyter.svg" alt=""> Jupyter Notebook</span>
-                            <span class="chip"><img src="images/icons/jira.svg" alt=""> Jira</span>
-                            <span class="chip"><img src="images/icons/agile.svg" alt=""> Agile/Scrum</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="titem has-bg ulak fade-in">
-                    <div class="titem-head">
-                        <h3 class="titem-title"><span class="accent">Software</span> Engineer</h3>
-                        <span class="titem-date">Jun 2020 — Oct 2020</span>
-                        <div class="titem-org">
-                            <a href="https://www.ulakhaberlesme.com.tr/en/cozumler/5g-private-network-en/" target="_blank" rel="noopener">ULAK HABERLEŞME</a>
-                        </div>
-                        <span class="titem-location">Istanbul, Turkey</span>
-                    </div>
-                    <div class="titem-meta">Internship · National telecom infrastructure company</div>
-                    <ul>
-                        <li>Developed backend services for a messaging platform using <strong>FastAPI</strong> and <strong>WebSockets</strong>, enabling low-latency messaging.</li>
-                        <li>Optimized <strong>MySQL</strong> database performance through indexing and schema design to improve application responsiveness.</li>
-                        <li>Managed <strong>AWS</strong> deployments and implemented CI/CD pipelines to streamline software delivery and release processes.</li>
-                    </ul>
-                    <div class="stack-box">
-                        <h4>Tech Stack</h4>
-                        <div class="stack-list">
-                            <span class="chip"><img src="images/icons/java.svg" alt=""> Java</span>
-                            <span class="chip"><img src="images/icons/mysql.svg" alt=""> MySQL</span>
-                            <span class="chip"><img src="images/icons/aws.svg" alt=""> AWS</span>
-                            <span class="chip"><img src="images/icons/docker.svg" alt=""> Docker</span>
-                            <span class="chip"><img src="images/icons/jenkins.svg" alt=""> Jenkins</span>
-                            <span class="chip"><img src="images/icons/git.svg" alt=""> Git</span>
-                            <span class="chip"><img src="images/icons/linux.svg" alt=""> Linux</span>
-                            <span class="chip"><img src="images/icons/jira.svg" alt=""> Jira</span>
-                            <span class="chip"><img src="images/icons/agile.svg" alt=""> Agile/Scrum</span>
-                            <span class="chip"><img src="images/icons/cicd.svg" alt=""> CI/CD</span>
-                        </div>
-                    </div>
-                </article>
-            </div>
+      </section>
+      <section
+        class="about section frame"
+        id="about"
+        aria-labelledby="about-title"
+      >
+        <div class="section-heading">
+          <h2 class="reveal" id="about-title">
+            Complex systems.<br />Clear thinking.
+          </h2>
+          <p class="section-intro reveal">
+            I like building software that works beyond demos, with real users,
+            real data, and real constraints.
+          </p>
         </div>
-    </section>
-
-    <!-- Projects -->
-    <section id="projects" class="section section-alt">
-        <div class="container">
-            <div class="section-header fade-in">
-                <div class="section-eyebrow">03 — Projects</div>
-                <h2 class="section-title">Featured <span class="accent">Work</span></h2>
-                <p class="section-sub">Portfolio projects showcasing my work across backend, cloud and AI engineering.</p>
+        <div class="about-layout">
+          <figure class="about-photo reveal">
+            <div class="about-photo-frame">
+            <img
+              src="images/editorial/life-1.webp"
+              alt="Adem overlooking the hills and city of Turin"
+              width="794"
+              height="1200"
+              loading="lazy"
+            />
             </div>
-
-            <div class="portfolio-list">
-                <article class="portfolio-project fade-in">
-                    <div class="portfolio-topbar">
-                        <div class="portfolio-heading">
-                            <h3 class="portfolio-title"><a href="https://github.com/adembilge/Cognify" target="_blank" rel="noopener">Cognify</a></h3>
-                            <div class="titem-meta">AI-powered Personal Knowledge Management System</div>
-                        </div>
-                        <a class="portfolio-gh" href="https://github.com/adembilge/Cognify" target="_blank" rel="noopener">
-                            <img src="images/icons/github.svg" alt="">
-                            <span>GitHub ↗</span>
-                        </a>
-                    </div>
-                    <div class="portfolio-body">
-                        <p class="portfolio-desc">
-                            Cognify is a full-stack personal knowledge management system — a second brain that actually reads
-                            your documents. Instead of manually tagging and filing notes, you drop in scanned PDFs, images,
-                            or plain-text files and an asynchronous <strong>Celery</strong> worker pipeline handles the rest:
-                            OpenCV preprocessing and Tesseract OCR extract text, DistilBART generates concise summaries,
-                            a zero-shot MNLI classifier auto-tags topics, and Sentence-BERT stores semantic embeddings —
-                            making every document instantly searchable and analyzable.
-                        </p>
-                        <p class="portfolio-detail">
-                            On the frontend, a <strong>Next.js 16</strong> dashboard provides a knowledge vault overview,
-                            Recharts-powered analytics, browser-native PDF tools (split, merge, reorder), document versioning
-                            with parent-child lineage, per-document sensitive mode, soft-delete recovery, and a global
-                            <strong>RAG chat</strong> where RoBERTa generates cited answers from the most relevant chunks in
-                            your vault. The <strong>Django REST</strong> backend enforces JWT authentication, user-scoped data
-                            isolation on every query, audit logging for all actions, and Prometheus metrics for worker latency.
-                        </p>
-                        <h4 class="portfolio-highlights-title">Key Capabilities</h4>
-                        <ul class="portfolio-highlights">
-                            <li>Full ingestion pipeline: upload → OCR → summarize → classify → embed → COMPLETED</li>
-                            <li>Cosine similarity search finds meaning across documents, not just keyword matches</li>
-                            <li>Collections, annotations, bookmarks, and notes attached to any document or quote</li>
-                            <li><strong>35 automated tests</strong>, Docker Compose orchestration, MIT licensed</li>
-                        </ul>
-                        <div class="stack-box">
-                            <h4>Tech Stack</h4>
-                            <div class="stack-list">
-                                <span class="chip"><img src="images/icons/python.svg" alt=""> Python</span>
-                                <span class="chip"><img src="images/icons/django.svg" alt=""> Django</span>
-                                <span class="chip"><img src="images/icons/nextjs-icon.svg" alt=""> Next.js</span>
-                                <span class="chip"><img src="images/icons/redis.svg" alt=""> Celery</span>
-                                <span class="chip">Transformers</span>
-                                <span class="chip">Sentence-BERT</span>
-                                <span class="chip"><img src="images/icons/docker.svg" alt=""> Docker</span>
-                                <span class="chip"><img src="images/icons/prometheus.svg" alt=""> Prometheus</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="portfolio-showcase-wrap" id="cognify-showcase">
-                        <div class="portfolio-showcase">
-                            <img class="portfolio-main" id="cognify-main" src="images/projects/cognify/dashboard.png" alt="Cognify knowledge vault dashboard" width="1908" height="908" loading="lazy">
-                        </div>
-                        <div class="portfolio-thumbs" aria-label="Cognify screenshots">
-                            <button type="button" class="portfolio-thumb active" aria-label="Dashboard" data-src="images/projects/cognify/dashboard.png" data-alt="Cognify knowledge vault dashboard">
-                                <img src="images/projects/cognify/dashboard.png" alt="" width="200" height="112" loading="lazy">
-                                <span class="portfolio-thumb-label">Dashboard</span>
-                            </button>
-                            <button type="button" class="portfolio-thumb" aria-label="Analytics" data-src="images/projects/cognify/analytics.png" data-alt="Cognify analytics view">
-                                <img src="images/projects/cognify/analytics.png" alt="" width="200" height="112" loading="lazy">
-                                <span class="portfolio-thumb-label">Analytics</span>
-                            </button>
-                            <button type="button" class="portfolio-thumb" aria-label="Neural Chat" data-src="images/projects/cognify/ai-chat.png" data-alt="Cognify neural chat interface">
-                                <img src="images/projects/cognify/ai-chat.png" alt="" width="200" height="112" loading="lazy">
-                                <span class="portfolio-thumb-label">Neural Chat</span>
-                            </button>
-                            <button type="button" class="portfolio-thumb" aria-label="PDF Tools" data-src="images/projects/cognify/pdf-tools.png" data-alt="Cognify PDF tools">
-                                <img src="images/projects/cognify/pdf-tools.png" alt="" width="200" height="112" loading="lazy">
-                                <span class="portfolio-thumb-label">PDF Tools</span>
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="portfolio-project fade-in">
-                    <div class="portfolio-topbar">
-                        <div class="portfolio-heading">
-                            <h3 class="portfolio-title"><a href="https://github.com/adembilge/CryptMe" target="_blank" rel="noopener">CryptMe</a></h3>
-                            <div class="titem-meta">Secure Encrypted Messaging</div>
-                        </div>
-                        <a class="portfolio-gh" href="https://github.com/adembilge/CryptMe" target="_blank" rel="noopener">
-                            <img src="images/icons/github.svg" alt="">
-                            <span>GitHub ↗</span>
-                        </a>
-                    </div>
-                    <div class="portfolio-split">
-                        <div class="portfolio-body">
-                            <p class="portfolio-desc">
-                                CryptMe is a secure client-server messaging application built entirely in
-                                <strong>Java</strong>. It demonstrates practical cryptography in a real-time chat setting:
-                                users connect to a central server with unique usernames, join a shared chat room, and
-                                exchange messages encrypted with their choice of symmetric algorithm —
-                                <strong>AES (128-bit)</strong> with a 16-byte initialization vector, or
-                                <strong>DES (56-bit)</strong> with an 8-byte IV.
-                            </p>
-                            <p class="portfolio-detail">
-                                When a user selects an encryption method, the application generates a fresh secret key and
-                                IV for that session and distributes them to participants. The server handles connection
-                                management and message routing over TCP sockets without reading plaintext, while the
-                                <strong>Swing GUI</strong> client performs all encryption and decryption locally. A persistent
-                                log file records every generated key and IV for auditability.
-                            </p>
-                            <h4 class="portfolio-highlights-title">Core Features</h4>
-                            <ul class="portfolio-highlights">
-                                <li>Dual encryption modes selectable at runtime — AES or DES</li>
-                                <li>Multi-user chat with unique username registration and disconnect handling</li>
-                                <li>Socket-based server routing encrypted payloads between connected clients</li>
-                            </ul>
-                            <div class="stack-box">
-                                <h4>Tech Stack</h4>
-                                <div class="stack-list">
-                                    <span class="chip"><img src="images/icons/java.svg" alt=""> Java</span>
-                                    <span class="chip">AES</span>
-                                    <span class="chip">DES</span>
-                                    <span class="chip">Socket Programming</span>
-                                    <span class="chip">Swing GUI</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portfolio-demo">
-                            <img src="images/projects/cryptme/demo.gif" alt="CryptMe live demo — encrypted messaging between two users" width="600" height="800" loading="lazy">
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <div class="gh-strip fade-in">
-                <a class="gh-card" href="https://github.com/adembilge/TidyEdit" target="_blank" rel="noopener">
-                    <h4><img src="images/icons/github.svg" alt="" width="16" height="16"> Tidy Edit</h4>
-                    <p>PyQt5 desktop image editor with filters &amp; adjustments</p>
-                </a>
-                <a class="gh-card" href="https://github.com/adembilge/Quantization-Dithering-and-Color-Transforming" target="_blank" rel="noopener">
-                    <h4><img src="images/icons/github.svg" alt="" width="16" height="16"> Image Processing Algorithms</h4>
-                    <p>Quantization, dithering &amp; color transforms in Python</p>
-                </a>
-            </div>
+            <figcaption>
+              A little perspective, away from the terminal.
+            </figcaption>
+          </figure>
+          <div class="about-copy">
+            <p class="lead reveal">
+              I’m Adem Bilge, a software engineer and Master’s student at
+              Politecnico di Milano.
+            </p>
+            <p class="reveal">
+              I’m based in Milan, where I study Computer Science and Engineering.
+              My current focus is AI engineering: understanding how learning
+              algorithms, large language models, and AI agents can become useful,
+              reliable software. My studies explore advanced AI techniques,
+              agentic systems, multiagent learning, and the engineering decisions
+              needed to bring these ideas into working applications.
+            </p>
+            <p class="reveal">
+              That direction builds on hands-on experience at HAVELSAN,
+              Entervia, and ULAK. I’ve worked on distributed data processing with
+              Dask, services on large Kubernetes clusters, real-time Kafka
+              pipelines, and low-latency gRPC microservices. Those projects taught
+              me to think beyond an individual feature and consider the data,
+              infrastructure, observability, and people around it.
+            </p>
+            <p class="reveal">
+              My machine learning experience includes a production fingerprint
+              segmentation model and published research on low-resolution sign
+              language recognition. Through that work, I’ve learned to connect
+              experimentation and evaluation with practical constraints such as
+              image quality, privacy, and deployment.
+            </p>
+            <p class="reveal">
+              I’m looking for opportunities across software engineering, data
+              science, applied research, and AI engineering where I can combine
+              this foundation with my current studies. I value clear
+              communication, careful testing, and choosing solutions that a team
+              can understand, maintain, and improve.
+            </p>
+            <a class="text-link" href="#experience">Explore my experience</a>
+            <details class="life-gallery">
+              <summary>
+                Beyond the keyboard<span aria-hidden="true">+</span>
+              </summary>
+              <div class="life-photos">
+                <img
+                  src="images/editorial/life-3.webp"
+                  alt="Adem working on software at a laptop"
+                  width="800"
+                  height="533"
+                  loading="lazy"
+                /><img
+                  src="images/editorial/life-4.webp"
+                  alt="Adem on a sports podium"
+                  width="800"
+                  height="1067"
+                  loading="lazy"
+                /><img
+                  src="images/editorial/life-5.webp"
+                  alt="Adem enjoying time by the water"
+                  width="800"
+                  height="1067"
+                  loading="lazy"
+                />
+              </div>
+            </details>
+          </div>
         </div>
-    </section>
-
-    <!-- Education -->
-    <section id="education" class="section section-alt">
-        <div class="container">
-            <div class="section-header fade-in">
-                <div class="section-eyebrow">04 — Education</div>
-                <h2 class="section-title">Scholarly <span class="accent">Journey</span></h2>
-                <p class="section-sub">Academic milestones that built my software, data, and ML foundations.</p>
-            </div>
-            <div class="timeline">
-                <article class="titem has-bg polimi fade-in">
-                    <div class="edu-head">
-                        <img src="images/Polimi%20Logo.png" alt="Politecnico di Milano logo" class="edu-logo" width="58" height="58" loading="lazy">
-                        <div class="edu-body">
-                            <div class="titem-head">
-                                <h3 class="titem-title"><span class="accent">Master of Science</span> - Computer Science and Engineering</h3>
-                                <span class="titem-date">Sep 2024 — Present</span>
-                                <div class="titem-org">
-                                    <a href="https://www.polimi.it/en/" target="_blank" rel="noopener">Politecnico di Milano</a>
-                                </div>
-                                <span class="titem-location">Milan, Italy</span>
-                            </div>
-                            <div class="titem-meta">Master's program</div>
-                        </div>
-                    </div>
-                    <p class="edu-desc">
-                        I am currently doing my Master's with a strong focus on <strong>Cloud Computing</strong> and <strong>Big Data</strong>.
-                        Most of my effort goes into <strong>distributed systems</strong>, <strong>scalable infrastructure</strong>, and hands-on
-                        technical projects where I can turn theory into practical solutions for complex, real-world software problems in production settings and large-scale platforms.
-                    </p>
-                    <div class="edu-coursework">
-                        <div class="edu-coursework-title">Relevant Coursework:</div>
-                        <div class="edu-coursework-grid">
-                            <div class="edu-coursework-item">Software Engineering</div>
-                            <div class="edu-coursework-item">Advanced Databases</div>
-                            <div class="edu-coursework-item">Mobile Applications</div>
-                            <div class="edu-coursework-item">Big Data Solutions</div>
-                            <div class="edu-coursework-item">Computer Infrastructures</div>
-                            <div class="edu-coursework-item">Streaming Data Analysis</div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="titem has-bg hacettepe fade-in">
-                    <div class="edu-head">
-                        <img src="images/Hacettepe%20Logo.jpg" alt="Hacettepe University logo" class="edu-logo" width="58" height="58" loading="lazy">
-                        <div class="edu-body">
-                            <div class="titem-head">
-                                <h3 class="titem-title"><span class="accent">Bachelor of Science</span> - Computer Science</h3>
-                                <span class="titem-date">Oct 2017 — May 2022</span>
-                                <div class="titem-org">
-                                    <a href="https://www.hacettepe.edu.tr/english" target="_blank" rel="noopener">Hacettepe University</a>
-                                </div>
-                                <span class="titem-location">Ankara, Turkey</span>
-                            </div>
-                            <div class="titem-meta">GPA 3.33/4 · Honor Student</div>
-                        </div>
-                    </div>
-                    <p class="edu-desc">
-                        During my bachelor's, I focused mainly on <strong>Machine Learning</strong>, <strong>Computer Vision</strong>, and
-                        <strong>Software Engineering</strong>. My thesis work in computer vision later became my publication
-                        <strong>Tinysign (SIViP, 2024)</strong>, and that process really strengthened how I approach
-                        programming, algorithms, and real problem-solving in practical engineering contexts and team delivery.
-                    </p>
-                    <div class="edu-coursework">
-                        <div class="edu-coursework-title">Relevant Coursework:</div>
-                        <div class="edu-coursework-grid">
-                            <div class="edu-coursework-item">Algorithms and Data Structures</div>
-                            <div class="edu-coursework-item">Software Engineering</div>
-                            <div class="edu-coursework-item">Databases</div>
-                            <div class="edu-coursework-item">Database Management Systems</div>
-                            <div class="edu-coursework-item">Machine Learning</div>
-                            <div class="edu-coursework-item">Computer Vision</div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="titem has-bg czestochowa fade-in">
-                    <div class="edu-head">
-                        <img src="images/Czestochowa%20Logo.png" alt="Czestochowa University of Technology logo" class="edu-logo" width="58" height="58" loading="lazy">
-                        <div class="edu-body">
-                            <div class="titem-head">
-                                <h3 class="titem-title"><span class="accent">Erasmus+</span> Exchange Program</h3>
-                                <span class="titem-date">Sep 2019 — Feb 2020</span>
-                                <div class="titem-org">
-                                    <a href="https://www.pcz.pl/en/" target="_blank" rel="noopener">Czestochowa University of Technology</a>
-                                </div>
-                                <span class="titem-location">Czestochowa, Poland</span>
-                            </div>
-                            <div class="titem-meta">International exchange semester</div>
-                        </div>
-                    </div>
-                    <p class="edu-desc">
-                        I joined this Erasmus semester to improve my background in <strong>AI</strong> and <strong>Computer Vision</strong>
-                        in a completely new academic environment. Working in international project teams helped me become more
-                        adaptable, collaborative, and confident in technical communication across different cultures, academic expectations, and working styles in team settings.
-                    </p>
-                    <div class="edu-coursework">
-                        <div class="edu-coursework-title">Relevant Coursework:</div>
-                        <div class="edu-coursework-grid">
-                            <div class="edu-coursework-item">Applications of Artificial Intelligence</div>
-                            <div class="edu-coursework-item">Machine Learning</div>
-                            <div class="edu-coursework-item">Computer Vision</div>
-                        </div>
-                    </div>
-                </article>
-            </div>
+        <div class="scale-proof">
+          <div class="reveal">
+            <p class="proof-number">600+<span>TB</span></p>
+            <p>Data processed with Dask</p>
+          </div>
+          <div class="reveal">
+            <p class="proof-number">300+<span>nodes</span></p>
+            <p>Kubernetes in production</p>
+          </div>
+          <div class="reveal">
+            <p class="proof-number">92<span>%</span></p>
+            <p>Fingerprint model accuracy</p>
+          </div>
         </div>
-    </section>
-
-    <!-- Publication -->
-    <section id="publications" class="section section-alt">
-        <div class="container">
-            <div class="section-header fade-in">
-                <div class="section-eyebrow">05 — Publication</div>
-                <h2 class="section-title">Papers I'm <span class="accent">Proud Of</span></h2>
-                <p class="section-sub">Research focused on practical computer vision in low-resolution settings.</p>
+      </section>
+      <section
+        class="work section light"
+        id="projects"
+        aria-labelledby="work-title"
+      >
+        <div class="frame">
+          <div class="section-heading">
+            <h2 class="reveal" id="work-title">Selected work</h2>
+            <p class="section-intro reveal">
+              From knowledge retrieval to encrypted messaging. A few things I’ve
+              built to explore how software can work better.
+            </p>
+          </div>
+          <article
+            class="project project-cognify"
+            aria-labelledby="cognify-title"
+          >
+            <div
+              class="project-media cognify-media reveal"
+              id="cognify-showcase"
+              data-ui
+            >
+              <img
+                id="cognify-main"
+                src="images/editorial/cognify-dashboard.webp"
+                alt="Cognify knowledge vault dashboard"
+                width="1908"
+                height="908"
+                loading="lazy"
+              />
+              <div
+                class="shot-controls"
+                role="group"
+                aria-label="Cognify screenshots"
+                hidden
+              >
+                <button
+                  type="button"
+                  aria-pressed="true"
+                  data-src="images/editorial/cognify-dashboard.webp"
+                  data-alt="Cognify knowledge vault dashboard"
+                >
+                  Dashboard</button
+                ><button
+                  type="button"
+                  aria-pressed="false"
+                  data-src="images/editorial/cognify-analytics.webp"
+                  data-alt="Cognify analytics view"
+                >
+                  Analytics</button
+                ><button
+                  type="button"
+                  aria-pressed="false"
+                  data-src="images/editorial/cognify-ai-chat.webp"
+                  data-alt="Cognify neural chat interface"
+                >
+                  AI chat</button
+                ><button
+                  type="button"
+                  aria-pressed="false"
+                  data-src="images/editorial/cognify-pdf-tools.webp"
+                  data-alt="Cognify PDF tools"
+                >
+                  PDF tools
+                </button>
+              </div>
+              <p class="sr-only" id="shot-status" role="status"></p>
             </div>
-            <article class="pub-card fade-in">
-                <div class="pub-head">
-                    <h3 class="pub-title">
-                        <a href="https://link.springer.com/article/10.1007/s11760-024-03358-z" target="_blank" rel="noopener">
-                            Tinysign: Sign Language Recognition in Low-Resolution Settings
-                        </a>
-                    </h3>
-                    <span class="pub-date">Jun 2024</span>
-                    <div class="pub-venue">Signal, Image and Video Processing (SIViP) · Springer Nature</div>
-                    <span class="pub-location">London, United Kingdom</span>
-                </div>
-                <p class="pub-citation">
-                    <strong>Bilge, F.A.</strong>, Hüseyinoǧlu, A., Bilge, Y.C. et al. Tinysign: sign language recognition
-                    in low resolution settings. SIViP 18, 6881–6890 (2024). DOI: 10.1007/s11760-024-03358-z
+            <div class="project-caption">
+              <div class="reveal">
+                <h3 id="cognify-title">Cognify</h3>
+                <p class="secondary">Personal knowledge, made searchable.</p>
+              </div>
+              <div class="project-summary reveal">
+                <p>
+                  A second brain that reads your documents. An asynchronous
+                  pipeline extracts, summarizes, classifies, and embeds files,
+                  with semantic search and cited answers across your vault.
                 </p>
-                <ul>
-                    <li>Introduced the <strong>first benchmark</strong> for low-resolution sign language recognition.</li>
-                    <li>Addressed recognition in <strong>privacy-sensitive</strong> and low-bandwidth video scenarios.</li>
-                    <li>Proposed a novel <strong>pose-conditioned super-resolution</strong> architecture to reconstruct critical visual cues.</li>
-                    <li>Achieved <strong>58.0% accuracy</strong>, outperforming the previous state of the art (35.0%) on the same dataset.</li>
-                </ul>
-                <div class="pub-links">
-                    <a href="https://doi.org/10.1007/s11760-024-03358-z" target="_blank" rel="noopener">DOI ↗</a>
-                    <a href="https://link.springer.com/article/10.1007/s11760-024-03358-z" target="_blank" rel="noopener">Springer ↗</a>
-                    <a href="https://scholar.google.com/citations?user=qxDWiIQAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar ↗</a>
+                <p class="project-tech">
+                  Django · Next.js · Celery · Transformers
+                </p>
+                <div class="project-links">
+                  <a
+                    class="text-link"
+                    href="https://github.com/adembilge/Cognify"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >View repository</a
+                  ><a class="text-link" href="#cognify-details"
+                    >Technical overview</a
+                  >
                 </div>
+              </div>
+            </div>
+            <details class="project-details" id="cognify-details">
+              <summary>Inside Cognify<span aria-hidden="true">+</span></summary>
+              <div class="disclosure-body project-overview">
+
+  <section class="overview-part">
+    <h4>Document intelligence</h4>
+    <p>Cognify is a full-stack personal knowledge management system — a second brain that reads your documents. Scanned PDFs, images, and plain-text files enter an asynchronous <strong>Celery</strong> worker pipeline.</p>
+    <p>OpenCV preprocessing and Tesseract OCR extract text. DistilBART summarizes it, a zero-shot MNLI classifier tags topics, and Sentence-BERT creates semantic embeddings for search and analysis.</p>
+  </section>
+  <section class="overview-part">
+    <h4>A workspace for knowledge</h4>
+    <p>The <strong>Next.js 16</strong> dashboard brings together a knowledge vault, Recharts analytics, and browser-native PDF tools to split, merge, and reorder documents.</p>
+    <p>Document versioning preserves parent-child lineage. Sensitive mode, soft-delete recovery, collections, annotations, bookmarks, and notes keep documents and quotations organized.</p>
+  </section>
+  <section class="overview-part">
+    <h4>Retrieval & answers</h4>
+    <p>Cosine similarity search finds meaning across documents rather than relying only on keyword matches. In the global <strong>RAG chat</strong>, RoBERTa generates cited answers from the most relevant chunks in the vault.</p>
+    <p class="overview-flow">Upload → OCR → Summarize → Classify → Embed → Completed</p>
+  </section>
+  <section class="overview-part">
+    <h4>Access & operations</h4>
+    <p>The <strong>Django REST</strong> backend enforces JWT authentication, user-scoped data isolation on every query, and audit logging for every action.</p>
+    <p><strong>35 automated tests</strong>, Docker Compose orchestration, and Prometheus worker-latency metrics support the implementation. MIT licensed.</p>
+  </section>
+  <p class="technology-list overview-stack"><strong>Built with</strong> Python, Django, Next.js, Celery, Transformers, Sentence-BERT, Docker, Prometheus</p>
+</div>
+            </details>
+          </article>
+          <article
+            class="project project-cryptme"
+            aria-labelledby="cryptme-title"
+          >
+            <div class="cryptme-composition">
+              <div class="cryptme-copy reveal">
+                <h3 id="cryptme-title">CryptMe</h3>
+                <p class="lead">A closer look at encrypted communication.</p>
+                <p>
+                  A Java client-server messaging project exploring symmetric
+                  encryption, TCP sockets, and local encryption and decryption
+                  in a Swing desktop client.
+                </p>
+                <p class="project-tech">
+                  Java · TCP sockets · AES / DES · Swing
+                </p>
+                <a
+                  class="text-link"
+                  href="https://github.com/adembilge/CryptMe"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >View repository</a
+                >
+              </div>
+              <figure class="cryptme-media reveal">
+                <img
+                  src="images/editorial/cryptme-chat.webp"
+                  alt="CryptMe Swing chat client with username, encryption mode, and messaging controls"
+                  width="530"
+                  height="718"
+                  loading="lazy"
+                />
+                <figcaption>The original CryptMe desktop client</figcaption>
+              </figure>
+            </div>
+            <details class="project-details">
+              <summary>Inside CryptMe<span aria-hidden="true">+</span></summary>
+              <div class="disclosure-body project-overview">
+
+  <section class="overview-part">
+    <h4>Real-time messaging</h4>
+    <p>CryptMe is a client-server messaging application built entirely in <strong>Java</strong>. Users register unique usernames, connect to a central server, and join a shared chat room.</p>
+    <p>TCP sockets carry encrypted payloads between connected clients. The server manages connections, message routing, and disconnects without reading plaintext.</p>
+  </section>
+  <section class="overview-part">
+    <h4>Encryption in the client</h4>
+    <p>The <strong>Swing GUI</strong> performs encryption and decryption locally. Users can switch at runtime between <strong>AES (128-bit)</strong> with a 16-byte initialization vector and <strong>DES (56-bit)</strong> with an 8-byte IV.</p>
+    <p>Selecting a method generates a fresh secret key and IV for the session and distributes them to participants.</p>
+  </section>
+  <section class="overview-part">
+    <h4>Implementation notes</h4>
+    <p>This learning project demonstrates symmetric cryptography in a multi-user chat. Its original implementation includes DES and a persistent log of generated session keys and IVs for auditability.</p>
+    <p class="technology-list"><strong>Built with</strong> Java, AES, DES, Socket Programming, Swing GUI</p>
+  </section>
+  <section class="overview-part overview-demo">
+    <h4>The server in action</h4>
+    <figure><img class="cryptme-server" src="images/editorial/cryptme-server.webp" alt="CryptMe server console" width="637" height="153" loading="lazy" /></figure>
+    <button class="text-link demo-toggle" type="button" hidden>Play original demo</button>
+    <img class="cryptme-demo" data-demo="images/projects/cryptme/demo.gif" alt="CryptMe demo of encrypted messaging between two users" width="600" height="800" hidden />
+  </section>
+</div>
+            </details>
+          </article>
+          <div class="more-work">
+            <a
+              class="project-row reveal"
+              href="https://github.com/adembilge/TidyEdit"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><h3>Tidy Edit</h3>
+              <p>PyQt5 desktop image editor with filters & adjustments</p>
+              <span>View repository</span></a
+            ><a
+              class="project-row reveal"
+              href="https://github.com/adembilge/Quantization-Dithering-and-Color-Transforming"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><h3>Image processing</h3>
+              <p>Quantization, dithering & color transforms in Python</p>
+              <span>View repository</span></a
+            >
+          </div>
+        </div>
+      </section>
+      <section
+        class="experience section frame"
+        id="experience"
+        aria-labelledby="experience-title"
+      >
+        <div class="experience-layout">
+          <div class="experience-intro">
+            <h2 class="reveal" id="experience-title">
+              Built in<br />
+              production
+            </h2>
+            <p class="reveal">
+              4+ years of engineering experience across distributed analytics,
+              applied computer vision, startup services, and telecom
+              infrastructure.
+            </p>
+            <a
+              class="text-link"
+              href="https://drive.google.com/file/d/1ys39d1oD9EsqbKiRuj7r-zCJSb8d4q0g/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              >View full CV</a
+            >
+          </div>
+          <div class="roles">
+            <article class="role-row role-backdrop role-backdrop-1 reveal">
+              <div class="role-date">Mar 2025 — Aug 2025</div>
+              <div class="role-body">
+                <h3>
+                  <a
+                    href="https://www.entervia.com.tr/"
+                    target="_blank"
+                    rel="noopener"
+                    >Entervia</a
+                  >
+                </h3>
+                <p class="role-title">
+                  <span class="accent">Software</span> Engineer
+                </p>
+                <p>
+                  Backend services and AI agents for session booking,
+                  scheduling, and participant onboarding.
+                </p>
+                <details>
+                  <summary>
+                    Contributions & technologies<span aria-hidden="true"
+                      >+</span
+                    >
+                  </summary>
+                  <div class="disclosure-body">
+                    <p class="secondary">
+                      Part-time · Early-stage startup · Milan, Italy
+                    </p>
+                    <ul>
+                      <li>
+                        Developed backend services and
+                        <strong>RESTful APIs</strong> using
+                        <strong>Django</strong> to support session booking and
+                        participant management.
+                      </li>
+                      <li>
+                        Managed <strong>AWS</strong> infrastructure and
+                        <strong>PostgreSQL</strong> databases with
+                        <strong>Docker</strong> and <strong>Jenkins</strong> to
+                        implement <strong>CI/CD</strong> pipelines.
+                      </li>
+                      <li>
+                        Implemented <strong>agentic workflows</strong> with tool
+                        integration to manage session creation, scheduling, and
+                        content generation.
+                      </li>
+                      <li>
+                        Integrated autonomous <strong>AI agents</strong> into
+                        Telegram bot services to handle real-time participant
+                        onboarding and Q&A.
+                      </li>
+                    </ul>
+                    <p class="technology-list">
+                      Python, Django, gRPC, Postman, Swagger, Pytest,
+                      PostgreSQL, Redis, AWS, Docker, Jenkins, Git, CI/CD
+                    </p>
+                  </div>
+                </details>
+              </div>
             </article>
+            <article class="role-row role-backdrop role-backdrop-2 reveal">
+              <div class="role-date">Sep 2022 — Sep 2024</div>
+              <div class="role-body">
+                <h3>
+                  <a
+                    href="https://www.havelsan.com/en/products/eyeminer-video-analytic-system-iot"
+                    target="_blank"
+                    rel="noopener"
+                    >HAVELSAN</a
+                  >
+                </h3>
+                <p class="role-title">
+                  <span class="accent">Software</span> Engineer
+                </p>
+                <p>
+                  Distributed analytics over 600+ TB of data, running across
+                  300+ production Kubernetes nodes.
+                </p>
+                <details>
+                  <summary>
+                    Contributions & technologies<span aria-hidden="true"
+                      >+</span
+                    >
+                  </summary>
+                  <div class="disclosure-body">
+                    <p class="secondary">
+                      Full-time · Defense &amp; IT — EyeMiner video analytics
+                      platform · Ankara, Turkey
+                    </p>
+                    <ul>
+                      <li>
+                        Developed a distributed computing platform on
+                        <strong>Linux</strong> using <strong>Dask</strong> to
+                        process analytical workloads on
+                        <strong>600 TB+</strong> data.
+                      </li>
+                      <li>
+                        Operated <strong>Docker</strong> services on a
+                        <strong>Kubernetes</strong> cluster across
+                        <strong>300+</strong> production nodes for maintaining
+                        high availability.
+                      </li>
+                      <li>
+                        Developed <strong>gRPC</strong> microservices and
+                        <strong>Kafka</strong> pipelines to enable low-latency
+                        and fault-tolerant service communication.
+                      </li>
+                      <li>
+                        Built observability solutions using
+                        <strong>Prometheus</strong>, <strong>Grafana</strong>,
+                        and <strong>Elasticsearch</strong> to improve monitoring
+                        and diagnostics.
+                      </li>
+                    </ul>
+                    <p class="technology-list">
+                      Python, Dask, Pandas, gRPC, Unittest, PostgreSQL,
+                      Elasticsearch, Kubernetes, Docker, Kafka, Helm,
+                      Prometheus, Grafana, Linux, Jira, Agile/Scrum
+                    </p>
+                  </div>
+                </details>
+              </div>
+            </article>
+            <article class="role-row role-backdrop role-backdrop-3 reveal">
+              <div class="role-date">Jun 2021 — Aug 2022</div>
+              <div class="role-body">
+                <h3>
+                  <a
+                    href="https://www.havelsan.com/en/solutions/security-systems/ministry-interior-fingerprint-recognition-system-afis"
+                    target="_blank"
+                    rel="noopener"
+                    >HAVELSAN</a
+                  >
+                </h3>
+                <p class="role-title">
+                  <span class="accent">Machine Learning</span> Engineer
+                </p>
+                <p>
+                  A production fingerprint segmentation model, from image
+                  preprocessing to 92% accuracy.
+                </p>
+                <details>
+                  <summary>
+                    Contributions & technologies<span aria-hidden="true"
+                      >+</span
+                    >
+                  </summary>
+                  <div class="disclosure-body">
+                    <p class="secondary">
+                      Full-time · AFIS fingerprint recognition system · Ankara,
+                      Turkey
+                    </p>
+                    <ul>
+                      <li>
+                        Architected a computer vision model for fingerprint
+                        segmentation using <strong>PyTorch</strong> to support
+                        biometric identification.
+                      </li>
+                      <li>
+                        Optimized model performance through data augmentation
+                        techniques and systematic hyperparameter tuning.
+                      </li>
+                      <li>
+                        Built image preprocessing pipelines using
+                        <strong>OpenCV</strong> to enhance data quality for
+                        model training and evaluation.
+                      </li>
+                      <li>
+                        Delivered a production-ready fingerprint identification
+                        solution achieving <strong>92% accuracy</strong> with an
+                        automated workflow.
+                      </li>
+                    </ul>
+                    <p class="technology-list">
+                      Python, PyTorch, OpenCV, Anaconda, Jupyter Notebook, Jira,
+                      Agile/Scrum
+                    </p>
+                  </div>
+                </details>
+              </div>
+            </article>
+            <article class="role-row role-backdrop role-backdrop-4 reveal">
+              <div class="role-date">Jun 2020 — Oct 2020</div>
+              <div class="role-body">
+                <h3>
+                  <a
+                    href="https://www.ulakhaberlesme.com.tr/en/cozumler/5g-private-network-en/"
+                    target="_blank"
+                    rel="noopener"
+                    >ULAK HABERLEŞME</a
+                  >
+                </h3>
+                <p class="role-title">
+                  <span class="accent">Software</span> Engineer
+                </p>
+                <p>
+                  Low-latency messaging services, database optimization, and
+                  cloud deployments.
+                </p>
+                <details>
+                  <summary>
+                    Contributions & technologies<span aria-hidden="true"
+                      >+</span
+                    >
+                  </summary>
+                  <div class="disclosure-body">
+                    <p class="secondary">
+                      Internship · National telecom infrastructure company ·
+                      Istanbul, Turkey
+                    </p>
+                    <ul>
+                      <li>
+                        Developed backend services for a messaging platform
+                        using <strong>FastAPI</strong> and
+                        <strong>WebSockets</strong>, enabling low-latency
+                        messaging.
+                      </li>
+                      <li>
+                        Optimized <strong>MySQL</strong> database performance
+                        through indexing and schema design to improve
+                        application responsiveness.
+                      </li>
+                      <li>
+                        Managed <strong>AWS</strong> deployments and implemented
+                        CI/CD pipelines to support software delivery and release
+                        processes.
+                      </li>
+                    </ul>
+                    <p class="technology-list">
+                      Java, MySQL, AWS, Docker, Jenkins, Git, Linux, Jira,
+                      Agile/Scrum, CI/CD
+                    </p>
+                  </div>
+                </details>
+              </div>
+            </article>
+          </div>
         </div>
-    </section>
-
-    <!-- Skills -->
-    <section id="skills" class="section section-alt">
-        <div class="container">
-            <div class="section-header fade-in">
-                <div class="section-eyebrow">06 — Skills</div>
-                <h2 class="section-title">My <span class="accent">Toolbox</span></h2>
-                <p class="section-sub">Technologies and skills I use to build and run real production systems.</p>
+      </section>
+      <section
+        class="expertise section light"
+        id="skills"
+        aria-labelledby="expertise-title"
+      >
+        <div class="frame">
+          <div class="section-heading">
+            <h2 class="reveal" id="expertise-title">The whole system</h2>
+            <p class="section-intro reveal">
+              My strongest work happens where infrastructure, data engineering,
+              and applied machine learning meet.
+            </p>
+          </div>
+          <div class="capabilities">
+<article class="capability reveal">
+              <h3>Machine learning</h3>
+              <p>
+                Practical computer vision, from image preprocessing and model
+                training to production deployment.
+              </p>
+              <p class="secondary">PyTorch, OpenCV, Pandas, NumPy</p>
+            </article>
+<article class="capability reveal">
+              <h3>Backend engineering</h3>
+              <p>
+                Stable APIs and cloud-native services designed for reliability,
+                performance, and long-term maintenance.
+              </p>
+              <p class="secondary">Python, Django, FastAPI, gRPC, PostgreSQL</p>
+            </article>
+<article class="capability reveal">
+              <h3>Cloud & DevOps</h3>
+              <p>
+                Container orchestration, repeatable delivery, and the
+                observability to understand what’s happening in production.
+              </p>
+              <p class="secondary">
+                AWS, Docker, Helm, Jenkins, Prometheus, Grafana
+              </p>
+            </article>
+<article class="capability reveal">
+              <h3>Distributed systems</h3>
+              <p>
+                Scalable data pipelines and distributed execution that stay
+                measurable under real production pressure.
+              </p>
+              <p class="secondary">Dask, Kafka, Kubernetes, Linux</p>
+            </article>
+</div>
+<details class="all-technologies">
+            <summary>
+              All technologies & tools<span aria-hidden="true">+</span>
+            </summary>
+            <div class="technology-columns">
+              <div>
+                <h4>Programming Languages</h4>
+                <p>Python, Java, C++, SQL</p>
+              </div>
+              <div>
+                <h4>Big Data & Machine Learning</h4>
+                <p>
+                  Dask, Kafka, PyTorch, OpenCV, Pandas, NumPy, Jupyter, Anaconda
+                </p>
+              </div>
+              <div>
+                <h4>Backend & APIs</h4>
+                <p>Django, FastAPI, gRPC, Postman, Swagger, Pytest, Unittest</p>
+              </div>
+              <div>
+                <h4>Databases</h4>
+                <p>PostgreSQL, MySQL, Redis, Elasticsearch</p>
+              </div>
+              <div>
+                <h4>Cloud & DevOps</h4>
+                <p>
+                  Kubernetes, Docker, AWS, Helm, Jenkins, Apache Kafka,
+                  Prometheus, Grafana
+                </p>
+              </div>
+              <div>
+                <h4>Tools & Methodologies</h4>
+                <p>Git, Linux, Jira, Agile/Scrum, CI/CD</p>
+              </div>
             </div>
-
-            <div class="skills-grid">
-                <div class="skill-cat fade-in">
-                    <h3>Programming Languages</h3>
-                    <div class="skill-items">
-                        <span class="skill-item"><img src="images/icons/python.svg" alt="" loading="lazy">Python</span>
-                        <span class="skill-item"><img src="images/icons/java.svg" alt="" loading="lazy">Java</span>
-                        <span class="skill-item"><img src="images/icons/cpp.svg" alt="" loading="lazy">C++</span>
-                        <span class="skill-item"><img src="images/icons/postgresql.svg" alt="" loading="lazy">SQL</span>
-                    </div>
+          </details>
+          <div class="languages">
+            <p><strong>Turkish</strong> Native</p>
+            <p><strong>English</strong> C1 · Professional</p>
+            <p><strong>Italian</strong> B1 · Intermediate</p>
+          </div>
+        </div>
+      </section>
+      <section
+        class="education section soft-light"
+        id="education"
+        aria-labelledby="education-title"
+      >
+        <div class="frame">
+          <div class="section-heading">
+            <h2 class="reveal" id="education-title">Always learning</h2>
+            <p class="section-intro reveal">
+              A foundation in computer science. A continuing interest in how
+              research becomes useful software.
+            </p>
+          </div>
+          <div class="education-layout">
+            <div
+              class="education-photo reveal"
+              id="education-gallery"
+              role="region"
+              aria-label="University photographs"
+            >
+              <div class="campus-stage">
+                <figure class="campus-slide">
+                  <div class="campus-image">
+                    <img
+                      src="images/editorial/campus-polimi-courtyard.webp"
+                      alt="Politecnico di Milano’s historic main building framed by trees"
+                      width="1200"
+                      height="674"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption>Politecnico di Milano, Italy</figcaption>
+                </figure>
+                <figure class="campus-slide">
+                  <div class="campus-image">
+                    <img
+                      src="images/editorial/campus-hacettepe-beytepe.webp"
+                      alt="Tree-lined outdoor gathering area at Hacettepe University’s Beytepe campus"
+                      width="1200"
+                      height="800"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption>Hacettepe University, Beytepe campus</figcaption>
+                </figure>
+                <figure class="campus-slide">
+                  <div class="campus-image">
+                    <img
+                      src="images/editorial/campus.webp"
+                      alt="Czestochowa University of Technology campus"
+                      width="880"
+                      height="580"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption>
+                    Czestochowa University of Technology, Poland
+                  </figcaption>
+                </figure>
+              </div>
+              <div class="campus-controls" hidden>
+                <div class="campus-transport">
+                  <button
+                    type="button"
+                    class="campus-prev"
+                    aria-label="Previous university photograph"
+                  >
+                    ←
+                  </button>
+                  <span class="campus-count" aria-hidden="true">1 of 3</span>
+                  <button
+                    type="button"
+                    class="campus-next"
+                    aria-label="Next university photograph"
+                  >
+                    →
+                  </button>
                 </div>
-
-                <div class="skill-cat fade-in">
-                    <h3>Big Data &amp; Machine Learning</h3>
-                    <div class="skill-items">
-                        <span class="skill-item"><img src="images/icons/dask.svg" alt="" loading="lazy">Dask</span>
-                        <span class="skill-item"><img src="images/icons/kafka.svg" alt="" loading="lazy">Kafka</span>
-                        <span class="skill-item"><img src="images/icons/pytorch.svg" alt="" loading="lazy">PyTorch</span>
-                        <span class="skill-item"><img src="images/icons/opencv.svg" alt="" loading="lazy">OpenCV</span>
-                        <span class="skill-item"><img src="images/icons/pandas.svg" alt="" loading="lazy">Pandas</span>
-                        <span class="skill-item"><img src="images/icons/numpy.svg" alt="" loading="lazy">NumPy</span>
-                        <span class="skill-item"><img src="images/icons/jupyter.svg" alt="" loading="lazy">Jupyter</span>
-                        <span class="skill-item"><img src="images/icons/anaconda.svg" alt="" loading="lazy">Anaconda</span>
-                    </div>
+                <div
+                  class="campus-picker"
+                  role="group"
+                  aria-label="Choose a university photograph"
+                >
+                  <button type="button" aria-pressed="true">Milan</button>
+                  <button type="button" aria-pressed="false">Ankara</button>
+                  <button type="button" aria-pressed="false">
+                    Czestochowa
+                  </button>
                 </div>
-
-                <div class="skill-cat fade-in">
-                    <h3>Backend &amp; APIs</h3>
-                    <div class="skill-items">
-                        <span class="skill-item"><img src="images/icons/django.svg" alt="" loading="lazy">Django</span>
-                        <span class="skill-item"><img src="images/icons/fastapi.svg" alt="" loading="lazy">FastAPI</span>
-                        <span class="skill-item"><img src="images/icons/grpc.svg" alt="" loading="lazy">gRPC</span>
-                        <span class="skill-item"><img src="images/icons/postman.svg" alt="" loading="lazy">Postman</span>
-                        <span class="skill-item"><img src="images/icons/swagger.svg" alt="" loading="lazy">Swagger</span>
-                        <span class="skill-item"><img src="images/icons/pytest.svg" alt="" loading="lazy">Pytest</span>
-                        <span class="skill-item"><img src="images/icons/unittest.svg" alt="" loading="lazy">Unittest</span>
-                    </div>
-                </div>
-
-                <div class="skill-cat fade-in">
-                    <h3>Databases</h3>
-                    <div class="skill-items">
-                        <span class="skill-item"><img src="images/icons/postgresql.svg" alt="" loading="lazy">PostgreSQL</span>
-                        <span class="skill-item"><img src="images/icons/mysql.svg" alt="" loading="lazy">MySQL</span>
-                        <span class="skill-item"><img src="images/icons/redis.svg" alt="" loading="lazy">Redis</span>
-                        <span class="skill-item"><img src="images/icons/elasticsearch.svg" alt="" loading="lazy">Elasticsearch</span>
-                    </div>
-                </div>
-
-                <div class="skill-cat fade-in">
-                    <h3>Cloud &amp; DevOps</h3>
-                    <div class="skill-items">
-                        <span class="skill-item"><img src="images/icons/kubernetes.svg" alt="" loading="lazy">Kubernetes</span>
-                        <span class="skill-item"><img src="images/icons/docker.svg" alt="" loading="lazy">Docker</span>
-                        <span class="skill-item"><img src="images/icons/aws.svg" alt="" loading="lazy">AWS</span>
-                        <span class="skill-item"><img src="images/icons/helm.svg" alt="" loading="lazy">Helm</span>
-                        <span class="skill-item"><img src="images/icons/jenkins.svg" alt="" loading="lazy">Jenkins</span>
-                        <span class="skill-item"><img src="images/icons/kafka.svg" alt="" loading="lazy">Apache Kafka</span>
-                        <span class="skill-item"><img src="images/icons/prometheus.svg" alt="" loading="lazy">Prometheus</span>
-                        <span class="skill-item"><img src="images/icons/grafana.svg" alt="" loading="lazy">Grafana</span>
-                    </div>
-                </div>
-
-                <div class="skill-cat fade-in">
-                    <h3>Tools & Methodologies</h3>
-                    <div class="skill-items">
-                        <span class="skill-item"><img src="images/icons/git.svg" alt="" loading="lazy">Git</span>
-                        <span class="skill-item"><img src="images/icons/linux.svg" alt="" loading="lazy">Linux</span>
-                        <span class="skill-item"><img src="images/icons/jira.svg" alt="" loading="lazy">Jira</span>
-                        <span class="skill-item"><img src="images/icons/agile.svg" alt="" loading="lazy">Agile/Scrum</span>
-                        <span class="skill-item"><img src="images/icons/cicd.svg" alt="" loading="lazy">CI/CD</span>
-                    </div>
-                </div>
+              </div>
+              <p
+                class="sr-only campus-status"
+                role="status"
+                aria-live="polite"
+              ></p>
             </div>
-
-            <div class="expertise-grid fade-in">
-                <div class="expertise-card">
-                    <h3>Expertise Areas</h3>
-                    <p>These are the areas where I have spent the most hands-on time through professional work, research, and academic projects.</p>
-                    <div class="skill-bar">
-                        <div class="skill-name"><span>Machine Learning</span><span></span></div>
-                        <div class="skill-level"><div class="skill-progress" data-width="70%"></div></div>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-name"><span>Computer Vision</span><span></span></div>
-                        <div class="skill-level"><div class="skill-progress" data-width="60%"></div></div>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-name"><span>Backend Development</span><span></span></div>
-                        <div class="skill-level"><div class="skill-progress" data-width="55%"></div></div>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-name"><span>Cloud Computing</span><span></span></div>
-                        <div class="skill-level"><div class="skill-progress" data-width="45%"></div></div>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-name"><span>Big Data</span><span></span></div>
-                        <div class="skill-level"><div class="skill-progress" data-width="35%"></div></div>
-                    </div>
-                </div>
-                <div class="expertise-card">
-                    <h3>How I apply them</h3>
+            <div>
+              <article class="education-row reveal">
+                <p class="secondary">Sep 2024 — Present · Milan, Italy</p>
+                <h3>
+                  <a
+                    href="https://www.polimi.it/en/"
+                    target="_blank"
+                    rel="noopener"
+                    >Politecnico di Milano</a
+                  >
+                </h3>
+                <p>
+                  <span class="accent">Master of Science</span> - Computer
+                  Science and Engineering
+                </p>
+                <p class="secondary">Master's program</p>
+                <details>
+                  <summary>
+                    Study & coursework<span aria-hidden="true">+</span>
+                  </summary>
+                  <div class="disclosure-body">
                     <p>
-                        I connect these areas by designing <strong>end-to-end backend systems</strong> that ingest, process, and expose data with
-                        reliability and performance in mind. In practice, this means building <strong>stable APIs</strong>, <strong>scalable data pipelines</strong>,
-                        and <strong>cloud-native services</strong> that continue to work under real production pressure.
+                      My Master's studies focus on <strong>artificial
+                      intelligence</strong>, <strong>AI agents</strong>,
+                      and <strong>multiagent systems</strong>.
+                      I explore how advanced learning methods, large language
+                      models, and collaborating agents can become reliable,
+                      practical software through AI-enabled systems engineering.
                     </p>
                     <p>
-                        My strongest contributions are in projects where <strong>infrastructure</strong>, <strong>data engineering</strong>, and
-                        <strong>applied machine learning</strong> must operate together as one system. I focus on making these components
-                        measurable, maintainable, and ready for long-term use in production environments.
+                      Coursework: Advanced AI Techniques, Natural Language
+                      Processing, Engineering AI-Enabled Software Systems,
+                      Multi Agent Learning, From LLMs to Agentic AI, Multiagent
+                      Systems.
                     </p>
-                </div>
-            </div>
-
-            <div class="lang-row fade-in">
-                <div class="lang-card">
-                    <span class="name">Turkish</span>
-                    <span class="level">Native</span>
-                </div>
-                <div class="lang-card">
-                    <span class="name">English</span>
-                    <span class="level">C1 — Professional</span>
-                </div>
-                <div class="lang-card">
-                    <span class="name">Italian</span>
-                    <span class="level">B1 — Intermediate</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog -->
-    <section id="blog" class="section section-alt">
-        <div class="container">
-            <div class="section-header fade-in">
-                <div class="section-eyebrow">07 — Articles</div>
-                <h2 class="section-title">Engineering <span class="accent">Insights</span></h2>
-                <p class="section-sub">Here I share my thoughts, lessons, and experiences from software engineering.</p>
-            </div>
-
-            <div class="blog-preview-grid">
-                <a class="blog-preview-card article-600tb fade-in" href="blog/lessons-learned-building-distributed-systems-600tb.html">
-                    <h3 class="blog-preview-title">Lessons Learned Building Distributed Systems for 600TB+ Analytical Workloads</h3>
-                    <div class="blog-preview-meta">Jul 2026 · 9 min read</div>
-                    <p class="blog-preview-summary">A direct breakdown of what I learned running 600TB+ analytical workloads, including design mistakes, bottlenecks, and fixes that worked.</p>
-                </a>
-
-                <a class="blog-preview-card article-k8s fade-in" href="blog/operating-kubernetes-workloads-300-nodes.html">
-                    <h3 class="blog-preview-title">Operating Kubernetes Workloads Across 300+ Production Nodes: What Nobody Tells You</h3>
-                    <div class="blog-preview-meta">Jul 2026 · 8 min read</div>
-                    <p class="blog-preview-summary">What actually breaks first at 300+ nodes and how I handled scheduling pressure, rollout risks, and cross-workload interference.</p>
-                </a>
-
-                <a class="blog-preview-card article-observability fade-in" href="blog/why-observability-becomes-more-important-than-code.html">
-                    <h3 class="blog-preview-title">Why Observability Becomes More Important Than Code at Scale</h3>
-                    <div class="blog-preview-meta">Jul 2026 · 7 min read</div>
-                    <p class="blog-preview-summary">How better observability changed my day-to-day engineering decisions, incident response quality, and reliability outcomes at scale.</p>
-                </a>
-            </div>
-
-            <div class="blog-preview-footer fade-in">
-                <a class="blog-preview-link" href="blog/articles.html">View all articles ↗</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="section section-alt">
-        <div class="container">
-            <div class="section-header fade-in">
-                <div class="section-eyebrow">08 — Contact</div>
-                <h2 class="section-title">Get in <span class="accent">Touch</span></h2>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info fade-in">
+                  </div>
+                </details>
+              </article>
+              <article class="education-row reveal">
+                <p class="secondary">Oct 2017 — May 2022 · Ankara, Turkey</p>
+                <h3>
+                  <a
+                    href="https://www.hacettepe.edu.tr/english"
+                    target="_blank"
+                    rel="noopener"
+                    >Hacettepe University</a
+                  >
+                </h3>
+                <p>
+                  <span class="accent">Bachelor of Science</span> - Computer
+                  Science
+                </p>
+                <p class="secondary">GPA 3.33/4 · Honor Student</p>
+                <details>
+                  <summary>
+                    Study & coursework<span aria-hidden="true">+</span>
+                  </summary>
+                  <div class="disclosure-body">
                     <p>
-                        Whether you want to discuss an opportunity, collaborate on a project, ask about my research,
-                        or simply connect, I would be happy to hear from you.
+                      During my bachelor's, I focused mainly on
+                      <strong>Machine Learning</strong>,
+                      <strong>Computer Vision</strong>, and
+                      <strong>Software Engineering</strong>. My thesis work in
+                      computer vision later became my publication
+                      <strong>Tinysign (SIViP, 2024)</strong>, and that process
+                      really strengthened how I approach programming,
+                      algorithms, and real problem-solving in practical
+                      engineering contexts and team delivery.
                     </p>
-                    <div class="contact-block">
-                        <h3>Email</h3>
-                        <div class="contact-emails">
-                            <a href="mailto:firatadem.bilge@gmail.com">firatadem.bilge@gmail.com</a>
-                            <a href="mailto:firatadem.bilge@mail.polimi.it">firatadem.bilge@mail.polimi.it</a>
-                        </div>
-                    </div>
-                    <div class="contact-block">
-                        <h3>Socials</h3>
-                        <div class="contact-socials">
-                            <a href="https://www.linkedin.com/in/adembilge/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn profile">
-                                <img src="images/icons/linkedin.svg" alt="" width="22" height="22">
-                            </a>
-                            <a href="https://github.com/adembilge" target="_blank" rel="noopener" class="social-link" aria-label="GitHub profile">
-                                <img src="images/icons/github.svg" alt="" width="22" height="22">
-                            </a>
-                            <a href="https://scholar.google.com/citations?user=qxDWiIQAAAAJ&amp;hl=en" target="_blank" rel="noopener" class="social-link" aria-label="Google Scholar profile">
-                                <img src="images/icons/scholar.svg" alt="" width="22" height="22">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form fade-in">
-                    <form action="mailto:firatadem.bilge@gmail.com" method="post" enctype="text/plain">
-                        <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
-                </div>
+                    <p>
+                      Coursework: Algorithms and Data Structures, Software
+                      Engineering, Databases, Deep Learning,
+                      Machine Learning, Computer Vision.
+                    </p>
+                  </div>
+                </details>
+              </article>
+              <article class="education-row reveal">
+                <p class="secondary">
+                  Sep 2019 — Feb 2020 · Czestochowa, Poland
+                </p>
+                <h3>
+                  <a
+                    href="https://www.pcz.pl/en/"
+                    target="_blank"
+                    rel="noopener"
+                    >Czestochowa University of Technology</a
+                  >
+                </h3>
+                <p><span class="accent">Erasmus+</span> Exchange Program</p>
+                <p class="secondary">International exchange semester</p>
+                <details>
+                  <summary>
+                    Study & coursework<span aria-hidden="true">+</span>
+                  </summary>
+                  <div class="disclosure-body">
+                    <p>
+                      I joined this Erasmus semester to improve my background in
+                      <strong>AI</strong> and <strong>Computer Vision</strong>
+                      in a completely new academic environment. Working in
+                      international project teams helped me become more
+                      adaptable, collaborative, and confident in technical
+                      communication across different cultures, academic
+                      expectations, and working styles in team settings.
+                    </p>
+                    <p>
+                      Coursework: Applications of Artificial Intelligence,
+                      Machine Learning, Computer Vision.
+                    </p>
+                  </div>
+                </details>
+              </article>
             </div>
+          </div>
         </div>
-    </section>
-</main>
-
-<!-- Footer -->
-<footer class="footer">
-    <p><span class="copyright-text">© 2026 Firat Adem Bilge</span> · <a href="https://github.com/adembilge/portfolio" target="_blank" rel="noopener">View source on GitHub</a></p>
-</footer>
-
-<script src="js/main.js"></script>
-</body>
+      </section>
+      <section
+        class="research section"
+        id="publications"
+        aria-labelledby="research-title"
+      >
+        <div class="frame">
+          <div class="section-heading">
+            <h2 class="reveal" id="research-title">Research, applied</h2>
+            <p class="section-intro reveal">
+              Computer vision for the constraints of the real world.
+            </p>
+          </div>
+          <div class="research-layout">
+            <figure class="research-media reveal">
+              <img
+                src="images/editorial/tinysign.webp"
+                alt="Tinysign research examples comparing low-resolution sign language footage and pose information"
+                width="969"
+                height="276"
+                loading="lazy"
+              />
+              <figcaption>Low-resolution sign language recognition</figcaption>
+            </figure>
+            <div class="research-copy">
+              <h3 class="reveal">Tinysign</h3>
+              <p class="lead reveal">
+                Sign Language Recognition in Low-Resolution Settings
+              </p>
+              <p class="reveal">
+                First-author research on recognizing sign language when video
+                quality and bandwidth are limited. Published in Signal, Image
+                and Video Processing, Springer Nature.
+              </p>
+              <p class="secondary">
+                June 2024 · SIViP 18, 6881–6890 · London, United Kingdom
+              </p>
+              <div class="research-links">
+                <a
+                  class="text-link"
+                  href="https://link.springer.com/article/10.1007/s11760-024-03358-z"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Read the paper</a
+                ><a
+                  class="text-link"
+                  href="https://doi.org/10.1007/s11760-024-03358-z"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >DOI</a
+                ><a
+                  class="text-link"
+                  href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=qxDWiIQAAAAJ&amp;citation_for_view=qxDWiIQAAAAJ:u5HHmVD_uO8C"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Google Scholar</a
+                >
+              </div>
+              <details>
+                <summary>
+                  Abstract highlights & citation<span aria-hidden="true"
+                    >+</span
+                  >
+                </summary>
+                <div class="disclosure-body">
+                  <ul>
+                    <li>
+                      Introduced the <strong>first benchmark</strong> for
+                      low-resolution sign language recognition.
+                    </li>
+                    <li>
+                      Addressed recognition in
+                      <strong>privacy-sensitive</strong> and low-bandwidth video
+                      scenarios.
+                    </li>
+                    <li>
+                      Proposed a novel
+                      <strong>pose-conditioned super-resolution</strong>
+                      architecture to reconstruct critical visual cues.
+                    </li>
+                    <li>
+                      Achieved <strong>58.0% accuracy</strong>, outperforming
+                      the previous state of the art (35.0%) on the same dataset.
+                    </li>
+                  </ul>
+                  <p>
+                    <strong>Bilge, F.A.</strong>, Hüseyinoǧlu, A., Bilge, Y.C.
+                    et al. Tinysign: sign language recognition in low resolution
+                    settings. SIViP 18, 6881–6890 (2024). DOI:
+                    10.1007/s11760-024-03358-z
+                  </p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="writing section light"
+        id="blog"
+        aria-labelledby="writing-title"
+      >
+        <div class="frame">
+          <div class="section-heading">
+            <h2 class="reveal" id="writing-title">Engineering, in words</h2>
+            <p class="section-intro reveal">
+              Lessons from building and operating software at scale.
+            </p>
+          </div>
+          <a
+            class="article-row reveal"
+            href="blog/lessons-learned-building-distributed-systems-600tb.html"
+            ><img
+              src="images/articles/distributed-systems.jpg"
+              alt=""
+              width="1600"
+              height="1067"
+              loading="lazy"
+            />
+            <div>
+              <p class="secondary">July 2026 · 24 min read</p>
+              <h3>Lessons at 600 TB</h3>
+              <p>
+                Lessons Learned Building Distributed Systems for 600TB+
+                Analytical Workloads
+              </p>
+              <p class="article-description">
+                Design mistakes, bottlenecks, and fixes that worked.
+              </p>
+            </div>
+            <span class="article-action">Read article</span></a
+          >
+          <a
+            class="article-row reveal"
+            href="blog/operating-kubernetes-workloads-300-nodes.html"
+            ><img
+              src="images/articles/kubernetes-platform.jpg"
+              alt=""
+              width="1600"
+              height="1067"
+              loading="lazy"
+            />
+            <div>
+              <p class="secondary">July 2026 · 22 min read</p>
+              <h3>Beyond 300 nodes</h3>
+              <p>
+                Operating Kubernetes Workloads Across 300+ Production Nodes:
+                What Nobody Tells You
+              </p>
+              <p class="article-description">
+                Scheduling pressure, rollout risks, and workload isolation.
+              </p>
+            </div>
+            <span class="article-action">Read article</span></a
+          >
+          <a
+            class="article-row reveal"
+            href="blog/why-observability-becomes-more-important-than-code.html"
+            ><img
+              src="images/articles/observability.jpg"
+              alt=""
+              width="1600"
+              height="1067"
+              loading="lazy"
+            />
+            <div>
+              <p class="secondary">July 2026 · 23 min read</p>
+              <h3>Seeing the system</h3>
+              <p>Why Observability Becomes More Important Than Code at Scale</p>
+              <p class="article-description">
+                Better diagnostics, incident response, and engineering
+                decisions.
+              </p>
+            </div>
+            <span class="article-action">Read article</span></a
+          >
+          <a class="text-link writing-all" href="blog/articles.html"
+            >All articles</a
+          >
+        </div>
+      </section>
+      <section
+        class="contact section frame"
+        id="contact"
+        aria-labelledby="contact-title"
+      >
+        <div class="contact-heading">
+          <h2 id="contact-title" class="reveal">
+            Let’s build<br />what’s next.
+          </h2>
+          <a
+            class="contact-arrow"
+            href="mailto:firatadem.bilge@gmail.com"
+            aria-label="Email Adem"
+            ><span aria-hidden="true">↗</span></a
+          >
+        </div>
+        <div class="contact-layout">
+          <div class="contact-copy">
+            <p class="lead reveal">
+              Have a role, a challenging problem, or an idea worth exploring?
+              I’d like to hear about it.
+            </p>
+            <div class="contact-emails">
+              <a href="mailto:firatadem.bilge@gmail.com"
+                >firatadem.bilge@gmail.com</a
+              ><a href="mailto:firatadem.bilge@mail.polimi.it"
+                >firatadem.bilge@mail.polimi.it</a
+              >
+            </div>
+            <button class="text-link copy-email" type="button" hidden>
+              Copy email address
+            </button>
+            <p class="copy-status sr-only" role="status"></p>
+            <div class="contact-socials">
+              <a
+                class="text-link"
+                href="https://github.com/adembilge"
+                target="_blank"
+                rel="noopener noreferrer"
+                >GitHub</a
+              ><a
+                class="text-link"
+                href="https://www.linkedin.com/in/adembilge/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >LinkedIn</a
+              ><a
+                class="text-link"
+                href="https://scholar.google.com/citations?user=qxDWiIQAAAAJ&amp;hl=en"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Google Scholar</a
+              ><a
+                class="text-link"
+                href="https://drive.google.com/file/d/1ys39d1oD9EsqbKiRuj7r-zCJSb8d4q0g/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                >View CV</a
+              >
+            </div>
+          </div>
+          <details class="contact-compose">
+            <summary>
+              Prefer to write here?<span aria-hidden="true">+</span>
+            </summary>
+            <form
+              action="mailto:firatadem.bilge@gmail.com"
+              method="post"
+              enctype="text/plain"
+              id="contact-form"
+              aria-describedby="form-help"
+            >
+              <p id="form-help">
+                Compose a message, then open it in your email app to send.
+              </p>
+              <div class="form-fields">
+                <label for="name">Your name</label
+                ><input
+                  id="name"
+                  name="name"
+                  autocomplete="name"
+                  maxlength="150"
+                  required
+                /><label for="email">Email address</label
+                ><input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  maxlength="254"
+                  required
+                /><label for="message">Message</label
+                ><textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  maxlength="3000"
+                  required
+                ></textarea
+                ><button
+                  class="button button-accent"
+                  type="submit"
+                  aria-describedby="form-help"
+                >
+                  Open email app
+                </button>
+              </div>
+              <p id="form-status" role="status"></p>
+            </form>
+          </details>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer frame">
+      <div class="footer-meta">
+        <p>© 2026 Firat Adem Bilge</p>
+        <a
+          class="text-link"
+          href="https://github.com/adembilge/portfolio"
+          target="_blank"
+          rel="noopener noreferrer"
+          >View source</a
+        ><a href="#top" class="back-top">Back to top ↑</a>
+      </div>
+      <p class="footer-name" aria-hidden="true">Adem Bilge</p>
+    </footer>
+  </body>
 </html>

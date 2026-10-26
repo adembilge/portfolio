@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://adembilge.dev/sitemap.xml

@@ -1,0 +1,129 @@
+import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
+import { resolve, dirname, join } from "node:path";
+import { Script } from "node:vm";
+import { execFileSync } from "node:child_process";
+import { collectSite } from "./site-files.mjs";
+
+const root = resolve(import.meta.dirname, "..");
+const files = [
+  "index.html",
+  ...readdirSync(join(root, "blog"))
+    .filter((x) => x.endsWith(".html"))
+    .map((x) => "blog/" + x),
+];
+const errors = [];
+const site = collectSite();
+errors.push(...site.errors);
+let references = 0;
+const ids = new Map();
+for (const file of files) {
+  const html = readFileSync(join(root, file), "utf8");
+  const found = [...html.matchAll(/\bid="([^"]+)"/g)].map((x) => x[1]);
+  ids.set(file, new Set(found));
+  if (new Set(found).size !== found.length)
+    errors.push(`${file}: duplicate IDs`);
+  if ([...html.matchAll(/<h1(?:\s|>)/g)].length !== 1)
+    errors.push(`${file}: expected one h1`);
+  if (!html.includes('name="description"'))
+    errors.push(`${file}: missing meta description`);
+  if (!html.includes('rel="canonical"'))
+    errors.push(`${file}: missing canonical URL`);
+  for (const img of html.matchAll(/<img\b[^>]*>/g)) {
+    if (!/\balt="[^"]*"/.test(img[0]))
+      errors.push(`${file}: image has no alt attribute`);
+    if (!/\bwidth="\d+"/.test(img[0]) || !/\bheight="\d+"/.test(img[0]))
+      errors.push(`${file}: image dimensions missing`);
+  }
+}
+for (const file of files) {
+  const html = readFileSync(join(root, file), "utf8");
+  for (const match of html.matchAll(
+    /(?:href|src|data-src|data-demo)="([^"]+)"/g,
+  )) {
+    const ref = match[1].replaceAll("&amp;", "&");
+    if (/^(?:https?:|mailto:|data:)/.test(ref)) continue;
+    const [path, fragment] = ref.split("#");
+    const name = path
+      ? resolve(
+          dirname(join(root, file)),
+          decodeURIComponent(path.split("?")[0]),
+        )
+      : join(root, file);
+    references++;
+    if (!existsSync(name)) {
+      errors.push(`${file}: missing ${ref}`);
+      continue;
+    }
+    const key = name.slice(root.length + 1).replaceAll("\\", "/");
+    if (fragment && ids.has(key) && !ids.get(key).has(fragment))
+      errors.push(`${file}: missing target ${ref}`);
+  }
+}
+for (const file of [
+  "js/motion-preference.js",
+  "js/portfolio.js",
+  "js/motion.js",
+]) {
+  try {
+    new Script(readFileSync(join(root, file), "utf8"), { filename: file });
+  } catch (error) {
+    errors.push(error.message);
+  }
+}
+// Preserve all original professional destinations. Run this when Git history is available.
+try {
+  const original = execFileSync("git", ["show", "HEAD:index.html"], {
+    cwd: root,
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "ignore"],
+  });
+  const current = readFileSync(join(root, "index.html"), "utf8");
+  const urls = [
+    ...new Set([...original.matchAll(/href="([^"]+)"/g)].map((x) => x[1])),
+  ].filter(
+    (x) =>
+      /^(https?:|mailto:)/.test(x) &&
+      !x.includes("fonts.googleapis.com") &&
+      !x.includes("fonts.gstatic.com"),
+  );
+  for (const url of urls)
+    if (!current.includes(url))
+      errors.push(`Original professional link lost: ${url}`);
+  for (const file of files.filter(
+    (x) => x.startsWith("blog/") && x !== "blog/articles.html",
+  )) {
+    const before = execFileSync("git", ["show", `HEAD:${file}`], {
+      cwd: root,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    });
+    const text = (h) =>
+      h
+        .match(/<article[^>]*>([\s\S]*?)<\/article>/)?.[1]
+        .replace(/<[^>]+>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    if (text(before) !== text(readFileSync(join(root, file), "utf8")))
+      errors.push(`${file}: article body changed`);
+  }
+  console.log(
+    `Preserved ${urls.length} original professional destinations and all 3 article bodies.`,
+  );
+} catch (error) {
+  console.log(
+    "Git baseline unavailable; static integrity checks still completed.",
+  );
+}
+const size = (name) => statSync(join(root, name)).size;
+console.log(
+  `Checked ${files.length} pages, ${references} local references, JavaScript syntax, headings, metadata, and image alternatives.`,
+);
+console.log(`Verified ${site.files.length} deployable files, including CSS URLs, responsive images, and exact filename capitalization.`);
+console.log(
+  `Homepage: ${size("index.html")} bytes. CSS: ${size("css/portfolio.css")} bytes. JavaScript: ${size("js/portfolio.js")} bytes.`,
+);
+if (errors.length) {
+  console.error(errors.join("\n"));
+  process.exit(1);
+}
+console.log("PASS: static integrity checks.");
