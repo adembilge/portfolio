@@ -242,7 +242,7 @@
           <div class="about-copy">
 <p data-i18n-rich class="lead reveal">Sono Adem, un ingegnere del software e studente di Ingegneria informatica al <strong>Politecnico di Milano</strong>.</p>
 <p data-i18n-rich class="reveal">In questo periodo mi dedico soprattutto all’<strong>ingegneria AI</strong>. Mi interessa capire come i modelli linguistici e gli agenti AI possano aiutare le persone nelle attività quotidiane e come costruire applicazioni che li utilizzino. A Milano approfondisco questi temi attraverso lo studio dell’intelligenza artificiale, dell’elaborazione del linguaggio naturale e dei sistemi multiagente.</p>
-<p data-i18n-rich class="reveal">Prima della magistrale ho lavorato in HAVELSAN su <strong>analisi distribuita e segmentazione delle impronte digitali</strong>. Mi sono occupato anche di servizi di messaggistica in ULAK e, più di recente, di servizi di prenotazione e agenti AI in Entervia. Queste esperienze mi portano a prestare attenzione anche al software che circonda un modello: API, pipeline di dati, distribuzione e monitoraggio.</p>
+<p data-i18n-rich class="reveal">Prima della magistrale ho lavorato in HAVELSAN su <strong>analisi distribuita e segmentazione delle impronte digitali</strong>. Mi sono occupato anche di rilevamento delle anomalie di rete in ULAK e, più di recente, di servizi di prenotazione e agenti AI in Entervia. Queste esperienze mi portano a prestare attenzione anche al software che circonda un modello: API, pipeline di dati, distribuzione e monitoraggio.</p>
 <p data-i18n-rich class="reveal">La visione artificiale fa parte del mio percorso fin dalla laurea triennale a Hacettepe. Dalla mia tesi è nato <strong>Tinysign</strong>, un articolo di cui sono coautore sul riconoscimento della lingua dei segni in video a bassa risoluzione. Lavorare con immagini imperfette, nella ricerca e in produzione, mi ha insegnato a valutare con attenzione i modelli e a interpretarne i risultati.</p>
 <p class="reveal">Ora cerco un ruolo in cui applicare questa esperienza alle applicazioni AI e continuare a imparare dalle persone con cui lavoro. Mi piace discutere apertamente le scelte tecniche e scrivere codice comprensibile anche per chi ci lavorerà dopo di me.</p>
 
@@ -508,34 +508,22 @@
                   >
                 </h3>
                 <p class="role-title">
-                  <span class="accent">Ingegnere</span> software
+                  <span class="accent">Ingegnere</span> AI
                 </p>
                 <p>
-                  Servizi backend e agenti AI per prenotazioni, pianificazione delle sessioni e accoglienza dei partecipanti.
+                  Agenti AI per sessioni live su Telegram, risposte basate sui dati e supporto automatizzato alle prenotazioni.
                 </p>
                 <p class="secondary">
                       Part-time · Startup in fase iniziale · Milano, Italia
-                    </p><div class="disclosure-pair"><details name="job-0" data-disclosure-group="job-0"><summary>Riepilogo<span aria-hidden="true">+</span></summary><div class="disclosure-body"><p data-i18n-rich>In Entervia ho lavorato part-time ai servizi per la prenotazione delle sessioni e la gestione dei partecipanti. Mi occupavo delle attività attorno a una sessione: crearla, organizzarne gli orari e aiutare le persone a partecipare. Ho sviluppato <strong>servizi Django e API REST</strong>, usando PostgreSQL per i dati. Oltre al codice applicativo, gestivo l’infrastruttura AWS e utilizzavo Docker e Jenkins nella pipeline di rilascio. Il lavoro comprendeva quindi sia lo sviluppo del servizio sia il processo per portare le modifiche in un ambiente funzionante.</p>
-<p data-i18n-rich>Il lavoro sull’AI si collegava allo stesso flusso di prenotazione. Ho realizzato <strong>workflow agentici</strong> con strumenti per creare sessioni, pianificarle e generare contenuti. Ho anche integrato agenti autonomi nei bot Telegram per gestire l’ingresso dei partecipanti e rispondere alle domande in tempo reale. I servizi applicativi e le integrazioni degli agenti facevano parte dello stesso sistema, e il mio lavoro univa lo sviluppo software all’uso concreto degli agenti AI.</p></div></details>
+                    </p><div class="disclosure-pair"><details name="job-0" data-disclosure-group="job-0"><summary>Riepilogo<span aria-hidden="true">+</span></summary><div class="disclosure-body"><p data-i18n-rich>In Entervia ho lavorato part-time come AI Engineer a una piattaforma di sessioni live a pagamento su Telegram. Ho sviluppato un <strong>agente AI con Python, API LLM e LangChain</strong> per rispondere alle domande di organizzatori e partecipanti su prenotazioni, sessioni e host. Per basare le risposte sulle informazioni della piattaforma, ho implementato una pipeline RAG con embedding testuali e un database pgvector, collegando le risposte dell’agente al contesto pertinente.</p>
+<p data-i18n-rich>Ho inoltre integrato <strong>tool e function calling tramite API REST Django</strong>, permettendo all’agente di verificare lo stato delle prenotazioni, confermare i pagamenti e attivare gli inviti Telegram. Queste azioni collegavano il supporto conversazionale ai flussi di prenotazione e accesso. Ho distribuito l’agente e i servizi backend su AWS ECS, integrato RDS con PostgreSQL e pgvector e utilizzato pipeline CI/CD per il rilascio delle modifiche. Il lavoro comprendeva l’agente, la pipeline di recupero delle informazioni e i servizi necessari a mantenere affidabili le prenotazioni e l’accesso alle sessioni.</p></div></details>
 <details name="job-0" data-disclosure-group="job-0"><summary>Contributi<span aria-hidden="true">+</span></summary><div class="disclosure-body"><ul>
-                      <li>
-                        Sviluppo di servizi backend e
-                        <strong>API RESTful</strong> con
-                        <strong>Django</strong> per supportare la prenotazione delle sessioni e la gestione dei partecipanti.
-                      </li>
-                      <li>
-                        Gestione di <strong>AWS</strong> per l’infrastruttura e di
-                        <strong>PostgreSQL</strong> per i database, con
-                        <strong>Docker</strong> e <strong>Jenkins</strong> per implementare <strong>CI/CD</strong> nelle pipeline.
-                      </li>
-                      <li>
-                        Implementazione di <strong>workflow agentici</strong> con integrazione di strumenti per gestire la creazione delle sessioni, la pianificazione e la generazione dei contenuti.
-                      </li>
-                      <li>
-                        Integrazione di sistemi autonomi basati su <strong>agenti AI</strong> nei servizi bot Telegram per gestire in tempo reale l’accoglienza dei partecipanti e le domande e risposte.
-                      </li>
+                      <li>Ho sviluppato un agente AI per una piattaforma di sessioni live a pagamento su Telegram usando Python, API LLM e LangChain per automatizzare il supporto a organizzatori e partecipanti.</li>
+                      <li>Ho implementato una pipeline RAG con embedding testuali e un database pgvector per fornire risposte basate sui dati e sul contesto di prenotazioni, sessioni e host.</li>
+                      <li>Ho integrato tool e function calling affinché l’agente potesse attivare azioni come la verifica dello stato delle prenotazioni, la conferma dei pagamenti e gli inviti Telegram tramite API REST Django.</li>
+                      <li>Ho distribuito l’agente e i servizi backend su AWS ECS, integrando RDS (PostgreSQL/pgvector) e pipeline CI/CD per mantenere affidabili i flussi di prenotazione e accesso.</li>
                     </ul><p class="technology-list">
-                      Python, Django, gRPC, Postman, Swagger, Pytest, PostgreSQL, Redis, AWS, Docker, Jenkins, Git, CI/CD
+                      Python, API LLM, LangChain, RAG, embedding testuali, pgvector, API REST Django, AWS ECS, RDS, PostgreSQL, CI/CD
                     </p></div></details></div>
               </div>
             </article>
@@ -636,28 +624,21 @@
                   >
                 </h3>
                 <p class="role-title">
-                  <span class="accent">Ingegnere</span> software
+                  <span class="accent">Ingegnere</span> machine learning
                 </p>
                 <p>
-                  Servizi di messaggistica a bassa latenza, ottimizzazione dei database e distribuzione su cloud.
+                  Rilevamento delle anomalie di rete per il monitoraggio SD-WAN, dalla preparazione dei dati di traffico alla valutazione del modello.
                 </p>
                 <p class="secondary">
                       Tirocinio · Azienda nazionale di infrastrutture di telecomunicazione · Istanbul, Turchia
-                    </p><div class="disclosure-pair"><details name="job-3" data-disclosure-group="job-3"><summary>Riepilogo<span aria-hidden="true">+</span></summary><div class="disclosure-body"><p data-i18n-rich>Durante il tirocinio in ULAK ho lavorato ai servizi backend di una piattaforma di messaggistica. L’applicazione richiedeva comunicazioni a bassa latenza e ho sviluppato servizi con <strong>FastAPI e WebSocket</strong> per supportarle. Mi sono occupato anche del database, lavorando sugli indici e sullo schema MySQL per migliorare la reattività dell’applicazione. Il tirocinio mi ha dato esperienza pratica nel collegamento tra API, messaggistica in tempo reale e archiviazione dei dati.</p>
-<p>Ho anche gestito distribuzioni su AWS e realizzato pipeline CI/CD per la consegna del software e i rilasci. Il lavoro andava quindi oltre la scrittura di un servizio e comprendeva la preparazione alla distribuzione e il supporto al processo di rilascio. Durante il tirocinio ho contribuito alla messaggistica, alle prestazioni del database e all’infrastruttura di delivery. È stata una delle mie prime occasioni per lavorare su più parti di un sistema software in un’azienda di infrastrutture per telecomunicazioni.</p></div></details>
+                    </p><div class="disclosure-pair"><details name="job-3" data-disclosure-group="job-3"><summary>Riepilogo<span aria-hidden="true">+</span></summary><div class="disclosure-body"><p data-i18n-rich>Durante il tirocinio in ULAK ho lavorato come Machine Learning Engineer al <strong>rilevamento delle anomalie di rete per un sistema di monitoraggio SD-WAN</strong>. Ho sviluppato un modello con Python, Pandas e PyTorch per analizzare i pattern del traffico di rete. Il lavoro partiva dai log di rete: ho costruito pipeline di preprocessing e feature engineering per pulire i dati, estrarre le metriche di traffico pertinenti e preparare i dataset per l’addestramento. Il modello disponeva così di una rappresentazione strutturata del traffico monitorato.</p>
+<p data-i18n-rich>Ho valutato il modello tramite <strong>precision, recall e F1-score</strong> per misurarne le prestazioni nel rilevamento delle anomalie. Ho inoltre analizzato i falsi positivi per capire quali casi venivano segnalati come anomali e utilizzato questa analisi per migliorare le prestazioni. I miei contributi comprendevano preparazione dei dati, sviluppo del modello e valutazione, collegando il trattamento dei log di rete al rilevamento delle anomalie in un ambiente SD-WAN.</p></div></details>
 <details name="job-3" data-disclosure-group="job-3"><summary>Contributi<span aria-hidden="true">+</span></summary><div class="disclosure-body"><ul>
-                      <li>
-                        Sviluppo di servizi backend per una piattaforma di messaggistica con <strong>FastAPI</strong> e
-                        <strong>WebSocket</strong>, per consentire messaggi a bassa latenza.
-                      </li>
-                      <li>
-                        Ottimizzazione di <strong>MySQL</strong> attraverso indicizzazione e progettazione dello schema del database per migliorare la reattività dell’applicazione.
-                      </li>
-                      <li>
-                        Gestione di <strong>AWS</strong> nelle distribuzioni e implementazione di pipeline CI/CD per supportare la consegna del software e i processi di rilascio.
-                      </li>
+                      <li>Ho sviluppato un modello di rilevamento delle anomalie di rete per un sistema di monitoraggio SD-WAN usando Python, Pandas e PyTorch per analizzare i pattern del traffico di rete.</li>
+                      <li>Ho costruito pipeline di preprocessing dei dati e feature engineering per pulire i log di rete, estrarre le metriche di traffico pertinenti e preparare i dataset per l’addestramento del modello.</li>
+                      <li>Ho valutato il modello tramite precision, recall e F1-score e analizzato i falsi positivi per migliorare le prestazioni nel rilevamento delle anomalie.</li>
                     </ul><p class="technology-list">
-                      Java, MySQL, AWS, Docker, Jenkins, Git, Linux, Jira, Agile/Scrum, CI/CD
+                      Python, Pandas, PyTorch, SD-WAN, preprocessing dei dati, feature engineering, precision, recall, F1-score
                     </p></div></details></div>
               </div>
             </article>

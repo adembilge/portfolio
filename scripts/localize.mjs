@@ -70,6 +70,7 @@ export function translate(html, file, dictionary) {
       'class="language-switch"$1lang="en" hreflang="en" aria-label="Read in English" title="English">EN<');
   // Role fragments need a different word order in Italian.
   output = output.replace(/<span class="accent">Software<\/span>\s*Ingegnere/g, '<span class="accent">Ingegnere</span> software')
+    .replace(/<span class="accent">AI<\/span>\s*Ingegnere/g, '<span class="accent">Ingegnere</span> AI')
     .replace(/<span class="accent">Machine Learning<\/span>\s*Ingegnere/g, '<span class="accent">Ingegnere</span> machine learning');
   return output;
 }
