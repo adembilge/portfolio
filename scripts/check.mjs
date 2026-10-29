@@ -81,6 +81,8 @@ try {
   ].filter(
     (x) =>
       /^(https?:|mailto:)/.test(x) &&
+      // These two project rows were explicitly removed from Selected work.
+      !["https://github.com/adembilge/TidyEdit", "https://github.com/adembilge/Quantization-Dithering-and-Color-Transforming"].includes(x) &&
       !x.includes("fonts.googleapis.com") &&
       !x.includes("fonts.gstatic.com"),
   );

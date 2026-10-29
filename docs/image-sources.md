@@ -4,13 +4,10 @@ This is development documentation, not a visitor-facing credits page.
 
 ## Sycoscience thesis image
 
-- Local file: `images/editorial/sycoscience-analysis.jpg` (1200 × 800 JPEG).
-- Source: https://pxhere.com/en/photo/1366141
-- Image: https://c.pxhere.com/photos/46/15/analysis_analytics_business_chart_charts_computer_concept_data-1366141.jpg!d
-- License: Creative Commons CC0 1.0 Universal Public Domain Dedication, https://creativecommons.org/publicdomain/zero/1.0/.
-- Checked: 29 October 2026. The photo page explicitly identifies CC0, permits personal/commercial reuse and modification, and states that attribution is not required. No visible photo credit or source link is added to the portfolio.
-- Preparation: the source's 1200 × 800 JPEG was downloaded without altering the image.
-- Context: illustrative stock photograph of a tablet and printed charts on a wooden desk. It is not a screenshot of the thesis experiments or a presentation of research results. The thesis entry is marked in progress, with expected publication in April 2027.
+- Local file: `images/editorial/sycoscience-architecture.png` (1125 × 357 PNG).
+- Source: architecture diagram supplied by the user on 29 October 2026. Copied unchanged.
+- Context: proposed empirical architecture, explicitly labelled that simulation replaces LLM execution. This is an architecture illustration, not a claim of completed empirical results.
+- The previous stock photograph has been replaced. No visible credit or source link is added.
 
 ## Politecnico di Milano slideshow image
 
