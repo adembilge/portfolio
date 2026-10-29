@@ -86,8 +86,12 @@ try {
       !x.includes("fonts.googleapis.com") &&
       !x.includes("fonts.gstatic.com"),
   );
+  // The ULAK role now links to its SD-WAN product at the user's request.
+  const replacements = new Map([
+    ["https://www.ulakhaberlesme.com.tr/en/cozumler/5g-private-network-en/", "https://www.ulakhaberlesme.com.tr/en/urun/sd-wan-en/"],
+  ]);
   for (const url of urls)
-    if (!current.includes(url))
+    if (!current.includes(replacements.get(url) || url))
       errors.push(`Original professional link lost: ${url}`);
   console.log(`Preserved ${urls.length} original professional destinations.`);
 } catch (error) {
