@@ -198,11 +198,9 @@
     :where(html:not([data-motion="reduce"])) .cognify-media:hover img {
       transform: scale(1.018);
     }
-    :where(html:not([data-motion="reduce"])) .article-row h3,
     :where(html:not([data-motion="reduce"])) .project-row h3 {
       transition: transform 350ms var(--ease-expo);
     }
-    :where(html:not([data-motion="reduce"])) .article-row:hover h3,
     :where(html:not([data-motion="reduce"])) .project-row:hover h3 {
       transform: translateX(8px);
     }

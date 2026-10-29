@@ -22,7 +22,7 @@
         : (theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
     });
     document.querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", theme === "dark" ? "#191c19" : "#f0f0e9");
+      ?.setAttribute("content", theme === "dark" ? "#211a17" : "#f4ede4");
   };
   apply(theme);
   document.addEventListener("DOMContentLoaded", () => {
@@ -44,21 +44,6 @@
       };
       update();
       addEventListener("hashchange", update);
-    });
-    const readingMenus = [...document.querySelectorAll(".reading-menu")];
-    document.addEventListener("click", (event) => {
-      readingMenus.forEach((menu) => {
-        if (menu.open && !menu.contains(event.target)) menu.open = false;
-      });
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key !== "Escape") return;
-      readingMenus.forEach((menu) => {
-        if (!menu.open) return;
-        menu.open = false;
-        menu.querySelector("summary").focus();
-        event.preventDefault();
-      });
     });
   });
   addEventListener("storage", (event) => {

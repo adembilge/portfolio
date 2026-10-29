@@ -63,16 +63,11 @@ for (const file of englishPages) {
   for (const html of [english, italian]) {
     assert.ok(html.includes('class="language-switch"'), "Static language link available without scripting");
     assert.ok(html.includes('class="theme-toggle"'), "Theme control exists on every route");
-    assert.ok(html.includes('js/preferences.js?v=theme-9"></script>'), "Blocking theme bootstrap before first paint");
+    assert.ok(html.includes('js/preferences.js?v=brown-13"></script>'), "Blocking theme bootstrap before first paint");
     assert.equal([...html.matchAll(/class="theme-toggle"/g)].length, 1, "Only one theme toggle per page");
     const header = html.match(/<header\b[\s\S]*?<\/header>/)[0];
-    if (file === "index.html") {
-      assert.ok(!header.includes('class="theme-toggle"'), "Homepage top bar has no theme toggle");
-      assert.ok(html.match(/<dialog\b[\s\S]*?<\/dialog>/)[0].includes('class="theme-toggle"'), "Homepage theme toggle is in the menu");
-    } else {
-      assert.ok(header.match(/<details class="reading-menu">[\s\S]*?<\/details>/)[0].includes('class="theme-toggle"'), "Article theme toggle is inside the menu");
-      assert.ok(!header.slice(0, header.indexOf('<details')).includes('class="theme-toggle"'), "Article top bar has no standalone theme toggle");
-    }
+    assert.ok(!header.includes('class="theme-toggle"'), "Homepage top bar has no theme toggle");
+    assert.ok(html.match(/<dialog\b[\s\S]*?<\/dialog>/)[0].includes('class="theme-toggle"'), "Homepage theme toggle is in the menu");
     assert.ok(html.includes('<svg class="theme-to-light"') && html.includes('<svg class="theme-to-dark"'), "Theme toggle has sun and moon icons");
   }
   for (const [route, html, target] of [[file, english, `it/${file}`], [`it/${file}`, italian, file]]) {
@@ -83,4 +78,4 @@ for (const file of englishPages) {
   const italianIDs = [...italian.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(italianIDs, englishIDs, "Section anchors and interactions preserved in translation");
 }
-console.log("PASS: themes persist, blocked storage degrades safely, localized controls synchronize, and all 10 routes preserve navigation.");
+console.log("PASS: themes persist, blocked storage degrades safely, localized controls synchronize, and all remaining routes preserve navigation.");

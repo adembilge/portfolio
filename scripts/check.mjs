@@ -60,7 +60,6 @@ for (const file of [
   "js/motion-preference.js",
   "js/portfolio.js",
   "js/motion.js",
-  "js/articles.js",
   "js/preferences.js",
 ]) {
   try {
@@ -88,26 +87,7 @@ try {
   for (const url of urls)
     if (!current.includes(url))
       errors.push(`Original professional link lost: ${url}`);
-  for (const file of files.filter(
-    (x) => x.startsWith("blog/") && x !== "blog/articles.html",
-  )) {
-    const before = execFileSync("git", ["show", `HEAD:${file}`], {
-      cwd: root,
-      encoding: "utf8",
-      stdio: ["ignore", "pipe", "ignore"],
-    });
-    const text = (h) =>
-      h
-        .match(/<article[^>]*>([\s\S]*?)<\/article>/)?.[1]
-        .replace(/<[^>]+>/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
-    if (text(before) !== text(readFileSync(join(root, file), "utf8")))
-      errors.push(`${file}: article body changed`);
-  }
-  console.log(
-    `Preserved ${urls.length} original professional destinations and all 3 article bodies.`,
-  );
+  console.log(`Preserved ${urls.length} original professional destinations.`);
 } catch (error) {
   console.log(
     "Git baseline unavailable; static integrity checks still completed.",
@@ -115,8 +95,7 @@ try {
 }
 const size = (name) => statSync(join(root, name)).size;
 try {
-  execFileSync(process.execPath, ["--check", join(root, "js/diagrams.js")], { stdio: "inherit" });
-  for (const test of ["test-motion.mjs", "test-preferences.mjs"])
+  for (const test of ["test-motion.mjs", "test-preferences.mjs", "test-profile.mjs"])
     execFileSync(process.execPath, [join(root, "scripts", test)], { stdio: "inherit" });
 } catch {
   errors.push("JavaScript or preference regression checks failed.");

@@ -1,0 +1,122 @@
+/* Introduction sized to the available screen, without clipping enlarged text. */
+.hero {
+  min-height: calc(100svh - var(--header-height, 88px));
+  display: flex;
+  flex-direction: column;
+  padding-top: clamp(10px, 2svh, 20px);
+}
+.hero-name {
+  justify-content: center;
+  gap: .2em;
+  text-align: center;
+  margin-inline: 0;
+  font-size: clamp(3rem, min(13vw, 17svh), 13rem);
+  padding-bottom: clamp(10px, 2svh, 22px);
+}
+.hero-stage {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 7%;
+  align-items: center;
+  flex: 1;
+}
+.hero-intro { padding-top: 0; max-width: 490px; }
+.hero-profession { font-size: clamp(1.5rem, 2.7vw, 2.75rem); margin-bottom: 14px; }
+.hero-description { max-width: 440px; line-height: 1.5; }
+.hero-actions { margin-top: clamp(12px, 2.2svh, 24px); }
+.hero-socials { margin-top: 8px; }
+.hero-location { margin-top: 10px; }
+.hero-portrait {
+  width: min(100%, 50svh, 480px);
+  justify-self: end;
+}
+.hero-portrait picture { width: 100%; height: auto; aspect-ratio: 1; }
+.hero-portrait img { object-fit: cover; object-position: center; }
+.hero-bottom { margin-top: auto; padding-block: 10px; }
+
+/* Two native disclosures share a single full-width content area. */
+.disclosure-pair { position: relative; padding-top: 58px; margin-top: 18px; }
+.disclosure-pair > details { margin: 0; }
+.disclosure-pair > details > summary {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(50% - 6px);
+  min-height: 48px;
+  padding: 10px 14px;
+  gap: 8px;
+  border: 1px solid currentColor;
+  color: inherit;
+}
+.disclosure-pair > details + details > summary { left: calc(50% + 6px); }
+.disclosure-pair > details[open] > summary,
+.disclosure-pair > details[data-expanded="true"] > summary { background: var(--surface); }
+.disclosure-pair > details[data-expanded="false"] > summary > span { transform: none; }
+.disclosure-pair .disclosure-body { padding-top: 10px; }
+.disclosure-pair .disclosure-body p + p { margin-top: 16px; }
+.role-body > .secondary { margin-top: 12px; font-size: var(--small); }
+.disclosure-body .coursework-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; list-style: none; padding: 8px 0; margin: 0; }
+.disclosure-body .coursework-list > li { background: var(--surface); padding: 12px; margin: 0; }
+.languages { display: block; margin-top: 48px; }
+.languages > h3 { font-size: var(--lead); margin-bottom: 22px; }
+.language-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.language-cards h4 { font-size: var(--lead); margin-bottom: 4px; }
+.language-cards .secondary { margin-bottom: 12px; }
+.language-cards article { padding-top: 20px; border-top: 1px solid var(--secondary); }
+.language-details { margin-top: 16px; }
+.language-details > summary {
+  border: 1px solid currentColor;
+  padding: 10px 14px;
+  min-height: 48px;
+  gap: 12px;
+}
+.language-details[open] > summary { background: var(--surface); }
+.language-details .disclosure-body { padding-top: 16px; }
+.language-details .disclosure-body p + p { margin-top: 14px; }
+.campus-controls button { color: var(--page-text); }
+.campus-picker button[aria-pressed="true"] { color: var(--page-text); }
+.campus-controls button:disabled { opacity: .6; cursor: default; transform: none; }
+.campus-pause { font-size: var(--small); padding-inline: 8px; }
+.campus-transport { flex-wrap: wrap; }
+.campus-slide figcaption { color: var(--page-text); }
+
+@media (min-width: 641px) and (max-height: 760px) {
+  .hero-name { font-size: clamp(3rem, 12svh, 6.5rem); }
+  .hero-portrait { width: min(100%, 46svh); }
+  .hero-intro .button { min-height: 44px; padding-block: 10px; }
+  .hero-profession { margin-bottom: 8px; }
+  .hero-actions { margin-top: 12px; }
+  .hero-location { margin-top: 6px; }
+}
+@media (max-width: 850px) {
+  .language-cards { grid-template-columns: 1fr; gap: 24px; }
+  .disclosure-body .coursework-list { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .experience-layout, .education-layout, .section-heading { grid-template-columns: minmax(0, 1fr); }
+  .experience-intro, .roles, .section-heading > *, .contact-heading h2 { min-width: 0; }
+  h2, .word-mask { overflow-wrap: anywhere; max-width: 100%; }
+  .site-header { padding-block: 10px; }
+  .hero { padding-top: 8px; min-height: calc(100svh - var(--header-height, 64px)); }
+  .hero-name { font-size: clamp(3rem, min(15vw, 10svh), 5rem); padding-bottom: 12px; flex-wrap: wrap; column-gap: 16px; white-space: normal; }
+  .hero-stage { grid-template-columns: minmax(0, 1fr) 116px; gap: 10px 14px; align-content: center; }
+  .hero-intro { display: contents; }
+  .hero-profession, html[lang="it"] .hero-profession {
+    grid-column: 1 / -1; grid-row: 1;
+    font-size: 1.5rem; margin: 0;
+  }
+  .hero-profession { min-width: 0; }
+  .hero .role-line, html[lang="it"] .hero .role-line { white-space: normal; }
+  .hero-description { grid-column: 1; grid-row: 2; font-size: 1rem; line-height: 1.45; overflow-wrap: anywhere; }
+  .hero-portrait { grid-column: 2; grid-row: 2; width: 116px; align-self: center; }
+  .hero-actions { grid-column: 1 / -1; grid-row: 3; margin: 2px 0 0; }
+  .hero-actions .button { min-height: 44px; padding: 10px 18px; }
+  .hero-socials { grid-column: 1 / -1; grid-row: 4; gap: 24px; margin: 0; }
+  .hero-location { grid-column: 1 / -1; grid-row: 5; margin: 0; font-size: .875rem; }
+  .hero-bottom { padding-block: 8px; font-size: .8125rem; }
+  .hero-bottom p { max-width: 255px; }
+}
+@media print {
+  .hero { min-height: 0; }
+  .disclosure-pair { padding-top: 0; }
+  .disclosure-pair > details > summary { position: static; width: 100%; }
+}

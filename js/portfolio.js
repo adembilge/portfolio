@@ -34,11 +34,17 @@
   }
 
   function disclosures() {
-    document.querySelectorAll("details").forEach((details) => {
+    const controllers = new Map();
+    document.querySelectorAll("details").forEach((details, index) => {
       const summary = details.querySelector(":scope > summary");
       if (!summary) return;
+      // Native grouping is the no-script fallback. Coordinate it ourselves when
+      // animating, since a closing details stays open until its animation ends.
+      if (details.dataset.disclosureGroup) details.removeAttribute("name");
       const content = document.createElement("div");
       content.className = "disclosure-content";
+      content.id = `disclosure-content-${index}`;
+      summary.setAttribute("aria-controls", content.id);
       for (const node of [...details.childNodes])
         if (node !== summary) content.append(node);
       details.append(content);
@@ -46,15 +52,29 @@
       let animation = null;
       let run = 0;
       content.inert = !expanded;
-      const setOpen = (want) => {
+      details.dataset.expanded = String(expanded);
+      summary.setAttribute("aria-expanded", String(expanded));
+      const setOpen = (want, immediate = false) => {
+        if (want && details.dataset.disclosureGroup) {
+          for (const [peer, close] of controllers) {
+            if (peer !== details && peer.dataset.disclosureGroup === details.dataset.disclosureGroup)
+              close(false, true);
+          }
+        }
         const current = ++run;
         const from = details.open ? content.getBoundingClientRect().height : 0;
         animation?.cancel();
         animation = null;
         expanded = want;
+        details.dataset.expanded = String(want);
+        summary.setAttribute("aria-expanded", String(want));
         if (!want && content.contains(document.activeElement)) summary.focus();
         content.inert = !want;
-        if (motion.matches || typeof content.animate !== "function") {
+        // Publish the intended state immediately, including during closing.
+        details.dispatchEvent(new CustomEvent("disclosure-state", {
+          bubbles: true, detail: { open: want },
+        }));
+        if (immediate || motion.matches || typeof content.animate !== "function") {
           details.open = want;
           content.style.removeProperty("overflow");
           return;
@@ -73,6 +93,7 @@
           animation = null;
         });
       };
+      controllers.set(details, setOpen);
       summary.addEventListener("click", (event) => {
         event.preventDefault();
         setOpen(!expanded);
@@ -84,12 +105,19 @@
       });
       details.addEventListener("disclosure-request", (event) => {
         event.preventDefault();
-        setOpen(true);
+        setOpen(event.detail?.open ?? true);
       });
       details.addEventListener("toggle", () => {
         if (!animation) {
           expanded = details.open;
           content.inert = !expanded;
+          if (details.dataset.expanded !== String(expanded)) {
+            details.dataset.expanded = String(expanded);
+            summary.setAttribute("aria-expanded", String(expanded));
+            details.dispatchEvent(new CustomEvent("disclosure-state", {
+              bubbles: true, detail: { open: expanded },
+            }));
+          }
         }
       });
       motion.addEventListener("change", () => {

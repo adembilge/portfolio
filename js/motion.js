@@ -351,177 +351,115 @@
   function education() {
     const gallery = document.querySelector("#education-gallery");
     if (!gallery) return;
+    const section = document.querySelector("#education");
     const slides = [...gallery.querySelectorAll(".campus-slide")];
     const controls = gallery.querySelector(".campus-controls");
     const stage = gallery.querySelector(".campus-stage");
     const choices = [...gallery.querySelectorAll(".campus-picker button")];
-
+    const previous = gallery.querySelector(".campus-prev");
+    const next = gallery.querySelector(".campus-next");
+    const pauseButton = gallery.querySelector(".campus-pause");
+    const navigation = [previous, next, ...choices];
     const status = gallery.querySelector(".campus-status");
+    const italian = document.documentElement.lang === "it";
     let current = 0;
     let sequence = 0;
     let timer;
+    let userPaused = false;
+    let hovered = false;
+    let touching = false;
+    let focused = false;
+    let locked = false;
     const interval = 7000;
-
+    const paused = () => userPaused || hovered || touching || focused || locked || document.hidden || preference.matches;
     const schedule = () => {
       clearTimeout(timer);
-      if (document.hidden) return;
-      timer = setTimeout(() => {
-        // The clock does not depend on image decoding or animation completion.
-        // Read visibility directly so an observer cannot leave autoplay disabled.
-        const rect = stage.getBoundingClientRect();
-        if (rect.bottom > 0 && rect.top < innerHeight)
-          show(current + 1, false);
-        schedule();
-      }, interval);
+      if (paused()) return;
+      const rect = stage.getBoundingClientRect();
+      if (rect.bottom <= 0 || rect.top >= innerHeight) return;
+      timer = setTimeout(() => { show(current + 1, false); schedule(); }, interval);
     };
-    const pause = () => {
-      clearTimeout(timer);
-    };
-    const show = async (index, manual = true) => {
-      if (manual) schedule();
-      const next = (index + slides.length) % slides.length;
+    const show = (index, manual = true, instant = false) => {
+      const target = (index + slides.length) % slides.length;
       const request = ++sequence;
-      if (next === current) {
-        slides.forEach((slide, i) => {
-          slide
-            .getAnimations({ subtree: true })
-            .forEach((animation) => animation.cancel());
-          slide.hidden = i !== current;
-        });
-        return;
-      }
-      const incoming = slides[next];
-      const image = incoming.querySelector("img");
       const outgoing = slides[current];
-      slides.forEach((slide) => {
-        slide
-          .getAnimations({ subtree: true })
-          .forEach((animation) => animation.cancel());
-        slide.hidden = slide !== outgoing && slide !== incoming;
-        slide.inert = slide !== incoming;
-        slide.setAttribute("aria-hidden", String(slide !== incoming));
-        slide.classList.toggle("is-current", slide === incoming);
+      const incoming = slides[target];
+      slides.forEach((slide, i) => {
+        slide.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
+        slide.hidden = slide !== incoming && (!instant && slide === outgoing ? false : true);
+        slide.inert = i !== target;
+        slide.setAttribute("aria-hidden", String(i !== target));
+        slide.classList.toggle("is-current", i === target);
       });
-      const direction = next > current ? 1 : -1;
-      current = next;
-      choices.forEach((button, i) =>
-        button.setAttribute("aria-pressed", String(i === current)),
-      );
-      gallery.querySelector(".campus-count").textContent =
-          document.documentElement.lang === "it" ? `${current + 1} di 3` : `${current + 1} of 3`;
-      if (manual)
-        status.textContent = document.documentElement.lang === "it"
-          ? `Fotografia ${current + 1} di 3: ${incoming.querySelector("figcaption").textContent.trim()}.`
-          : `Photograph ${current + 1} of 3: ${incoming.querySelector("figcaption").textContent.trim()}.`;
-      const transition = animate(
-        incoming.querySelector(".campus-image"),
-        [
-          {
-            clipPath: `inset(0 ${direction > 0 ? 100 : 0}% 0 ${direction < 0 ? 100 : 0}%)`,
-          },
-          { clipPath: "inset(0 0% 0 0%)" },
-        ],
-        { duration: 800 },
-      );
-      animate(
-        image,
-        [
-          { transform: `scale(1.08) translateX(${direction * 2}%)` },
-          { transform: "scale(1) translateX(0%)" },
-        ],
-        { duration: 1000 },
-      );
-      animate(
-        incoming.querySelector("figcaption"),
-        [
-          { opacity: 0, transform: "translateY(8px)" },
-          { opacity: 1, transform: "translateY(0)" },
-        ],
-        { duration: 500 },
-      );
-      if (transition) await transition.finished.catch(() => {});
-      if (request === sequence) {
-        slides.forEach((slide) => {
-          slide.hidden = slide !== incoming;
-        });
-      }
+      current = target;
+      choices.forEach((button, i) => button.setAttribute("aria-pressed", String(i === current)));
+      gallery.querySelector(".campus-count").textContent = italian
+        ? (current + 1) + " di " + slides.length : (current + 1) + " of " + slides.length;
+      if (manual) status.textContent = incoming.querySelector("figcaption").textContent.trim();
+      const transition = !instant && incoming !== outgoing
+        ? animate(incoming.querySelector(".campus-image"), [{ opacity: 0 }, { opacity: 1 }], { duration: 600 })
+        : null;
+      const finish = () => {
+        if (request === sequence) slides.forEach(slide => { slide.hidden = slide !== incoming; });
+      };
+      if (transition) transition.finished.catch(() => {}).then(finish);
+      else finish();
+      if (manual) schedule();
     };
-    slides.forEach((slide, i) => {
-      // Start every local image request before hiding the inactive slides.
-      slide.querySelector("img").loading = "eager";
-      slide.hidden = i !== 0;
-      slide.inert = i !== 0;
-      slide.setAttribute("aria-hidden", String(i !== 0));
-      slide.classList.toggle("is-current", i === 0);
-    });
+    const sync = () => {
+      const active = section.querySelector('details[data-university][data-expanded="true"]');
+      locked = Boolean(active);
+      navigation.forEach(button => { button.disabled = locked; });
+      pauseButton.disabled = locked;
+      if (active) show(slides.findIndex(slide => slide.dataset.university === active.dataset.university), true, true);
+      pauseButton.textContent = locked
+        ? (italian ? "Pausa durante la lettura" : "Paused while reading")
+        : userPaused ? (italian ? "Riprendi presentazione" : "Resume slideshow")
+        : (italian ? "Pausa presentazione" : "Pause slideshow");
+      pauseButton.setAttribute("aria-pressed", String(userPaused || locked));
+      schedule();
+    };
+    slides.forEach(slide => { slide.querySelector("img").loading = "eager"; });
     gallery.classList.add("gallery-ready");
     gallery.setAttribute("aria-roledescription", "carousel");
     controls.hidden = false;
-
-    choices.forEach((button, i) =>
-      button.addEventListener("click", () => show(i)),
-    );
-    gallery
-      .querySelector(".campus-prev")
-      .addEventListener("click", () => show(current - 1));
-    gallery
-      .querySelector(".campus-next")
-      .addEventListener("click", () => show(current + 1));
-    gallery.addEventListener("keydown", (event) => {
-      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key))
-        return;
+    show(0, false, true);
+    choices.forEach((button, i) => button.addEventListener("click", () => { if (!locked) show(i); }));
+    previous.addEventListener("click", () => { if (!locked) show(current - 1); });
+    next.addEventListener("click", () => { if (!locked) show(current + 1); });
+    pauseButton.addEventListener("click", () => { userPaused = !userPaused; sync(); });
+    gallery.addEventListener("keydown", event => {
+      if (locked || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
       event.preventDefault();
-      show(
-        event.key === "Home"
-          ? 0
-          : event.key === "End"
-            ? slides.length - 1
-            : current + (event.key === "ArrowRight" ? 1 : -1),
-      );
+      show(event.key === "Home" ? 0 : event.key === "End" ? slides.length - 1 : current + (event.key === "ArrowRight" ? 1 : -1));
+    });
+    gallery.addEventListener("mouseenter", () => { hovered = true; schedule(); });
+    gallery.addEventListener("mouseleave", () => { hovered = false; schedule(); });
+    gallery.addEventListener("focusin", () => { focused = true; schedule(); });
+    gallery.addEventListener("focusout", () => {
+      queueMicrotask(() => { focused = gallery.contains(document.activeElement); schedule(); });
     });
     let touch;
-    stage.addEventListener(
-      "touchstart",
-      (event) => {
-        pause();
-        const point = event.touches[0];
-        touch = { x: point.clientX, y: point.clientY };
-      },
-      { passive: true },
-    );
-    stage.addEventListener(
-      "touchend",
-      (event) => {
-        if (!touch) return;
-        const point = event.changedTouches[0];
-        const x = point.clientX - touch.x;
-        const y = point.clientY - touch.y;
-        if (Math.abs(x) > 50 && Math.abs(x) > Math.abs(y) * 1.5)
-          show(current + (x < 0 ? 1 : -1));
-        touch = null;
-        schedule();
-      },
-      { passive: true },
-    );
-    stage.addEventListener(
-      "touchcancel",
-      () => {
-        touch = null;
-        schedule();
-      },
-      { passive: true },
-    );
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) schedule();
-        },
-        { threshold: 0.05 },
-      ).observe(stage);
-    }
+    stage.addEventListener("touchstart", event => {
+      touching = true;
+      touch = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+      schedule();
+    }, { passive: true });
+    stage.addEventListener("touchend", event => {
+      if (touch && !locked) {
+        const x = event.changedTouches[0].clientX - touch.x;
+        const y = event.changedTouches[0].clientY - touch.y;
+        if (Math.abs(x) > 50 && Math.abs(x) > Math.abs(y) * 1.5) show(current + (x < 0 ? 1 : -1));
+      }
+      touch = null; touching = false; schedule();
+    }, { passive: true });
+    stage.addEventListener("touchcancel", () => { touch = null; touching = false; schedule(); }, { passive: true });
+    section.addEventListener("disclosure-state", sync);
+    if ("IntersectionObserver" in window) new IntersectionObserver(schedule, { threshold: 0.05 }).observe(stage);
+    preference.addEventListener("change", schedule);
     document.addEventListener("visibilitychange", schedule);
     addEventListener("pageshow", schedule);
-    schedule();
+    sync();
   }
 
   openingLifecycle();

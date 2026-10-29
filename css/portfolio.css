@@ -1,4 +1,4 @@
-/* Layout and motion tokens shared by the portfolio and article pages. */
+/* Portfolio layout and motion tokens. */
 @font-face {
   font-family: "Schibsted Grotesk";
   src: url("../fonts/schibsted-grotesk-latin.woff2") format("woff2");
@@ -8,22 +8,22 @@
 }
 :root {
   /* Primitives, semantic roles, then component roles. */
-  --charcoal-900: #191c19;
-  --ivory-50: #f0f0e9;
-  --sage-200: #c4d6a4;
-  --ink: var(--charcoal-900);
-  --paper: var(--ivory-50);
-  --soft: #e3e5dc;
-  --surface: #252a25;
-  --text: #f0f0e9;
-  --secondary: #b6bcb3;
-  --accent: var(--sage-200);
+  --espresso-900: #211a17;
+  --cream-50: #f4ede4;
+  --tan-300: #c99d75;
+  --ink: var(--espresso-900);
+  --paper: var(--cream-50);
+  --soft: #ece0d3;
+  --surface: #30251f;
+  --text: #f4ede4;
+  --secondary: #c7b6a6;
+  --accent: var(--tan-300);
   --page-ground: var(--ink);
   --page-text: var(--text);
   --button-background: var(--accent);
   --button-foreground: var(--ink);
-  --muted: #4c5348;
-  --image-ground: #d9dfce;
+  --muted: #665247;
+  --image-ground: #e3cfbc;
   --gutter: clamp(22px, 4.2vw, 80px);
   --space: clamp(88px, 10vw, 168px);
   --small: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
@@ -992,46 +992,6 @@ details:not([open]) > .disclosure-content {
 .research-copy .disclosure-body {
   font-size: var(--small);
 }
-.article-row {
-  display: grid;
-  grid-template-columns: 0.55fr 1.8fr auto;
-  gap: 5%;
-  align-items: center;
-  padding: 30px 0;
-  transition: transform 240ms var(--ease);
-}
-.article-row + .article-row {
-  margin-top: 20px;
-}
-.article-row img {
-  aspect-ratio: 1.25;
-  object-fit: cover;
-  filter: grayscale(100%);
-  transition: filter 350ms;
-}
-.article-row h3 {
-  font-size: var(--lead);
-  margin-block: 8px 12px;
-  letter-spacing: -0.035em;
-}
-.article-row .article-description {
-  font-size: var(--small);
-  color: var(--secondary);
-  margin-top: 8px;
-}
-.article-action {
-  font-size: var(--small);
-  text-decoration: underline;
-}
-.article-row:hover {
-  transform: translateX(5px);
-}
-.article-row:hover img {
-  filter: grayscale(0);
-}
-.writing-all {
-  margin-top: 30px;
-}
 .contact-heading {
   display: flex;
   align-items: center;
@@ -1261,8 +1221,7 @@ details:not([open]) > .disclosure-content {
   :where(html:not([data-motion="reduce"])) .reveal:nth-child(3).is-revealing {
     animation-delay: 130ms;
   }
-  :where(html:not([data-motion="reduce"])) .role-row.is-revealing,
-  :where(html:not([data-motion="reduce"])) .article-row.is-revealing {
+  :where(html:not([data-motion="reduce"])) .role-row.is-revealing{
     animation-name: row-enter;
     animation-duration: 650ms;
   }
@@ -1373,14 +1332,6 @@ details:not([open]) > .disclosure-content {
   }
   .cryptme-media {
     padding: 12px;
-  }
-  .article-row {
-    grid-template-columns: 0.6fr 1.8fr;
-    gap: 5%;
-  }
-  .article-action {
-    grid-column: 2;
-    margin-top: 12px;
   }
 }
 @media (max-width: 850px) {
@@ -1816,34 +1767,6 @@ details:not([open]) > .disclosure-content {
   .research-links {
     gap: 8px 22px;
   }
-  .article-row {
-    grid-template-columns: 1fr;
-    gap: 22px;
-    padding: 0;
-  }
-  .article-row + .article-row {
-    margin-top: 44px;
-  }
-  .article-row img {
-    aspect-ratio: 2.1;
-  }
-  .article-row h3 {
-    font-size: 26px;
-  }
-  .article-row .article-description {
-    font-size: 14px;
-  }
-  .article-action {
-    grid-column: 1;
-    margin-top: -10px;
-    display: flex;
-    align-items: center;
-    min-height: 44px;
-    font-size: 14px;
-  }
-  .writing-all {
-    margin-top: 36px;
-  }
   .contact-heading {
     gap: 14px;
     margin-bottom: 32px;
@@ -1992,8 +1915,7 @@ details:not([open]) > .disclosure-content {
 .hero-profession,
 .project-row h3,
 .capability h3,
-.education-row h3,
-.article-row h3 {
+.education-row h3{
   font-size: var(--lead);
 }
 .project-caption h3,
