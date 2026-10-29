@@ -5,9 +5,9 @@ import { fileURLToPath } from "node:url";
 export const root = fileURLToPath(new URL("../", import.meta.url));
 export const englishPages = ["index.html"];
 const normalize = (text) => text.replace(/\s+/g, " ").trim();
-// Translate marked rich paragraphs as a unit so emphasis does not change
+// Translate marked rich paragraphs and list items as a unit so emphasis does not change
 // Italian word order or spacing around apostrophes and punctuation.
-const tokens = /<!--[\s\S]*?-->|<script\b[^>]*>[\s\S]*?<\/script>|<p\b(?=[^>]*\bdata-i18n-rich\b)[^>]*>[\s\S]*?<\/p>|<[^>]+>|[^<]+/g;
+const tokens = /<!--[\s\S]*?-->|<script\b[^>]*>[\s\S]*?<\/script>|<(?:p|li)\b(?=[^>]*\bdata-i18n-rich\b)[^>]*>[\s\S]*?<\/(?:p|li)>|<[^>]+>|[^<]+/g;
 const attributes = /\b(alt|data-alt|aria-label|placeholder|title)="([^"]+)"/g;
 const meaningful = (text) => /[a-zA-Z]/.test(text);
 
@@ -16,8 +16,8 @@ export function units(html) {
   for (const token of html.match(tokens) || []) {
     if (token.startsWith("<script") || token.startsWith("<!--")) continue;
     if (token.startsWith("<")) {
-      if (token.startsWith("<p") && token.includes("data-i18n-rich"))
-        result.push(normalize(token.replace(/^<p\b[^>]*>|<\/p>$/g, "")));
+      if (/^<(?:p|li)\b/.test(token) && token.includes("data-i18n-rich"))
+        result.push(normalize(token.replace(/^<(?:p|li)\b[^>]*>|<\/(?:p|li)>$/g, "")));
       for (const match of token.matchAll(attributes)) if (meaningful(match[2])) result.push(normalize(match[2]));
       if (token.startsWith("<meta") && /(?:name="description"|property="og:(?:title|description)")/.test(token))
         result.push(normalize(token.match(/content="([^"]+)"/)[1]));
@@ -37,8 +37,8 @@ export function translate(html, file, dictionary) {
   };
   let output = html.replace(tokens, (token) => {
     if (token.startsWith("<script") || token.startsWith("<!--")) return token;
-    if (token.startsWith("<p") && token.includes("data-i18n-rich"))
-      return token.replace(/^(<p\b[^>]*>)([\s\S]*?)(<\/p>)$/, (_, open, content, close) => open + text(content) + close);
+    if (/^<(?:p|li)\b/.test(token) && token.includes("data-i18n-rich"))
+      return token.replace(/^(<(?:p|li)\b[^>]*>)([\s\S]*?)(<\/(?:p|li)>)$/, (_, open, content, close) => open + text(content) + close);
     if (!token.startsWith("<")) return text(token);
     let tag = token.replace(attributes, (_, name, value) => `${name}="${text(value).replaceAll('"', '&quot;')}"`);
     if (tag.startsWith("<meta") && /(?:name="description"|property="og:(?:title|description)")/.test(tag))
