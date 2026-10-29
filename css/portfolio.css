@@ -957,6 +957,17 @@ details:not([open]) > .disclosure-content {
   gap: 8%;
   align-items: start;
 }
+.research-entry + .research-entry {
+  margin-top: clamp(80px, 8vw, 128px);
+}
+.thesis-research .research-copy > p + p {
+  margin-top: 20px;
+}
+.thesis-status {
+  color: var(--secondary);
+  font-size: var(--small);
+  font-weight: 600;
+}
 .research-media {
   padding-top: 8px;
 }
@@ -1939,6 +1950,10 @@ details:not([open]) > .disclosure-content {
   object-fit: contain;
 }
 @media (max-width: 850px) {
+  .thesis-research {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
   .section-heading {
     grid-template-columns: 1fr;
     gap: 24px;
