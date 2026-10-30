@@ -33,11 +33,11 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
       - name: Check and build site
-        run: npm run build
+        run: SITE_URL="${SITE_URL/#http:/https:}" npm run build
         env:
           SITE_URL: ${{ steps.pages.outputs.base_url || 'https://adembilge.dev' }}
       - name: Check root and repository URL paths
-        run: npm run test:pages
+        run: SITE_URL="${SITE_URL/#http:/https:}" npm run test:pages
         env:
           SITE_URL: ${{ steps.pages.outputs.base_url || 'https://adembilge.dev' }}
       - name: Upload site artifact
