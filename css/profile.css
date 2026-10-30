@@ -75,7 +75,6 @@
 .campus-controls button { color: var(--page-text); }
 .campus-picker button[aria-pressed="true"] { color: var(--page-text); }
 .campus-controls button:disabled { opacity: .6; cursor: default; transform: none; }
-.campus-pause { font-size: var(--small); padding-inline: 8px; }
 .campus-transport { flex-wrap: wrap; }
 .campus-slide figcaption { color: var(--page-text); }
 

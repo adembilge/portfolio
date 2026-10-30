@@ -171,6 +171,7 @@
     animation: word-rise 850ms var(--ease-expo) both;
     animation-delay: calc(var(--word-index) * 80ms);
   }
+  :where(html:not([data-motion="reduce"])) .certification-badge.reveal.is-revealing,
   :where(html:not([data-motion="reduce"])) figure.reveal.is-revealing,
   :where(html:not([data-motion="reduce"])) .project-media.reveal.is-revealing,
   :where(html:not([data-motion="reduce"]))

@@ -358,14 +358,13 @@
     const choices = [...gallery.querySelectorAll(".campus-picker button")];
     const previous = gallery.querySelector(".campus-prev");
     const next = gallery.querySelector(".campus-next");
-    const pauseButton = gallery.querySelector(".campus-pause");
     const navigation = [previous, next, ...choices];
     const status = gallery.querySelector(".campus-status");
     const italian = document.documentElement.lang === "it";
     let current = 0;
     let sequence = 0;
     let timer;
-    let userPaused = false;
+    let userPaused = true;
     let hovered = false;
     let touching = false;
     let focused = false;
@@ -410,13 +409,7 @@
       const active = section.querySelector('details[data-university][data-expanded="true"]');
       locked = Boolean(active);
       navigation.forEach(button => { button.disabled = locked; });
-      pauseButton.disabled = locked;
       if (active) show(slides.findIndex(slide => slide.dataset.university === active.dataset.university), true, true);
-      pauseButton.textContent = locked
-        ? (italian ? "Pausa durante la lettura" : "Paused while reading")
-        : userPaused ? (italian ? "Riprendi presentazione" : "Resume slideshow")
-        : (italian ? "Pausa presentazione" : "Pause slideshow");
-      pauseButton.setAttribute("aria-pressed", String(userPaused || locked));
       schedule();
     };
     slides.forEach(slide => { slide.querySelector("img").loading = "eager"; });
@@ -427,7 +420,6 @@
     choices.forEach((button, i) => button.addEventListener("click", () => { if (!locked) show(i); }));
     previous.addEventListener("click", () => { if (!locked) show(current - 1); });
     next.addEventListener("click", () => { if (!locked) show(current + 1); });
-    pauseButton.addEventListener("click", () => { userPaused = !userPaused; sync(); });
     gallery.addEventListener("keydown", event => {
       if (locked || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
       event.preventDefault();

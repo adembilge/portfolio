@@ -88,6 +88,7 @@ try {
   );
   // The ULAK role now links to its SD-WAN product at the user's request.
   const replacements = new Map([
+    ["https://drive.google.com/file/d/1ys39d1oD9EsqbKiRuj7r-zCJSb8d4q0g/view?usp=sharing", "https://drive.google.com/file/d/1SU4Akrs10lnI31IMvst_2y5pDVThCM8S/view?usp=sharing"],
     ["https://www.ulakhaberlesme.com.tr/en/cozumler/5g-private-network-en/", "https://www.ulakhaberlesme.com.tr/en/urun/sd-wan-en/"],
   ]);
   for (const url of urls)

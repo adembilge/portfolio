@@ -374,6 +374,57 @@
     });
   }
 
+  function certifications() {
+    const gallery = document.querySelector('.certification-gallery');
+    if (!gallery) return;
+    const track = gallery.querySelector('.certification-track');
+    const slides = [...track.querySelectorAll('.certification-slide')];
+    if (slides.length < 2) return;
+    let current = 0;
+    let sequence = 0;
+    const show = (index, instant = false) => {
+      const target = (index + slides.length) % slides.length;
+      const outgoing = slides[current];
+      const incoming = slides[target];
+      const request = ++sequence;
+      slides.forEach(slide => {
+        slide.getAnimations({subtree: true}).forEach(animation => animation.cancel());
+        slide.hidden = slide !== incoming && slide !== outgoing;
+        slide.inert = slide !== incoming;
+        slide.setAttribute('aria-hidden', String(slide !== incoming));
+      });
+      current = target;
+      gallery.querySelector('.certification-count').textContent = `${current + 1} / ${slides.length}`;
+      const finish = () => {
+        if (request === sequence) slides.forEach(slide => { slide.hidden = slide !== incoming; });
+      };
+      if (instant || motion.matches || incoming === outgoing) { finish(); return; }
+      outgoing.animate([{opacity: 1}, {opacity: 0}], {duration: 300, fill: 'both'});
+      const transition = incoming.animate([{opacity: 0}, {opacity: 1}], {duration: 600, easing: 'ease-out'});
+      transition.finished.catch(() => {}).then(finish);
+    };
+    gallery.classList.add('is-ready');
+    gallery.setAttribute('aria-roledescription', t('carousel', 'carosello'));
+    gallery.querySelector('.certification-controls').hidden = false;
+    gallery.querySelector('.certification-prev').addEventListener('click', () => show(current - 1));
+    gallery.querySelector('.certification-next').addEventListener('click', () => show(current + 1));
+    gallery.addEventListener('keydown', event => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      show(event.key === 'Home' ? 0 : event.key === 'End' ? slides.length - 1 : current + (event.key === 'ArrowRight' ? 1 : -1));
+    });
+    let touch;
+    track.addEventListener('touchstart', event => { touch = event.touches[0]; }, {passive: true});
+    track.addEventListener('touchend', event => {
+      if (!touch) return;
+      const dx = event.changedTouches[0].clientX - touch.clientX;
+      const dy = event.changedTouches[0].clientY - touch.clientY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) show(current + (dx < 0 ? 1 : -1));
+      touch = null;
+    }, {passive: true});
+    show(0, true);
+  }
+  certifications();
   readingProgress();
   navigation();
   disclosures();
