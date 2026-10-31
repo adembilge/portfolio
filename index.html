@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="css/portfolio.css?v=certifications-18" />
     <link rel="stylesheet" href="css/motion.css?v=certifications-19" />
     <link rel="stylesheet" href="css/preferences.css?v=research-15" />
-    <link rel="stylesheet" href="css/profile.css?v=profile-12" />
+    <link rel="stylesheet" href="css/profile.css?v=experience-19" />
     <script src="js/motion-preference.js?v=brown-13" defer></script>
     <script src="js/portfolio.js?v=certifications-18" defer></script>
     <script src="js/motion.js?v=certifications-18" defer></script>
@@ -490,6 +490,7 @@
               Built in<br />
               production
             </h2>
+            <div class="experience-overview">
             <p class="reveal">
               3+ years of engineering experience across AI agents, distributed systems, computer vision, and backend development.
             </p>
@@ -500,11 +501,14 @@
               rel="noopener noreferrer"
               >View full CV</a
             >
+            </div>
           </div>
           <div class="roles">
-            <article class="role-row role-backdrop role-backdrop-1 reveal">
+            <article class="role-row role-scene-1 reveal">
+              <img class="role-photo" src="images/Freelance Background.jpg" alt="" aria-hidden="true" width="695" height="350" loading="lazy" decoding="async" />
               <div class="role-date">Dec 2025 — Aug 2026</div>
               <div class="role-body">
+                <div class="role-identity">
                 <h3>
                   <a
                     href="https://www.entervia.com.tr/"
@@ -516,10 +520,12 @@
                 <p class="role-title">
                   <span class="accent">AI</span> Engineer
                 </p>
-                <p data-i18n-rich>A Telegram support agent handling 50% of user queries, with grounded answers and booking tools.</p>
                 <p class="secondary">
                       Full-time · Early-stage startup · Milan, Italy
-                    </p><div class="disclosure-pair"><details name="job-0" data-disclosure-group="job-0"><summary>Summary<span aria-hidden="true">+</span></summary><div class="disclosure-body">
+                    </p>
+                </div>
+                <div class="role-content">
+                <p data-i18n-rich>A Telegram support agent handling 50% of user queries, with grounded answers and booking tools.</p><div class="disclosure-pair"><details name="job-0" data-disclosure-group="job-0"><summary>Summary<span aria-hidden="true">+</span></summary><div class="disclosure-body">
 <p data-i18n-rich>At Entervia, a Telegram support question could lead straight into a booking or payment. I built the <strong>Python</strong> agent with <strong>LangGraph</strong>, retrieving session information from <strong>PostgreSQL/pgvector</strong> before connecting it to <strong>Django REST APIs</strong>. “You’re booked” is a sentence that really ought to come with an actual booking.</p>
 <p data-i18n-rich>The work moved between retrieval, tool calls, and testing what happened when something failed. I evaluated representative support queries and deployed the agent and backend on <strong>AWS ECS and RDS</strong> with CI/CD. The agent handled <strong>50% of user queries</strong>; the services reached <strong>99.9% uptime</strong>.</p></div></details>
 <details name="job-0" data-disclosure-group="job-0"><summary>Contributions<span aria-hidden="true">+</span></summary><div class="disclosure-body"><ul>
@@ -529,11 +535,15 @@
 <li data-i18n-rich>Evaluated <strong>RAG accuracy, tool-call accuracy, and failure handling</strong> using representative support queries and test scenarios.</li>
 <li data-i18n-rich>Deployed the agent and backend on <strong>AWS ECS and RDS</strong> with a CI/CD pipeline, reaching <strong>99.9% uptime</strong>.</li>
 </ul><p class="technology-list">Python, LLM APIs, LangGraph, RAG, PostgreSQL, pgvector, Django REST APIs, AWS ECS, RDS, CI/CD</p></div></details></div>
+
+                </div>
               </div>
             </article>
-            <article class="role-row role-backdrop role-backdrop-2 reveal">
+            <article class="role-row role-scene-2 reveal">
+              <img class="role-photo" src="images/e1.jpg" alt="" aria-hidden="true" width="1920" height="1080" loading="lazy" decoding="async" />
               <div class="role-date">Jun 2023 — Mar 2025</div>
               <div class="role-body">
+                <div class="role-identity">
                 <h3>
                   <a
                     href="https://www.havelsan.com/en/products/eyeminer-video-analytic-system-iot"
@@ -545,11 +555,13 @@
                 <p class="role-title">
                   <span class="accent">Software</span> Engineer
                 </p>
-                <p data-i18n-rich>Video analytics across 600+ TB of data, with 400+ Dask workers and 300K requests a day.</p>
                 <p class="secondary">
                       Full-time · Defense &amp; IT — EyeMiner video analytics
                       platform · Ankara, Turkey
-                    </p><div class="disclosure-pair"><details name="job-1" data-disclosure-group="job-1"><summary>Summary<span aria-hidden="true">+</span></summary><div class="disclosure-body">
+                    </p>
+                </div>
+                <div class="role-content">
+                <p data-i18n-rich>Video analytics across 600+ TB of data, with 400+ Dask workers and 300K requests a day.</p><div class="disclosure-pair"><details name="job-1" data-disclosure-group="job-1"><summary>Summary<span aria-hidden="true">+</span></summary><div class="disclosure-body">
 <p data-i18n-rich>At HAVELSAN, I worked on getting video analytics through <strong>600+ TB of data</strong> using <strong>Dask</strong> and <strong>400+ workers</strong>. That meant dividing the work, building Python/gRPC services, and packaging Docker services as <strong>Helm</strong> charts for a <strong>300+ node Kubernetes cluster</strong>. There were plenty of moving parts to keep track of.</p>
 <p data-i18n-rich>I also worked with <strong>Kafka</strong> to queue and partition roughly <strong>300K requests a day</strong>, with PostgreSQL storing metadata. Following those requests through the system was part of the job, so I built monitoring and diagnostic tools with <strong>Prometheus, Grafana, and Elasticsearch</strong>. At that scale, “what is it doing?” deserves a useful answer.</p></div></details>
 <details name="job-1" data-disclosure-group="job-1"><summary>Contributions<span aria-hidden="true">+</span></summary><div class="disclosure-body"><ul>
@@ -559,11 +571,15 @@
 <li data-i18n-rich>Used <strong>Kafka</strong> to queue and partition video analytics requests for parallel execution, processing <strong>300K requests/day</strong>.</li>
 <li data-i18n-rich>Deployed <strong>Prometheus and Grafana</strong> on Kubernetes and <strong>Elasticsearch</strong> on nodes; built monitoring and diagnostic tools.</li>
 </ul><p class="technology-list">Python, Dask, Linux, Docker, Helm, Kubernetes, gRPC, PostgreSQL, Kafka, Prometheus, Grafana, Elasticsearch</p></div></details></div>
+
+                </div>
               </div>
             </article>
-            <article class="role-row role-backdrop role-backdrop-3 reveal">
+            <article class="role-row role-scene-3 reveal">
+              <img class="role-photo" src="images/a1.jpg" alt="" aria-hidden="true" width="992" height="558" loading="lazy" decoding="async" />
               <div class="role-date">Jun 2022 — Jun 2023</div>
               <div class="role-body">
+                <div class="role-identity">
                 <h3>
                   <a
                     href="https://www.havelsan.com/en/solutions/security-systems/ministry-interior-fingerprint-recognition-system-afis"
@@ -575,11 +591,13 @@
                 <p class="role-title">
                   <span class="accent">Machine Learning</span> Engineer
                 </p>
-                <p data-i18n-rich>Fingerprint segmentation at 86% IoU, with a separate identification solution reaching 92% test accuracy.</p>
                 <p class="secondary">
                       Full-time · AFIS fingerprint recognition system · Ankara,
                       Turkey
-                    </p><div class="disclosure-pair"><details name="job-2" data-disclosure-group="job-2"><summary>Summary<span aria-hidden="true">+</span></summary><div class="disclosure-body">
+                    </p>
+                </div>
+                <div class="role-content">
+                <p data-i18n-rich>Fingerprint segmentation at 86% IoU, with a separate identification solution reaching 92% test accuracy.</p><div class="disclosure-pair"><details name="job-2" data-disclosure-group="job-2"><summary>Summary<span aria-hidden="true">+</span></summary><div class="disclosure-body">
 <p data-i18n-rich>My machine learning work at HAVELSAN moved between fingerprint images, <strong>OpenCV</strong> preprocessing, and <strong>PyTorch</strong> training runs. I worked with <strong>6,000 fingerprints</strong>, using morphological operations to extract regions for training, then checking segmentation on held-out data. Fingerprints are wonderfully individual; preparing them for a model still takes some persuasion.</p>
 <p data-i18n-rich>Data augmentation and hyperparameter tuning improved segmentation IoU by <strong>4 percentage points</strong>, reaching <strong>86% IoU</strong>. I also shipped an identification solution with an automated training workflow that reached <strong>92% test accuracy</strong>. Keeping those two results distinct matters: finding the fingerprint region and identifying the fingerprint are different jobs.</p></div></details>
 <details name="job-2" data-disclosure-group="job-2"><summary>Contributions<span aria-hidden="true">+</span></summary><div class="disclosure-body"><ul>
@@ -588,11 +606,15 @@
 <li data-i18n-rich>Improved segmentation IoU by <strong>4 percentage points</strong> through data augmentation and hyperparameter tuning.</li>
 <li data-i18n-rich>Shipped an identification solution with an automated training workflow, reaching <strong>92% test accuracy</strong>.</li>
 </ul><p class="technology-list">Python, PyTorch, OpenCV, morphological operations, data augmentation, hyperparameter tuning</p></div></details></div>
+
+                </div>
               </div>
             </article>
-            <article class="role-row role-backdrop role-backdrop-4 reveal">
+            <article class="role-row role-scene-4 reveal">
+              <img class="role-photo" src="images/ulak.jpg" alt="" aria-hidden="true" width="1100" height="450" loading="lazy" decoding="async" />
               <div class="role-date">Jun 2020 — Oct 2020</div>
               <div class="role-body">
+                <div class="role-identity">
                 <h3>
                   <a
                     href="https://www.ulakhaberlesme.com.tr/en/urun/sd-wan-en/"
@@ -604,11 +626,13 @@
                 <p class="role-title">
                   <span class="accent">Machine Learning</span> Engineer
                 </p>
-                <p data-i18n-rich>Isolation Forest anomaly detection for SD-WAN, from network logs to false-positive analysis.</p>
                 <p class="secondary">
                       Internship · National telecom infrastructure company ·
                       Istanbul, Turkey
-                    </p><div class="disclosure-pair"><details name="job-3" data-disclosure-group="job-3"><summary>Summary<span aria-hidden="true">+</span></summary><div class="disclosure-body">
+                    </p>
+                </div>
+                <div class="role-content">
+                <p data-i18n-rich>Isolation Forest anomaly detection for SD-WAN, from network logs to false-positive analysis.</p><div class="disclosure-pair"><details name="job-3" data-disclosure-group="job-3"><summary>Summary<span aria-hidden="true">+</span></summary><div class="disclosure-body">
 <p data-i18n-rich>During my ULAK internship, I turned network logs into features for an SD-WAN monitoring system. That meant cleaning data with <strong>Pandas</strong> and extracting packet counts, byte rates, and flow durations before training a <strong>scikit-learn Isolation Forest</strong>. The first task was giving “unusual traffic” a more useful definition than “that looks odd.”</p>
 <p data-i18n-rich>I evaluated the model with <strong>precision, recall, and F1</strong>, then examined false positives to understand what it was flagging unnecessarily. Moving between the features and the evaluation helped me improve detection and get practical experience with the less glamorous, rather essential business of checking a model’s decisions.</p></div></details>
 <details name="job-3" data-disclosure-group="job-3"><summary>Contributions<span aria-hidden="true">+</span></summary><div class="disclosure-body"><ul>
@@ -616,6 +640,8 @@
 <li data-i18n-rich>Built <strong>Pandas</strong> pipelines to clean logs and extract <strong>packet counts, byte rates, and flow durations</strong> for training.</li>
 <li data-i18n-rich>Evaluated Isolation Forest with <strong>precision, recall, and F1</strong>, then analyzed false positives to improve detection.</li>
 </ul><p class="technology-list">Python, scikit-learn, Isolation Forest, Pandas, feature engineering, precision, recall, F1</p></div></details></div>
+
+                </div>
               </div>
             </article>
           </div>

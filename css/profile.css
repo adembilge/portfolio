@@ -78,6 +78,175 @@
 .campus-transport { flex-wrap: wrap; }
 .campus-slide figcaption { color: var(--page-text); }
 
+/* Experience unfolds in photographs, echoing the project compositions above. */
+.experience .experience-layout { display: block; }
+.experience .experience-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 32px 8%;
+  margin-bottom: clamp(40px, 5vw, 72px);
+}
+.experience-overview { max-width: 38ch; padding-bottom: 8px; }
+.experience-overview > p { margin-bottom: 20px; }
+.experience .roles { display: flex; flex-direction: column; gap: clamp(32px, 4vw, 64px); }
+.experience .role-row {
+  --page-text: #f4ede4;
+  --text: #f4ede4;
+  --secondary: #e0d1c1;
+  --surface: #30251f;
+  --accent: #c99d75;
+  --button-foreground: #211a17;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 560px;
+  gap: 56px;
+  margin: 0;
+  padding: clamp(28px, 4.5vw, 72px);
+  background: rgb(33 26 23 / .78);
+  color: var(--page-text);
+}
+.experience .role-row::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.experience .role-photo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .45;
+  filter: grayscale(.85) sepia(.18);
+  pointer-events: none;
+}
+/* Neutral scrims keep text legible while leaving the other side to the photograph. */
+.experience .role-row::after {
+  background: linear-gradient(90deg, rgb(24 19 16 / .65), rgb(24 19 16 / .5) 55%, rgb(24 19 16 / .12));
+}
+.experience .role-scene-1 { min-height: 580px; }
+.experience .role-scene-2 { width: 92%; align-self: end; min-height: 560px; }
+.experience .role-scene-3 { width: 88%; min-height: 520px; }
+.experience .role-scene-4 { width: 94%; align-self: end; min-height: 500px; }
+.experience :is(.role-scene-2, .role-scene-4)::after {
+  background: linear-gradient(270deg, rgb(24 19 16 / .65), rgb(24 19 16 / .5) 55%, rgb(24 19 16 / .12));
+}
+.experience .role-body { display: block; width: 58%; max-width: 660px; }
+.experience :is(.role-scene-2, .role-scene-4) .role-body { align-self: end; }
+.experience :is(.role-identity, .role-content) { min-width: 0; }
+.experience .role-date {
+  align-self: end;
+  padding: 6px 10px;
+  background: transparent;
+  color: var(--page-text);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.experience :is(.role-scene-2, .role-scene-4) .role-date { align-self: start; }
+.experience .role-identity h3 {
+  font-size: clamp(2.5rem, 5.8vw, 5.5rem);
+  letter-spacing: -.055em;
+  line-height: 1.02;
+}
+.experience .role-scene-4 h3 { font-size: clamp(2.5rem, 4.4vw, 4.5rem); }
+.experience .role-identity h3 a {
+  display: inline-block;
+  min-height: 44px;
+  transition: color 180ms;
+}
+.experience .role-identity h3 a:hover { color: var(--accent); }
+.experience .role-title {
+  color: var(--page-text);
+  margin-block: 16px 12px;
+  font-size: clamp(1.375rem, 1.8vw, 1.75rem);
+}
+.experience .role-title .accent { color: inherit; }
+.experience .role-identity > .secondary {
+  color: var(--page-text);
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 48ch;
+  margin-bottom: 28px;
+}
+.experience .role-content > p { max-width: 55ch; }
+.experience .disclosure-pair { margin-top: 24px; padding-top: 56px; }
+.experience .role-body details { margin: 0; padding: 0; background: transparent; }
+.experience .disclosure-pair > details > summary {
+  border: 0;
+  min-height: 48px;
+  padding: 12px 16px;
+  background: var(--surface);
+  color: var(--page-text);
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: background-color 180ms, color 180ms;
+}
+.experience .disclosure-pair > details > summary:hover {
+  background: color-mix(in srgb, var(--accent) 20%, var(--surface));
+}
+.experience .disclosure-pair > details[open] > summary,
+.experience .disclosure-pair > details[data-expanded="true"] > summary {
+  background: var(--accent);
+  color: var(--button-foreground);
+}
+.experience .disclosure-pair > details[data-expanded="false"] > summary {
+  background: var(--surface);
+  color: var(--page-text);
+}
+.experience .disclosure-pair > details[data-expanded="false"] > summary:hover {
+  background: color-mix(in srgb, var(--accent) 20%, var(--surface));
+}
+.experience summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.experience .disclosure-body {
+  padding: clamp(18px, 2vw, 28px);
+  background: var(--surface);
+  font-size: var(--body);
+  line-height: 1.6;
+}
+.experience .disclosure-body :is(p, ul) { max-width: 66ch; }
+.experience .disclosure-body ul { padding-left: 1.2em; }
+.experience .disclosure-body li + li { margin-top: 14px; }
+.experience .disclosure-body .technology-list {
+  margin-top: 24px;
+  color: var(--secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+@media (max-width: 1000px) {
+  .experience .role-row { padding: 36px; gap: 72px; }
+  .experience .role-body { width: 76%; }
+}
+@media (max-width: 640px) {
+  .experience .experience-intro { display: block; margin-bottom: 36px; }
+  .experience-overview { margin-top: 24px; padding: 0; }
+  .experience-overview > p { margin-bottom: 16px; }
+  .experience .roles { gap: 28px; }
+  .experience .role-row { width: 100%; min-height: 580px; padding: 24px; gap: 112px; }
+  .experience .role-photo { object-position: 60% top; }
+  .experience .role-row::after {
+    background: linear-gradient(0deg, rgb(24 19 16 / .75), rgb(24 19 16 / .55) 60%, rgb(24 19 16 / .2));
+  }
+  .experience .role-body { width: 100%; max-width: none; }
+  .experience .role-date { align-self: start; padding: 6px 10px; }
+  .experience .role-identity h3 { font-size: clamp(2.125rem, 10vw, 3.5rem); }
+  .experience .role-title { margin-block: 12px; }
+  .experience .role-identity > .secondary { margin-bottom: 24px; }
+  .experience .disclosure-pair { margin-top: 24px; }
+  .experience .disclosure-pair > details > summary { padding-inline: 8px; gap: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .experience :is(summary, .role-identity h3 a) { transition: none; }
+}
+
 @media (min-width: 641px) and (max-height: 760px) {
   .hero-name { font-size: clamp(3rem, 12svh, 6.5rem); }
   .hero-portrait { width: min(100%, 46svh); }
