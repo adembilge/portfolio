@@ -1,9 +1,19 @@
 import { useEffect, useLayoutEffect, useState, type RefObject } from 'react';
 
-export const reducedMotion = new URLSearchParams(window.location.search).get('motion') === 'reduced';
+const RM = '(prefers-reduced-motion: reduce)';
+export const fullMotion = new URLSearchParams(window.location.search).get('motion') === 'full';
+export const prefersReducedMotion = () => !fullMotion && matchMedia(RM).matches;
 
 export function useReducedMotion(): boolean {
-  return reducedMotion;
+  const [reduced, setReduced] = useState(prefersReducedMotion);
+  useEffect(() => {
+    if (fullMotion) return;
+    const mq = matchMedia(RM);
+    const on = () => setReduced(mq.matches);
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
+  return reduced;
 }
 
 /** True while the element is within `margin` of the viewport. With `once`, stays true after the first hit. */

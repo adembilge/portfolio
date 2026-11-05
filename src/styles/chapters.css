@@ -80,9 +80,11 @@
   to { stroke-dasharray: 1; stroke-dashoffset: 0; }
 }
 
-:root[data-motion="reduced"] .hf-nodes.is-on rect { animation: none; }
-:root[data-motion="reduced"] .hf-fingerprint.is-on path { animation: none; }
-:root[data-motion="reduced"] .hf-bar span { transition: none; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) .hf-nodes.is-on rect { animation: none; }
+  :root:not([data-motion="full"]) .hf-fingerprint.is-on path { animation: none; }
+  :root:not([data-motion="full"]) .hf-bar span { transition: none; transform: none; }
+}
 
 /* ---------- II field work ---------- */
 .ruler { margin-bottom: 40px; }

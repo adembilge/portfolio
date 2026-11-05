@@ -15,7 +15,7 @@ npm ci
 npm run dev
 ```
 
-Full motion is enabled by default. Add `?motion=reduced` to use reduced motion.
+Add `?motion=full` to the local URL to preview all motion effects. Without the flag, the site respects the visitor's reduced-motion setting.
 
 ```sh
 npm test
