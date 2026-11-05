@@ -1,0 +1,36 @@
+.cv { display: none; max-width: 860px; margin: 0 auto; padding: 48px var(--gutter) 96px; font-size: 15px; line-height: 1.5; }
+.cv.is-on { display: block; }
+.app--cv .cv { margin-left: max(var(--rail, 260px), calc(50% - 430px)); }
+.cv__bar { display: flex; flex-wrap: wrap; align-items: start; gap: 10px; justify-content: space-between; margin-bottom: 36px; }
+.cv__actions { display: grid; gap: 8px; text-align: center; }
+.cv__actions a { text-decoration: none; }
+.cv__head { border-bottom: 3px solid var(--ink); padding-bottom: 14px; margin-bottom: 8px; }
+.cv h1 { font-family: var(--display); font-weight: 900; font-size: 3.6rem; line-height: 0.9; text-transform: uppercase; }
+.cv__head p { margin: 6px 0 0; }
+.cv__contact { display: flex; flex-wrap: wrap; gap: 4px 14px; font-family: var(--mono); font-size: 12px; }
+.cv h2 { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; border-bottom: 1px solid var(--ink); padding-bottom: 3px; margin: 26px 0 10px; }
+.cv h3 { display: flex; justify-content: space-between; gap: 12px; font-size: 1.02rem; font-weight: 600; }
+.cv h3 span { font-family: var(--mono); font-size: 11.5px; font-weight: 400; white-space: nowrap; }
+.cv__item { margin-bottom: 14px; break-inside: avoid; }
+.cv__item p, .cv__item ul { margin: 2px 0; }
+.cv__item ul { list-style: disc; padding-left: 18px; }
+.cv__meta, .cv__note { font-size: 0.88em; color: var(--ink-2); }
+.cv__two { display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; }
+.cv__two p { margin: 2px 0; font-size: 0.93em; }
+.cv a { color: inherit; }
+
+@media (max-width: 1100px) {
+  .app--cv .cv { margin-left: auto; }
+  .cv__two { grid-template-columns: 1fr; }
+}
+
+@media print {
+  @page { margin: 14mm 14mm; }
+  html, body { background: #fff !important; color: #000; }
+  body::before, body::after { display: none !important; }
+  .app > :not(.cv) { display: none !important; }
+  .cv { display: block !important; margin: 0 !important; padding: 0; max-width: none; font-size: 10.5pt; }
+  .cv__bar { display: none; }
+  .cv h1 { font-size: 26pt; }
+  .cv h2 { margin-top: 14pt; }
+}

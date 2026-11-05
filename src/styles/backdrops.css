@@ -1,0 +1,84 @@
+.portfolio {
+  position: relative;
+  isolation: isolate;
+  --gradient-tone: #d5c4ab;
+  --gradient-light: #f3e9da;
+  --gradient-shift: #cfb087;
+  --ink-3: #433b32;
+  --sig-ink: #7d1c08;
+  background-color: color-mix(in srgb, var(--bone) 92%, var(--gradient-tone));
+}
+
+.backdrop {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* One continuous gradient follows the reader from the cover through the Index. */
+.backdrop__stage {
+  position: sticky;
+  top: 0;
+  height: min(100%, 100svh);
+  overflow: hidden;
+  contain: paint;
+}
+
+.backdrop__wash {
+  position: absolute;
+  inset: -8%;
+  background:
+    radial-gradient(ellipse at 75% 24%, color-mix(in srgb, var(--gradient-light) 70%, var(--bone)) 0%, transparent 46%),
+    linear-gradient(126deg, var(--bone) 10%, color-mix(in srgb, var(--gradient-tone) 45%, var(--bone)) 54%, var(--gradient-light) 89%);
+  animation: gradient-drift 16s ease-in-out infinite alternate;
+}
+
+/* Fade between two painted gradients so the tint changes as the light moves. */
+.backdrop__wash::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 26% 33%, var(--gradient-light) 0%, transparent 48%),
+    linear-gradient(146deg, var(--gradient-light) 8%, color-mix(in srgb, var(--gradient-shift) 45%, var(--bone)) 56%, var(--bone) 94%);
+  opacity: 0;
+  animation: gradient-tint 9s ease-in-out infinite alternate;
+}
+
+.backdrop__stage[data-visible="false"] .backdrop__wash,
+.backdrop__stage[data-visible="false"] .backdrop__wash::after,
+.app--backgrounds-paused .backdrop__wash,
+.app--backgrounds-paused .backdrop__wash::after { animation-play-state: paused; }
+
+@keyframes gradient-drift {
+  from { transform: translate(-5%, -5%); }
+  to { transform: translate(5%, 5%); }
+}
+
+@keyframes gradient-tint {
+  from { opacity: 0; }
+  to { opacity: 0.85; }
+}
+
+.rail__backgrounds {
+  font: 10.5px var(--mono);
+  min-height: 26px;
+  text-align: left;
+  color: var(--ink-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.rail__backgrounds:hover { color: var(--sig-ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) .backdrop__wash,
+  :root:not([data-motion="full"]) .backdrop__wash::after { animation: none; }
+  :root:not([data-motion="full"]) .rail__backgrounds { display: none; }
+}
+
+@media print {
+  .portfolio { background-color: var(--bone); }
+  .backdrop, .rail__backgrounds { display: none; }
+}

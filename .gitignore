@@ -1,24 +1,8 @@
-# IDE
-.idea/
-*.iml
-.vscode/
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Logs
+node_modules
+dist
 *.log
-
-# Temporary files
-*.tmp
-*~
-
-# Node modules
-node_modules/
-
-# Local design audit, generated build, and browser evidence
-.taste-skill/
-dist/
-artifacts/
-
+graphify-out/
+docs/superpowers/
+.env
+.env.*
+!.env.example
