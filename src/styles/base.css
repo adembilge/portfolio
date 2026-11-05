@@ -252,8 +252,6 @@ input[type='checkbox'] { accent-color: var(--sig); width: 16px; height: 16px; }
   .entry__when b { display: inline; margin-right: 10px; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  :root:not([data-motion='full']), :root:not([data-motion='full']) *,
-  :root:not([data-motion='full']) *::before, :root:not([data-motion='full']) *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
-  :root:not([data-motion='full']) .chapter__head--seen :is(.chapter__title, .chapter__intro) { animation: none; }
-}
+:root[data-motion='reduced'], :root[data-motion='reduced'] *,
+:root[data-motion='reduced'] *::before, :root[data-motion='reduced'] *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+:root[data-motion='reduced'] .chapter__head--seen :is(.chapter__title, .chapter__intro) { animation: none; }

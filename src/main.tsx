@@ -17,9 +17,9 @@ import './styles/backdrops.css';
 import './styles/figures.css';
 import './styles/cv.css';
 import { App } from './App';
-import { fullMotion } from './lib/hooks';
+import { reducedMotion } from './lib/hooks';
 
-if (fullMotion) document.documentElement.dataset.motion = 'full';
+document.documentElement.dataset.motion = reducedMotion ? 'reduced' : 'full';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

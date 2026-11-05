@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import Lenis from 'lenis';
 import { chapters } from './content/facts';
-import { fullMotion, prefersReducedMotion, useReducedMotion } from './lib/hooks';
+import { reducedMotion } from './lib/hooks';
 
 type Site = {
   cv: boolean;
@@ -21,7 +21,7 @@ export function go(hash: string, historyMode: 'replace' | 'push' = 'replace') {
   if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
   el.focus({ preventScroll: true });
   if (smoother) smoother.scrollTo(el);
-  else el.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
+  else el.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
   if (location.hash === `#${el.id}`) return;
   if (historyMode === 'push') history.pushState(null, '', `#${el.id}`);
   else history.replaceState(null, '', `#${el.id}`);
@@ -30,17 +30,16 @@ export function go(hash: string, historyMode: 'replace' | 'push' = 'replace') {
 export function SiteProvider({ children }: { children: ReactNode }) {
   const [cv, setCv] = useState(false);
   const [sheet, setSheet] = useState(false);
-  const reduced = useReducedMotion();
 
   useEffect(() => {
-    if (cv || reduced) return;
-    const lenis = new Lenis({ autoRaf: true, lerp: 0.075, allowNestedScroll: true, respectReducedMotion: !fullMotion });
+    if (cv || reducedMotion) return;
+    const lenis = new Lenis({ autoRaf: true, lerp: 0.075, allowNestedScroll: true, respectReducedMotion: false });
     smoother = lenis;
     return () => {
       smoother = undefined;
       lenis.destroy();
     };
-  }, [cv, reduced]);
+  }, [cv]);
 
   useEffect(() => {
     // Font metrics can move a chapter after the browser's initial anchor jump.

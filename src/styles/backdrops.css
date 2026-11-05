@@ -72,11 +72,9 @@
 
 .rail__backgrounds:hover { color: var(--sig-ink); }
 
-@media (prefers-reduced-motion: reduce) {
-  :root:not([data-motion="full"]) .backdrop__wash,
-  :root:not([data-motion="full"]) .backdrop__wash::after { animation: none; }
-  :root:not([data-motion="full"]) .rail__backgrounds { display: none; }
-}
+:root[data-motion="reduced"] .backdrop__wash,
+:root[data-motion="reduced"] .backdrop__wash::after { animation: none; }
+:root[data-motion="reduced"] .rail__backgrounds { display: none; }
 
 @media print {
   .portfolio { background-color: var(--bone); }
