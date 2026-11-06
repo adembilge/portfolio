@@ -1,6 +1,7 @@
 import { Suspense, useRef, type ReactNode } from 'react';
 import { competencies, figureById, type ChapterId, type FigureId } from '../content/facts';
 import { useInView } from '../lib/hooks';
+import { Resolve } from './Live';
 
 export function Chapter({
   id,
@@ -26,7 +27,7 @@ export function Chapter({
       <header className={`chapter__head${seen ? ' chapter__head--seen' : ''}`} data-signal>
         <span className="chapter__numeral" aria-hidden="true">{numeral}</span>
         <p className="tag">Chapter {numeral} — {subject}</p>
-        <h2 ref={heading} id={`${id}-title`} className="chapter__title">{title}</h2>
+        <h2 ref={heading} id={`${id}-title`} className="chapter__title"><Resolve text={title} onView /></h2>
         {intro && <p className="chapter__intro">{intro}</p>}
       </header>
       {children}
@@ -59,8 +60,9 @@ export function Figure({
 }) {
   const f = figureById[id];
   const ref = useRef<HTMLElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
   const near = useInView(ref, '400px 0px', true);
-  const visible = useInView(ref, '0px');
+  const visible = useInView(stage);
   return (
     <figure ref={ref} id={`fig-${id}`} className={`figure ${dark ? 'figure--dark' : ''} ${className}`} data-signal data-stop aria-labelledby={`fig-${id}-title`}>
       <header className="figure__tag">
@@ -71,7 +73,7 @@ export function Figure({
       <p className="figure__signal">
         <span className="mono">weak signal:</span> {f.signal}
       </p>
-      <div className="figure__stage">
+      <div ref={stage} className="figure__stage">
         <Suspense fallback={<div className="figure__placeholder" />}>
           {near ? children(visible) : <div className="figure__placeholder" />}
         </Suspense>

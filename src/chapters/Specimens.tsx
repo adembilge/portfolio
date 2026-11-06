@@ -1,3 +1,4 @@
+import { Resolve } from '../components/Live';
 import { lazy, type ReactNode } from 'react';
 import { projects, projectsIntro, type Project } from '../content/facts';
 import { Chapter, Ext, Figure, Stack } from '../components/Shells';
@@ -10,7 +11,7 @@ function ProjectEntry({ p, index, figure }: { p: Project; index: number; figure:
       <header className="project__head">
         <p className="tag">Specimen {String(index + 1).padStart(2, '0')}</p>
         <h3 id={`${p.id}-h`} className="project__name">
-          {p.name}
+          <Resolve text={p.name} onView />
         </h3>
         <p className="project__line">{p.line}</p>
         <p className="project__desc">{p.description}</p>

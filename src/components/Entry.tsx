@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { fmtMonth, type Role } from '../content/facts';
 import { Disclosure, Ext, FigLink, Stack } from './Shells';
+import { Resolve } from './Live';
 
 export function RoleEntry({ role, figure, flip = false }: { role: Role; figure: ReactNode; flip?: boolean }) {
   const startY = role.start.slice(0, 4);
@@ -17,7 +18,7 @@ export function RoleEntry({ role, figure, flip = false }: { role: Role; figure: 
       </div>
       <header className="entry__head">
         <h3 id={`${role.id}-h`} className="entry__title">
-          {role.title}
+          <Resolve text={role.title} onView />
         </h3>
         <p className="entry__role">{role.company}</p>
         <p className="entry__meta">

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { about, headline, languages, person } from '../content/facts';
 import { RidgeName } from '../components/RidgeName';
 import { Chapter } from '../components/Shells';
@@ -97,10 +97,17 @@ function FingerprintFigure() {
 
 function RouteSketch() {
   const reduced = useReducedMotion();
+  const ref = useRef<SVGSVGElement>(null);
+  const visible = useInView(ref);
+  useEffect(() => {
+    const route = ref.current;
+    if (visible && !reduced) route?.unpauseAnimations();
+    else route?.pauseAnimations();
+  }, [visible, reduced]);
   const pts = projectRoute(220, 110, 14);
   const d = pts.map((p, i) => `${i ? 'L' : 'M'}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
   return (
-    <svg viewBox="0 0 220 110" className="route-sketch" aria-hidden="true">
+    <svg ref={ref} viewBox="0 0 220 110" className="route-sketch" aria-hidden="true">
       <path d={d} className="route-sketch__path" />
       {pts.map((p, i) => (
         <circle key={i} cx={p.x} cy={p.y} r="2.5" className="route-sketch__stop" />

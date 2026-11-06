@@ -22,6 +22,7 @@ export function Throughput({ visible }: { visible: boolean }) {
   const s = useRef({ reqs: [] as Req[], heat: new Float32Array(COLS * ROWS), acc: 0, progress: reduced ? 1 : 0 });
   const layout = useRef({ scroll: NaN, viewport: 0, checkedAt: -Infinity, size });
   const background = useMemo(() => document.createElement('canvas'), []);
+  const base = useMemo(() => background.getContext('2d')!, [background]);
   const painted = useRef({ progress: NaN, size });
   const [tb, setTb] = useState(0);
 
@@ -39,24 +40,14 @@ export function Throughput({ visible }: { visible: boolean }) {
     const gx = laneW + 24;
     const cell = Math.min((w - gx - 4) / COLS, (h - top - 20) / ROWS);
 
-    // Workers, labels and empty lanes only change when scroll progress or size changes.
-    if (painted.current.size !== size || painted.current.progress !== st.progress) {
-      if (background.width !== c.width || background.height !== c.height) {
-        background.width = c.width;
-        background.height = c.height;
-      }
-      const base = background.getContext('2d')!;
+    const resized = painted.current.size !== size;
+    // Labels, lanes and the empty grid only need repainting when the canvas is resized.
+    if (resized) {
+      background.width = c.width;
+      background.height = c.height;
       base.setTransform(dpr, 0, 0, dpr, 0, 0);
       base.fillStyle = '#0d0c0a';
       base.fillRect(0, 0, w, h);
-      const sw = (w - 2) / WORKERS;
-      for (let i = 0; i < WORKERS; i++) {
-        const f = clamp(st.progress * speed[i] * 1.12);
-        base.fillStyle = 'rgba(238,233,223,0.12)';
-        base.fillRect(1 + i * sw, barY, Math.max(0.6, sw - 0.6), barH);
-        base.fillStyle = f >= 1 ? '#EEE9DF' : '#FF3B12';
-        base.fillRect(1 + i * sw, barY + barH * (1 - f), Math.max(0.6, sw - 0.6), barH * f);
-      }
       base.fillStyle = 'rgba(238,233,223,0.75)';
       base.font = '10px "IBM Plex Mono"';
       base.fillText('400 DASK WORKERS × ~1.5 TB EACH', 1, barY - 9);
@@ -75,6 +66,20 @@ export function Throughput({ visible }: { visible: boolean }) {
         const x = gx + (i % COLS) * cell;
         const y = top + Math.floor(i / COLS) * cell;
         base.fillRect(x + 1, y + 1, cell - 3, cell - 3);
+      }
+    }
+    if (resized || painted.current.progress !== st.progress) {
+      // Scroll progress only changes the worker strip above the lanes.
+      base.fillStyle = '#0d0c0a';
+      base.fillRect(0, barY - 1, w, barH + 2);
+      const sw = (w - 2) / WORKERS;
+      const barWidth = Math.max(0.6, sw - 0.6);
+      for (let i = 0; i < WORKERS; i++) {
+        const f = clamp(st.progress * speed[i] * 1.12);
+        base.fillStyle = 'rgba(238,233,223,0.12)';
+        base.fillRect(1 + i * sw, barY, barWidth, barH);
+        base.fillStyle = f >= 1 ? '#EEE9DF' : '#FF3B12';
+        base.fillRect(1 + i * sw, barY + barH * (1 - f), barWidth, barH * f);
       }
       painted.current = { progress: st.progress, size };
     }

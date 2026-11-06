@@ -163,7 +163,7 @@ export function IsolationForest({ visible }: { visible: boolean }) {
   const isOdd = odd.includes(sel);
   return (
     <div className="iforest">
-      <div>
+      <div className="iforest__plot">
         <canvas
           ref={ref}
           tabIndex={0}

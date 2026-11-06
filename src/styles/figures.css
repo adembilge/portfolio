@@ -14,6 +14,7 @@
 /* ---------- 03 isolation forest ---------- */
 .iforest { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; align-items: start; }
 .iforest__panel .controls { margin-top: 0; }
+.iforest__plot { width: min(84%, 460px); justify-self: center; }
 .iforest canvas { cursor: pointer; border: 1px solid var(--rule-strong); background: var(--paper); }
 .iforest__panel { display: grid; gap: 12px; }
 .iforest .readout strong { font-weight: 500; }

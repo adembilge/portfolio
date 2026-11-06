@@ -49,7 +49,10 @@ function requestCount() {
 const GLYPHS = '░▒▓/\\|—+×#·';
 
 /** Text that resolves out of static, one character at a time. */
-export function Resolve({ text, delay = 0, className = '' }: { text: string; delay?: number; className?: string }) {
+export function Resolve({ text, delay = 0, className = '', onView = false }: { text: string; delay?: number; className?: string; onView?: boolean }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const seen = useInView(ref, '0px', true, 0.15);
+  const ready = !onView || seen;
   const reduced = useReducedMotion();
   const [out, setOut] = useState(reduced ? text : '');
   const start = useRef(0);
@@ -71,10 +74,12 @@ export function Resolve({ text, delay = 0, className = '' }: { text: string; del
       setOut(text);
       setActive(false);
     }
-  }, active);
+  }, active && ready && !reduced);
+  const resolving = active && ready && !reduced;
   return (
-    <span className={className} aria-label={text}>
-      <span aria-hidden="true">{reduced ? text : out || '\u00a0'}</span>
+    <span ref={ref} className={`resolve-text ${className}`}>
+      <span style={resolving ? { opacity: 0 } : undefined}>{text}</span>
+      {resolving && <span className="resolve-text__effect" aria-hidden="true">{out}</span>}
     </span>
   );
 }

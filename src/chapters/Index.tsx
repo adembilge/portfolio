@@ -1,3 +1,4 @@
+import { Resolve } from '../components/Live';
 import { certifications, certificationsIntro, competencies, competencyIntro, languages, skillIndex } from '../content/facts';
 import { Chapter, Ext, FigLink } from '../components/Shells';
 import { Seal } from '../components/Seal';
@@ -40,7 +41,7 @@ export function Index() {
 
       <section className="az" aria-labelledby="az-h" data-signal data-stop id="index-of-terms">
         <h3 id="az-h" className="az__title">
-          Index of terms <span className="mono">every number is a figure where it was used</span>
+          <Resolve text="Index of terms" onView /> <span className="mono">every number is a figure where it was used</span>
         </h3>
         <div className="az__cols">
           {letters.map((L) => (
@@ -67,7 +68,7 @@ export function Index() {
       </section>
 
       <section className="langs" aria-labelledby="langs-h" data-signal data-stop id="languages">
-        <h3 id="langs-h" className="sub-h">Languages</h3>
+        <h3 id="langs-h" className="sub-h"><Resolve text="Languages" onView /></h3>
         {languages.map((l) => (
           <div key={l.name} className="lang" style={{ ['--w' as string]: l.weight }}>
             <p className="lang__word" lang={l.name === 'Turkish' ? 'tr' : l.name === 'Italian' ? 'it' : 'en'} style={{ fontWeight: Math.round(200 + l.weight * 600) }}>
@@ -89,7 +90,7 @@ export function Index() {
       </section>
 
       <section className="certs" aria-labelledby="certs-h" data-signal data-stop id="certifications">
-        <h3 id="certs-h" className="sub-h">Certifications</h3>
+        <h3 id="certs-h" className="sub-h"><Resolve text="Certifications" onView /></h3>
         <p className="certs__intro">{certificationsIntro}</p>
         <CredentialCard credential={featured} />
         <ul className="certs__gallery" aria-label="More certifications">

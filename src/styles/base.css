@@ -65,6 +65,8 @@ kbd { font-family: var(--mono); font-size: 0.72em; border: 1px solid var(--rule-
 .skip:focus { top: 12px; }
 
 .mono { font-family: var(--mono); font-size: 0.78em; letter-spacing: 0.01em; }
+.resolve-text { display: inline-block; max-width: 100%; position: relative; }
+.resolve-text__effect { position: absolute; inset: 0; overflow: clip; pointer-events: none; }
 .muted { color: var(--ink-3); }
 .tabular { font-variant-numeric: tabular-nums; }
 .tag {

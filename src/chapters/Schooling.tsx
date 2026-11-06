@@ -1,3 +1,4 @@
+import { Resolve } from '../components/Live';
 import { education, educationIntro, fmtMonth } from '../content/facts';
 import { Chapter, Ext } from '../components/Shells';
 import { RouteLine } from '../components/RouteLine';
@@ -14,7 +15,7 @@ export function Schooling() {
               {fmtMonth(e.start)} — {fmtMonth(e.end)} · {e.city}
             </p>
             <h3 id={`${e.id}-h`} className="school__name">
-              {e.name}
+              <Resolve text={e.name} onView />
             </h3>
             <p className="school__degree">{e.degree}</p>
             {e.detail && <p className="school__detail mono">{e.detail}</p>}

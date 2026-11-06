@@ -48,16 +48,19 @@ export function useCanvasSize(ref: RefObject<HTMLCanvasElement | null>, aspect: 
     const canvas = ref.current;
     const parent = canvas?.parentElement;
     if (!canvas || !parent) return;
+    let previous: CanvasSize | undefined;
     const ro = new ResizeObserver(() => {
       const w = Math.round(parent.clientWidth);
       const h = Math.round(Math.min(maxH, w * aspect));
       const dpr = Math.min(2, window.devicePixelRatio || 1);
+      if (previous?.w === w && previous.h === h && previous.dpr === dpr) return;
+      previous = { w, h, dpr };
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
       canvas.getContext('2d')?.setTransform(dpr, 0, 0, dpr, 0, 0);
-      setSize({ w, h, dpr });
+      setSize(previous);
     });
     ro.observe(parent);
     return () => ro.disconnect();

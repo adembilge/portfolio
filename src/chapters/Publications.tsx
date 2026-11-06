@@ -1,3 +1,4 @@
+import { Resolve } from '../components/Live';
 import { lazy, useState } from 'react';
 import { researchIntro, sycoscience, tinysign } from '../content/facts';
 import { Chapter, Disclosure, Ext, Figure } from '../components/Shells';
@@ -36,7 +37,7 @@ export function Publications() {
           </p>
           <p className="tag">{tinysign.kicker}</p>
           <h3 id="tinysign-h" className="paper__name">
-            {tinysign.name}
+          <Resolve text={tinysign.name} onView />
           </h3>
           <p className="paper__title">{tinysign.title}</p>
           <p className="paper__blurb">{tinysign.blurb}</p>
@@ -73,7 +74,7 @@ export function Publications() {
             Expected publication: {sycoscience.expected}
           </p>
           <h3 id="syco-h" className="paper__name">
-            {sycoscience.name}
+          <Resolve text={sycoscience.name} onView />
           </h3>
           <p className="paper__title">{sycoscience.title}</p>
           {sycoscience.body.map((b, i) => (

@@ -1,10 +1,14 @@
 /* ---------- cover ---------- */
-.cover { position: relative; height: 100svh; min-height: 560px; overflow: hidden; color: var(--ink); }
-.cover__art { position: absolute; inset: 0 36% 0 0; cursor: crosshair; touch-action: pan-y; }
+.cover {
+  --name-width: 0.64;
+  --name-height: 1;
+  position: relative; isolation: isolate; height: 100svh; min-height: 560px; overflow: hidden; color: var(--ink);
+}
+.cover__art { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .cover__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .cover__fallback { position: absolute; left: 4.5%; top: 8%; margin: 0; font-family: var(--display); font-weight: 900; font-size: min(24vh, 24vw); line-height: 0.86; }
 .cover__fallback span { display: block; }
-.cover__kicker { position: absolute; top: 18px; right: var(--gutter); left: auto; max-width: 260px; text-align: right; margin: 0; line-height: 1.5; font-size: 11px; }
+.cover__kicker { position: absolute; z-index: 2; top: 18px; right: var(--gutter); left: auto; max-width: 260px; text-align: right; margin: 0; line-height: 1.5; font-size: 11px; }
 .cover__side {
   position: absolute; right: var(--gutter); bottom: clamp(20px, 4vh, 44px); width: min(380px, 33%);
   display: grid; justify-items: end; gap: clamp(16px, 3vh, 30px);
@@ -16,6 +20,7 @@
   filter: grayscale(1) sepia(0.26) contrast(1.08);
 }
 .cover__foot {
+  position: relative; z-index: 2;
   width: 100%;
   display: grid; gap: 8px; padding: 14px 0 0; border-top: 2px solid var(--ink);
 }
@@ -141,7 +146,7 @@
 }
 
 @media (max-width: 640px) {
+  .cover { --name-width: 1; --name-height: 0.52; }
   .cover__side { left: var(--gutter); width: auto; }
   .cover__portrait { width: clamp(96px, 27vw, 150px); }
-  .cover__art { right: 0; bottom: 48%; }
 }
