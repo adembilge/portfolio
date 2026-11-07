@@ -54,7 +54,7 @@ export function Transmit() {
             </li>
           ))}
           <li>
-            <Ext href={contact.cv}>Full CV (PDF)</Ext>
+            <Ext href={contact.cv}>1-page CV (PDF)</Ext>
           </li>
         </ul>
       </div>

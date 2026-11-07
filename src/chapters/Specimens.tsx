@@ -4,6 +4,7 @@ import { projects, projectsIntro, type Project } from '../content/facts';
 import { Chapter, Ext, Figure, Stack } from '../components/Shells';
 const Pipeline = lazy(() => import('../instruments/Pipeline').then((module) => ({ default: module.Pipeline })));
 const Cipher = lazy(() => import('../instruments/Cipher').then((module) => ({ default: module.Cipher })));
+const MilanCase = lazy(() => import('../instruments/MilanCase').then((module) => ({ default: module.MilanCase })));
 
 function ProjectEntry({ p, index, figure }: { p: Project; index: number; figure: ReactNode }) {
   return (
@@ -46,12 +47,21 @@ function ProjectEntry({ p, index, figure }: { p: Project; index: number; figure:
 }
 
 export function Specimens() {
-  const [cognify, cryptme] = projects;
+  const [practicamia, cognify, cryptme] = projects;
   return (
     <Chapter id="specimens" numeral="III" title="Specimens" subject="Projects" intro={projectsIntro}>
       <ProjectEntry
-        p={cognify}
+        p={practicamia}
         index={0}
+        figure={
+          <Figure id={practicamia.figure} caption="Answer five questions to trace a sample move through Milan. Revisit an earlier stop and change an answer to see how the case is recalculated. The route is a schematic of the workflow.">
+            {() => <MilanCase />}
+          </Figure>
+        }
+      />
+      <ProjectEntry
+        p={cognify}
+        index={1}
         figure={
           <Figure id="06" caption={<>Upload → OCR → Summarize → Classify → Embed → Completed, then retrieval by meaning. In Cognify this runs on Celery workers with Tesseract, DistilBART, a zero-shot MNLI classifier and Sentence-BERT; here it is re-drawn so you can watch it.</>}>
             {() => <Pipeline />}
@@ -60,7 +70,7 @@ export function Specimens() {
       />
       <ProjectEntry
         p={cryptme}
-        index={1}
+        index={2}
         figure={
           <Figure id="05" caption={<>The server manages connections and routing without ever holding plaintext. Type anything: it is encrypted on this page before it moves.</>}>
             {() => <Cipher />}

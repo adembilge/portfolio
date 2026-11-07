@@ -4,7 +4,7 @@ import { rng } from '../lib/rng';
 
 const STAGES = ['Upload', 'OCR', 'Summarize', 'Classify', 'Embed', 'Completed'] as const;
 const TOPICS = [
-  { name: 'Machine learning', angle: -20 },
+  { name: 'Machine learning', angle: -20, labelLines: ['Machine', 'learning'] },
   { name: 'Legal', angle: 70 },
   { name: 'Finance', angle: 160 },
   { name: 'Travel', angle: 250 },
@@ -124,7 +124,7 @@ export function Pipeline() {
         .slice(0, 3)
     : [];
 
-  const R = 120;
+  const R = 103;
   const P = (a: number, r: number) => ({ x: 150 + Math.cos(rad(a)) * r * R, y: 150 - Math.sin(rad(a)) * r * R });
 
   return (
@@ -187,7 +187,9 @@ export function Pipeline() {
             const p = P(t.angle, 1.14);
             return (
               <text key={t.name} x={p.x} y={p.y} className="map__topic" textAnchor="middle">
-                {t.name}
+                {t.labelLines ? t.labelLines.map((line, i) => (
+                  <tspan key={line} x={p.x} dy={i === 0 ? '-0.55em' : '1.1em'}>{line}</tspan>
+                )) : t.name}
               </text>
             );
           })}

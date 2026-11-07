@@ -18,7 +18,7 @@ export function Cover() {
         {person.name} — {role}
       </h1>
       <div className="cover__art"><RidgeName /></div>
-      <p className="cover__kicker tag">Weak Signals · an interactive field guide · six chapters, eight figures</p>
+      <p className="cover__kicker tag">Weak Signals · an interactive field guide · six chapters, nine figures</p>
       <div className="cover__side">
         <img className="cover__portrait" src={`${import.meta.env.BASE_URL}adem-bilge-portrait.jpg`} alt={`Portrait of ${person.short}`} width={1254} height={1254} decoding="async" />
         <div className="cover__foot">

@@ -41,7 +41,7 @@ export function Index() {
 
       <section className="az" aria-labelledby="az-h" data-signal data-stop id="index-of-terms">
         <h3 id="az-h" className="az__title">
-          <Resolve text="Index of terms" onView /> <span className="mono">every number is a figure where it was used</span>
+          <Resolve text="Index of terms" onView /> <span className="mono">numbers link to figures for the related work</span>
         </h3>
         <div className="az__cols">
           {letters.map((L) => (

@@ -1,6 +1,6 @@
 // Experience and skills reflect the supplied CV. Certifications reflect the LinkedIn profile.
 
-export type FigureId = '01' | '02' | '03' | '04' | '05' | '06' | '07' | '08';
+export type FigureId = '01' | '02' | '03' | '04' | '05' | '06' | '07' | '08' | '09';
 export type ChapterId = 'I' | 'II' | 'III' | 'IV' | 'V' | 'VI';
 export type Month = `${number}-${string}`; // 'YYYY-MM'
 
@@ -167,9 +167,49 @@ export type Project = {
 };
 
 export const projectsIntro =
-  'From knowledge retrieval to encrypted messaging. A few things I’ve built to explore how software can work better.';
+  'Three projects in administrative guidance, document retrieval, and encrypted messaging.';
 
 export const projects: Project[] = [
+  {
+    id: 'practicamia',
+    name: 'PracticaMIA',
+    line: 'An AI assistant for navigating administrative procedures.',
+    description:
+      'PracticaMIA is designed to help people navigate Italian administrative procedures through an English–Italian workspace and an AI agent. Beginning with changes of registered residence in Milan, it brings questions, official guidance, documents, and case progress together in one place.',
+    overview: 'The intended experience starts with a simple description of a situation. The assistant will identify the information it needs, explain the relevant steps using reviewed official sources, and help prepare a case that the user can revisit and review before continuing to the official channel.',
+    sections: [
+      {
+        title: 'Case guidance',
+        body: [
+          'The AI agent will turn a resident’s goal into a saved case. It will ask focused questions, look up guidance, and update the next steps when an answer changes. Residents will be able to resume with their confirmed answers in place.',
+        ],
+      },
+      {
+        title: 'Evidence behind the answer',
+        body: [
+          'Retrieval-augmented generation (RAG) will combine semantic and keyword search to find reviewed municipal guidance and cite specific versions of its sources. A separate rules engine will match approved requirements to the facts of each case.',
+        ],
+      },
+      {
+        title: 'Documents and preparation',
+        body: [
+          'PracticaMIA will extract fields from supported documents for the resident to confirm and flag discrepancies against their answers. A checklist will track missing information and materials before the resident reviews the case and continues to the official submission channel.',
+        ],
+      },
+      {
+        title: 'Architecture and evaluation',
+        body: [
+          'The Next.js and TypeScript interface uses Auth0 for sign-in. A Python FastAPI backend verifies case ownership and accesses PostgreSQL through SQLAlchemy. LangChain and pgvector will support the AI workflow, with evaluation focused on retrieval quality, tool selection, and citation accuracy.',
+        ],
+      },
+    ],
+    stack: ['Next.js', 'TypeScript', 'Python', 'FastAPI', 'LangChain', 'RAG', 'pgvector', 'Auth0', 'PostgreSQL', 'SQLAlchemy'],
+    links: [
+      { label: 'Repository', href: 'https://github.com/adembilge/PracticaMIA' },
+      { label: 'Visit PracticaMIA', href: 'https://practicamia.vercel.app' },
+    ],
+    figure: '09',
+  },
   {
     id: 'cognify',
     name: 'Cognify',
@@ -424,7 +464,8 @@ export const skillGroups = competencies.map(({ name, tools }) => ({ name, items:
  * Refs are figure ids ('04'), entry ids ('cert-linux') or a competency id ('§ai') when the site lists the skill without a specific project.
  */
 export const skillIndex: Record<string, string[]> = {
-  'AI Agents': ['07', '08'],
+  'AI Agents': ['07', '08', '09'],
+  Auth0: ['09'],
   'Apache Kafka': ['04'],
   AWS: ['§ops'],
   Autoencoder: ['03'],
@@ -443,43 +484,45 @@ export const skillIndex: Record<string, string[]> = {
   'Dice loss': ['01'],
   Docker: ['04', '06'],
   Elasticsearch: ['04'],
-  FastAPI: ['07'],
+  FastAPI: ['07', '09'],
   Git: ['§ops'],
   Grafana: ['04'],
   gRPC: ['04'],
   Helm: ['04'],
-  'Hybrid Search': ['07'],
+  'Hybrid Search': ['07', '09'],
   I3D: ['02'],
   'Isolation Forest': ['03'],
   Java: ['05'],
   Jenkins: ['§ops'],
   Kubernetes: ['04'],
-  LangChain: ['07'],
+  LangChain: ['07', '09'],
   LangSmith: ['07'],
   'LLM Evaluation': ['07'],
   Linux: ['04'],
   LLMs: ['07', '08'],
   MCP: ['cert-linux'],
-  'Next.js': ['06'],
+  'Next.js': ['06', '09'],
   'OpenAI API': ['07'],
   OpenCV: ['01', '06'],
   Pandas: ['03'],
-  pgvector: ['07'],
-  PostgreSQL: ['07', '04'],
+  pgvector: ['07', '09'],
+  PostgreSQL: ['07', '04', '09'],
   Prometheus: ['04', '06'],
   pytest: ['07'],
-  Python: ['07', '04', '01', '03', '06'],
+  Python: ['07', '04', '01', '03', '06', '09'],
   PyTorch: ['01', '02', '03'],
-  RAG: ['07', '06'],
+  RAG: ['07', '06', '09'],
   Reranking: ['07'],
   'REST APIs': ['07', '06'],
   'Sentence-BERT': ['06'],
   'Socket Programming': ['05'],
   SQL: ['07', '04'],
+  SQLAlchemy: ['09'],
   'Super-resolution': ['02'],
   'Swing GUI': ['05'],
   'Tool Calling': ['07'],
   Transformers: ['06'],
+  TypeScript: ['09'],
   'U-Net': ['01'],
 };
 
@@ -566,7 +609,7 @@ export const contact = {
   heading: 'Let’s build what’s next.',
   lede: 'Have a role, a challenging problem, or an idea worth exploring? I’d like to hear about it.',
   emails: ['firatadem.bilge@gmail.com', 'firatadem.bilge@mail.polimi.it'],
-  cv: 'https://drive.google.com/file/d/1SU4Akrs10lnI31IMvst_2y5pDVThCM8S/view',
+  cv: `${import.meta.env.BASE_URL}firat-adem-bilge-cv.pdf`,
   links: [
     { label: 'GitHub', href: 'https://github.com/adembilge' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/adembilge/' },
@@ -595,6 +638,7 @@ export const figures: FigureMeta[] = [
   { id: '06', title: 'Vault', source: 'Cognify', chapter: 'III', year: 2026, entry: 'cognify', signal: 'a scanned page' },
   { id: '07', title: 'You’re booked.', source: 'Entervia', chapter: 'II', year: 2025, entry: 'entervia', signal: 'a question that must end in a real booking' },
   { id: '08', title: 'The leading question', source: 'Sycoscience', chapter: 'IV', year: 2026, entry: 'sycoscience', signal: 'a prompt that wants an answer' },
+  { id: '09', title: 'A move through Milan', source: 'PracticaMIA', chapter: 'III', year: 2026, entry: 'practicamia', signal: 'one answer that changes the route' },
 ];
 
 export const chapters: { id: ChapterId; title: string; subject: string; anchor: string }[] = [
