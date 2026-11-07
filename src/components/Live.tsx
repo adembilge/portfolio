@@ -51,19 +51,23 @@ const GLYPHS = '░▒▓/\\|—+×#·';
 /** Text that resolves out of static, one character at a time. */
 export function Resolve({ text, delay = 0, className = '', onView = false }: { text: string; delay?: number; className?: string; onView?: boolean }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const seen = useInView(ref, '0px', true, 0.15);
+  const seen = useInView(ref, '0px', true, 0.15, onView);
   const ready = !onView || seen;
   const reduced = useReducedMotion();
   const [out, setOut] = useState(reduced ? text : '');
   const start = useRef(0);
+  const lastFrame = useRef(0);
   const [active, setActive] = useState(!reduced);
   useEffect(() => {
     start.current = 0;
+    lastFrame.current = 0;
     setActive(!reduced);
     if (reduced) setOut(text);
   }, [text, reduced]);
   useTicker((t) => {
     if (!start.current) start.current = t + delay;
+    if (t - lastFrame.current < 1 / 30) return;
+    lastFrame.current = t;
     const k = (t - start.current) / 0.9;
     if (k < 0) return setOut('');
     const n = Math.floor(k * text.length);

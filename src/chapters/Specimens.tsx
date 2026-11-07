@@ -32,7 +32,7 @@ function ProjectEntry({ p, index, figure }: { p: Project; index: number; figure:
           {p.sections.map((s, i) => (
             <section key={s.title} className="project__section">
               <h4>
-                <span className="mono">{String(i + 1).padStart(2, '0')}</span> {s.title}
+                <span className="mono">{String(i + 1).padStart(2, '0')}</span> <Resolve text={s.title} onView />
               </h4>
               {s.body.map((b, k) => (
                 <p key={k}>{b}</p>

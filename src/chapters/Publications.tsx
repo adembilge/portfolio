@@ -39,7 +39,7 @@ export function Publications() {
           <h3 id="tinysign-h" className="paper__name">
           <Resolve text={tinysign.name} onView />
           </h3>
-          <p className="paper__title">{tinysign.title}</p>
+          <p className="paper__title"><Resolve text={tinysign.title} onView /></p>
           <p className="paper__blurb">{tinysign.blurb}</p>
           <h4 className="paper__h">Abstract</h4>
           <p className="paper__abstract">{tinysign.abstract}</p>
@@ -76,7 +76,7 @@ export function Publications() {
           <h3 id="syco-h" className="paper__name">
           <Resolve text={sycoscience.name} onView />
           </h3>
-          <p className="paper__title">{sycoscience.title}</p>
+          <p className="paper__title"><Resolve text={sycoscience.title} onView /></p>
           {sycoscience.body.map((b, i) => (
             <p key={i}>{b}</p>
           ))}

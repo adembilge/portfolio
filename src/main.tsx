@@ -26,3 +26,5 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>,
 );
+
+import './styles/prose.css';

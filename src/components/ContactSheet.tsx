@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { chapters } from '../content/facts';
 import { go, useSite } from '../site';
+import { Resolve } from './Live';
 
 export function ContactSheet() {
   const { sheet, setSheet, setCv } = useSite();
@@ -35,7 +36,7 @@ export function ContactSheet() {
     <dialog ref={dlg} className="sheet" data-lenis-prevent aria-labelledby="sheet-h" onClose={() => setSheet(false)} onClick={(e) => e.target === dlg.current && setSheet(false)}>
       <div className="sheet__inner">
         <header className="sheet__head">
-          <h2 id="sheet-h">Contact sheet</h2>
+          <h2 id="sheet-h"><Resolve text="Contact sheet" onView /></h2>
           <button className="btn btn--ghost" onClick={() => setSheet(false)}>
             close <kbd>Esc</kbd>
           </button>

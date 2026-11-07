@@ -17,7 +17,7 @@ function CredentialCard({ credential: c }: { credential: (typeof certifications)
       <div className="cert__copy">
         {c.featured && <p className="mono cert__feat">Featured</p>}
         <p className="mono cert__issuer">{c.issuer} · Issued {c.date}</p>
-        <h4 id={`${c.id}-h`}>{c.title}</h4>
+        <h4 id={`${c.id}-h`}><Resolve text={c.title} onView /></h4>
         {c.body && <p>{c.body}</p>}
         <Ext href={c.href}>View credential</Ext>
       </div>
@@ -32,7 +32,7 @@ export function Index() {
         {competencies.map((c, i) => (
           <section key={c.id} id={`comp-${c.id}`} className="competency" aria-labelledby={`comp-${c.id}-h`}>
             <span className="competency__n mono">§{i + 1}</span>
-            <h3 id={`comp-${c.id}-h`}>{c.name}</h3>
+            <h3 id={`comp-${c.id}-h`}><Resolve text={c.name} onView /></h3>
             <p>{c.body}</p>
             <p className="competency__tools mono">{c.tools.join(' · ')}</p>
           </section>

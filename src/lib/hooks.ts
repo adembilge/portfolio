@@ -17,11 +17,11 @@ export function useReducedMotion(): boolean {
 }
 
 /** True while the element is within `margin` of the viewport. With `once`, stays true after the first hit. */
-export function useInView(ref: RefObject<Element | null>, margin = '0px', once = false, threshold = 0): boolean {
+export function useInView(ref: RefObject<Element | null>, margin = '0px', once = false, threshold = 0, enabled = true): boolean {
   const [inView, setInView] = useState(false);
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || !enabled) return;
     const io = new IntersectionObserver(
       ([e]) => {
         const visible = e.isIntersecting && e.intersectionRatio >= threshold;
@@ -32,7 +32,7 @@ export function useInView(ref: RefObject<Element | null>, margin = '0px', once =
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [ref, margin, once, threshold]);
+  }, [ref, margin, once, threshold, enabled]);
   return inView;
 }
 

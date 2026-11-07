@@ -67,7 +67,7 @@ export function Figure({
     <figure ref={ref} id={`fig-${id}`} className={`figure ${dark ? 'figure--dark' : ''} ${className}`} data-signal data-stop aria-labelledby={`fig-${id}-title`}>
       <header className="figure__tag">
         <span className="figure__num">Fig. {id}</span>
-        <h3 id={`fig-${id}-title`} className="figure__title">{f.title}</h3>
+        <h3 id={`fig-${id}-title`} className="figure__title"><Resolve text={f.title} onView /></h3>
         <span className="figure__src">{f.source}</span>
       </header>
       <p className="figure__signal">

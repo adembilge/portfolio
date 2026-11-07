@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { contact, person } from '../content/facts';
 import { Ext } from '../components/Shells';
+import { Resolve } from '../components/Live';
 
 /** The visitor's message drawn as a signal: each character sets the amplitude of one sample. */
 function Waveform({ text }: { text: string }) {
@@ -35,7 +36,7 @@ export function Transmit() {
     <section id="transmit" className="transmit" aria-labelledby="transmit-h" data-stop>
       <div className="transmit__head" data-signal>
         <p className="tag">Transmit</p>
-        <h2 id="transmit-h" className="transmit__title">{contact.heading}</h2>
+        <h2 id="transmit-h" className="transmit__title"><Resolve text={contact.heading} onView /></h2>
         <p className="transmit__lede">{contact.lede}</p>
         <ul className="transmit__emails">
           {contact.emails.map((e) => (
